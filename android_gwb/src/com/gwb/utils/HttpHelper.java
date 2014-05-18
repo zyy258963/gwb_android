@@ -48,7 +48,7 @@ public class HttpHelper {
 				connection = (HttpURLConnection) url.openConnection();
 				connection.setReadTimeout(3000);
 				connection.setDoInput(true);
-				connection.setRequestMethod("POST");
+				connection.setRequestMethod("GET");
 				int responseCode = connection.getResponseCode();
 				System.out.println("responseCode :"
 						+ String.valueOf(responseCode));
@@ -125,7 +125,6 @@ public class HttpHelper {
 			HttpURLConnection httpURLConnection = (HttpURLConnection) url
 					.openConnection();
 			httpURLConnection.setReadTimeout(3000);
-//			httpURLConnection.setReadTimeout(3000);// 设置超时时间
 			httpURLConnection.setRequestMethod("POST");
 			httpURLConnection.setDoInput(true);// 从服务器获得数据
 			httpURLConnection.setDoOutput(true);// 向服务器写数据

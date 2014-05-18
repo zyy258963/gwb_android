@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.artifex.mupdfdemo.R;
-
 import com.gwb.activity.pojo.HeaderVo;
 import com.gwb.activity.pojo.Users;
 import com.gwb.utils.ApplicationManager;
@@ -26,6 +25,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -51,17 +52,15 @@ public class LoginActivity extends BaseActivity {
 	 */
 	private UserLoginTask mAuthTask = null;
 	private TelephonyManager phoneMgr = null;
-	private  ConnectivityManager connManager = null;
-	
-	
 
 	// Values for email and password at the time of the login attempt.
 	private String mUsername;
-//	private String mPassword;
+	// private String mPassword;
+	private String macAddress;
 
 	// UI references.
 	private EditText mUsernameView;
-//	private EditText mPasswordView;
+	// private EditText mPasswordView;
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
@@ -73,41 +72,38 @@ public class LoginActivity extends BaseActivity {
 
 		setContentView(R.layout.activity_login);
 		ApplicationManager.add(LoginActivity.this);
+
+		// 获得手机管理的manager
+		phoneMgr = (TelephonyManager) this
+				.getSystemService(Context.TELEPHONY_SERVICE);
+
+		macAddress = phoneMgr.getDeviceId();
 		
-//		获得手机管理的manager
-		phoneMgr =(TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE); 
 		
 		// Set up the login form.
 		mUsernameView = (EditText) findViewById(R.id.username);
 		/*
 		 * 
 		 * 如果有SIM卡的信息，那么直接读取手机号到用户名框，如果没有则自己输入
-		 * 
-		 * */
-//		if (phoneMgr.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE ) {
-//			mUsernameView.setEnabled(false);
-//			mUsernameView.setText(phoneMgr.getLine1Number());
-//		}		
-		
-//		获得手机联网信息，是3g还是wifi
-		connManager = (ConnectivityManager) this.getSystemService(this.CONNECTIVITY_SERVICE);
-		NetworkInfo info_3g = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-		NetworkInfo info_wifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-		
-		
-//		mPasswordView = (EditText) findViewById(R.id.password);
-//		mPasswordView
-//				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//					@Override
-//					public boolean onEditorAction(TextView textView, int id,
-//							KeyEvent keyEvent) {
-//						if (id == R.id.login || id == EditorInfo.IME_NULL) {
-//							attemptLogin();
-//							return true;
-//						}
-//						return false;
-//					}
-//				});
+		 */
+		// if (phoneMgr.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE ) {
+		// mUsernameView.setEnabled(false);
+		// mUsernameView.setText(phoneMgr.getLine1Number());
+		// }
+
+		// mPasswordView = (EditText) findViewById(R.id.password);
+		// mPasswordView
+		// .setOnEditorActionListener(new TextView.OnEditorActionListener() {
+		// @Override
+		// public boolean onEditorAction(TextView textView, int id,
+		// KeyEvent keyEvent) {
+		// if (id == R.id.login || id == EditorInfo.IME_NULL) {
+		// attemptLogin();
+		// return true;
+		// }
+		// return false;
+		// }
+		// });
 
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
@@ -117,7 +113,7 @@ public class LoginActivity extends BaseActivity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-//						点击登录的时候看看是3g还是 wifi如果是
+						// 点击登录的时候看看是3g还是 wifi如果是
 						attemptLogin();
 					}
 				});
@@ -142,21 +138,21 @@ public class LoginActivity extends BaseActivity {
 
 		// Reset errors.
 		mUsernameView.setError(null);
-//		mPasswordView.setError(null);
+		// mPasswordView.setError(null);
 
 		// Store values at the time of the login attempt.
 		mUsername = mUsernameView.getText().toString();
-//		mPassword = mPasswordView.getText().toString();
+		// mPassword = mPasswordView.getText().toString();
 
 		boolean cancel = false;
 		View focusView = null;
 
 		// Check for a valid password.
-//		if (TextUtils.isEmpty(mPassword)) {
-//			mPasswordView.setError(getString(R.string.error_field_required));
-//			focusView = mPasswordView;
-//			cancel = true;
-//		}
+		// if (TextUtils.isEmpty(mPassword)) {
+		// mPasswordView.setError(getString(R.string.error_field_required));
+		// focusView = mPasswordView;
+		// cancel = true;
+		// }
 
 		// Check for a valid email address.
 		if (TextUtils.isEmpty(mUsername)) {
@@ -247,34 +243,32 @@ public class LoginActivity extends BaseActivity {
 			// TODO: attempt authentication against a network service.
 			Map<String, String> postParam = new HashMap<String, String>();
 			postParam.put("type", "appLogin");
-//			postParam.put("username", mUsername);
-//			postParam.put("password", mPassword);
-//			postParam.put("telephone", "15332199020");;
 			postParam.put("telephone", mUsername);
-//			postParam.put("password", "admin");
-			postParam.put("macAddress", phoneMgr.getDeviceId());
+			postParam.put("macAddress", macAddress);
 			String jsonStr = HttpHelper.sendPostMessage(
 					ConstantParams.URL_LOGIN, postParam, "utf-8");
 			Log.i("LoginActivity", "login return  : " + jsonStr);
 			if (jsonStr != null && !"".equals(jsonStr)) {
-				
-//				此处先判断 heeader 中的 code是否正确
+
+				// 此处先判断 heeader 中的 code是否正确
 				HeaderVo headerVo = FastjsonTools.getHeader(jsonStr);
-				if (headerVo!= null && "1".equals(headerVo.getCode())) {
-					Users user= FastjsonTools.getContentPojo(jsonStr, Users.class);
+				if (headerVo != null && "1".equals(headerVo.getCode())) {
+					Users user = FastjsonTools.getContentPojo(jsonStr,
+							Users.class);
 					if (user != null && !"".equals(user)) {
 						Log.i("LoginActivity", "login::  1 ");
 						System.out.println("userId :::" + user.getUserId());
 						ConstantParams.CURRENT_USER_ID = user.getUserId();
 						ConstantParams.CURRENT_USER_NAME = user.getUserName();
-						ConstantParams.CURRENT_MACADDRESS = user.getMacAddress();
+						ConstantParams.CURRENT_MACADDRESS = user
+								.getMacAddress();
 						ConstantParams.CURRENT_TELEPHONE = user.getTelephone();
 						return "success";
 					} else {
 						Log.i("LoginActivity", "login::  2 ");
 						return "fail";
 					}
-				}else {
+				} else {
 					return "fail";
 				}
 			} else {
@@ -289,6 +283,16 @@ public class LoginActivity extends BaseActivity {
 			showProgress(false);
 			Log.i("LoginActivity", "login::" + result);
 			if ("success".equals(result)) {
+
+				// 讲电话和MAC地址存储到本地
+				SharedPreferences sp = getApplicationContext().getSharedPreferences(
+						ConstantParams.SHARED_PREFERENCE_NAME,
+						Context.MODE_PRIVATE);
+				Editor editor = sp.edit();
+				editor.putString(ConstantParams.FIELD_TELEPHONE, mUsername);
+				editor.putString(ConstantParams.FIELD_MAC_ADDRESS, macAddress);
+				editor.commit();
+				
 				Intent intent = new Intent();
 				intent.setClass(LoginActivity.this, MenuActivity.class);
 				startActivity(intent);
@@ -346,7 +350,5 @@ public class LoginActivity extends BaseActivity {
 		super.onDestroy();
 		ApplicationManager.remove(LoginActivity.this);
 	}
-	
-	
 
 }

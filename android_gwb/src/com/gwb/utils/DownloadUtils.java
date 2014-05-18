@@ -9,6 +9,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+
+import android.net.Uri;
 import android.util.Log;
 
 public class DownloadUtils {
@@ -25,8 +28,8 @@ public class DownloadUtils {
 		int size =0;
 		int total = 0;
 		try {			
-//			url = new URL(uriPath);
-			url = new URL(new String(uriPath.getBytes("UTF-8"),"UTF-8"));
+			url = new URL(Uri.decode(uriPath));
+//			url = new URL(new String(uriPath.getBytes("UTF-8"),"UTF-8"));
 			HttpURLConnection connection = (HttpURLConnection) url
 					.openConnection();
 			connection.setConnectTimeout(5000);
@@ -81,8 +84,8 @@ public class DownloadUtils {
 	}
 
 	public static void main(String[] args) {
-		String path = "http://zyy258963.w4.en.tm/pdf/i百悦用户登录后会员页面开发.pdf";
-//		String path = "http://20.193.34.134:8080/FileUpload/upload/books/1/null/2011.pdf";
+//		String path = "http://zyy258963.w4.en.tm/pdf/i百悦用户登录后会员页面开发.pdf";
+		String path = "http://192.168.1.2:8080/FileUpload/upload/books/books/1/19/交通建筑产品手册初稿-第二章项目工作.pdf";
 		try {
 			String path1 = new String(path.getBytes("UTF-8"),"UTF-8");
 			System.out.println(path1);

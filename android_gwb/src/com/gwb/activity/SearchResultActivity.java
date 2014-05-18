@@ -110,72 +110,6 @@ public class SearchResultActivity extends BaseActivity {
 						}
 					});
 
-			// listViewSearchResult
-			// .setOnItemClickListener(new OnItemClickListener() {
-			//
-			// @Override
-			// public void onItemClick(AdapterView<?> parent,
-			// View view, final int position, final long id) {
-			//
-			// AlertDialog alertDialog = new AlertDialog.Builder(
-			// SearchResultActivity.this)
-			// .setTitle("提示框")
-			// .setMessage("请选择：")
-			// .setPositiveButton("查看章节列表",
-			// new OnClickListener() {
-			//
-			// @Override
-			// public void onClick(
-			// DialogInterface dialog,
-			// int which) {
-			// Intent intent2 = new Intent();
-			// // intent2.setClass(
-			// // SearchResultActivity.this,
-			// // ChapterListActivity.class);
-			//
-			// // 把bookId的值传递到 章节列表
-			// intent2.putExtra(
-			// ConstantParams.FIELD_BOOK_ID,
-			// bookList.get(
-			// position)
-			// .getBookId());
-			// Log.i("bookListAvtivity",
-			// bookList.get(
-			// position)
-			// .getBookName());
-			// startActivity(intent2);
-			// }
-			// })
-			// .setNeutralButton("加入‘我的常用文档’",
-			// new OnClickListener() {
-			//
-			// @Override
-			// public void onClick(
-			// DialogInterface dialog,
-			// int which) {
-			// // TODO Auto-generated
-			// // method stub
-			// int bookId = bookList.get(
-			// position)
-			// .getBookId();
-			// new AddFavoriteAsynTask()
-			// .execute(bookId);
-			// }
-			// })
-			// .setNegativeButton("取消",
-			// new OnClickListener() {
-			//
-			// @Override
-			// public void onClick(
-			// DialogInterface dialog,
-			// int which) {
-			// dialog.dismiss();
-			// }
-			// }).create();
-			// alertDialog.show();
-			// }
-			// });
-
 		} else {
 			tvSearchResult.setVisibility(View.VISIBLE);
 		}
@@ -191,14 +125,19 @@ public class SearchResultActivity extends BaseActivity {
 			String jsonString = null;
 			String url = null;
 			// try {
-			url = ConstantParams.URL_SEARCH_BOOKS + "&"
-					+ ConstantParams.FIELD_TELEPHONE + "="
-					+ ConstantParams.CURRENT_TELEPHONE + "&"
-					+ ConstantParams.FIELD_MAC_ADDRESS + "="
-					+ ConstantParams.CURRENT_MACADDRESS + "&"
-					+ ConstantParams.FIELD_USER_ID + "="
-					+ ConstantParams.CURRENT_USER_ID + "&"
-					+ ConstantParams.FIELD_KEYWORDS + "=" + keywords;
+			try {
+				url = ConstantParams.URL_SEARCH_BOOKS + "&"
+						+ ConstantParams.FIELD_TELEPHONE + "="
+						+ ConstantParams.CURRENT_TELEPHONE + "&"
+						+ ConstantParams.FIELD_MAC_ADDRESS + "="
+						+ ConstantParams.CURRENT_MACADDRESS + "&"
+						+ ConstantParams.FIELD_USER_ID + "="
+						+ ConstantParams.CURRENT_USER_ID + "&"
+						+ ConstantParams.FIELD_KEYWORDS + "=" + URLEncoder.encode(URLEncoder.encode(keywords, "UTF-8"), "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// + URLEncoder.encode(keywords, "UTF-8");
 			jsonString = HttpHelper.sendGetMessage(url, "utf-8");
 			Log.i("bookListActivty", jsonString);

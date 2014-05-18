@@ -1,5 +1,6 @@
 package com.gwb.activity;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -124,14 +125,6 @@ public class BookActivity extends BaseActivity {
 				bookList = FastjsonTools.getContentListPojos(jsonString,
 						Books.class);
 
-				// String str =
-				// "{\"content\":[{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"books\\1-2\\2014-05-04-12-52-00.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"books\\1-2\\2014-05-04-12-52-00.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"books\\1-2\\2014-05-04-12-52-00.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"books\\1-2\\2014-05-04-12-52-00.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"books\\1-2\\2014-05-04-12-52-00.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"books\\1-2\\2014-05-04-12-52-00.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"books\\1-2\\2014-05-04-12-52-00.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"books\\1-2\\2014-05-04-12-52-00.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"books\\1-2\\2014-05-04-12-52-00.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"books\\1-2\\2014-05-04-12-52-00.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"books\\1-2\\2014-05-04-12-52-00.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"books\\1-2\\2014-05-04-12-52-00.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"books\\1-2\\2014-05-04-12-52-00.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"books\\1-2\\2014-05-04-12-52-00.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"books\\1-2\\2014-05-04-12-52-00.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档2\",\"bookId\":2,\"bookName\":\"文档2\",\"bookUrl\":\"books\\1-2\\2014-05-04-07-50-20.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"房屋建筑标准\",\"bookId\":13,\"bookName\":\"房屋建筑标准\",\"bookUrl\":\"books\\1\\null\\住宅设计规范GB50096-2011.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"}],\"header\":{\"code\":\"1\",\"msg\":\"SUCCESS\"}}";
-				// String str =
-				// "{\"content\":[{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1文档1文档1文档1文档11文档1文档1文档1文档11文档1文档1文档1文档11文档1文档1文档1文档11文档1文档1文档1文档11文档1文档1文档1文档1文档1文档1文档1文档1文档1文档1\",\"bookUrl\":\"book\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"book\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"book\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"book\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"book\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"book\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"book\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"book\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"book\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"book\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"book\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"book\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"book\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"book\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档1描述\",\"bookId\":1,\"bookName\":\"文档1\",\"bookUrl\":\"book\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"文档2\",\"bookId\":2,\"bookName\":\"文档2\",\"bookUrl\":\"books14-05-04-07-50-20.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"},{\"bookDesc\":\"房屋建筑标准\",\"bookId\":13,\"bookName\":\"房屋建筑标准\",\"bookUrl\":\"booksll住宅设计规范GB50096-2011.pdf\",\"categoryId\":1,\"categoryName\":\"专业规范标准\",\"chapterNum\":1,\"classId\":2,\"className\":\"建筑\"}],\"header\":{\"code\":\"1\",\"msg\":\"SUCCESS\"}}";
-
-				// bookList = FastjsonTools.getContentListPojos(str,
-				// Books.class);
-
 			} else {
 				ConstantParams.CURRENT_CATEGORY_ID = 0;
 				bookList = null;
@@ -165,8 +158,9 @@ public class BookActivity extends BaseActivity {
 		protected Void doInBackground(String... params) {
 			Log.i("BookActivity", "inbackground:" + params[0]);
 			ConstantParams.TEMP_FILE = null;
-			DownloadUtils.getTempFile(URLEncoder.encode(params[0]));
-
+			
+			DownloadUtils.getTempFile(params[0]);
+			
 			return null;
 		}
 
@@ -190,9 +184,6 @@ public class BookActivity extends BaseActivity {
 							}
 						}).create();
 				dialog.show();
-				// Looper.prepare();
-				// Toast.makeText(BookActivity.this, R.string.prompt_error_file,
-				// Toast.LENGTH_LONG).show();
 			}
 		}
 	}

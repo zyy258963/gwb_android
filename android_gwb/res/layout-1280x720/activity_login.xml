@@ -35,13 +35,13 @@
         style="@style/LoginFormContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    	android:background="@drawable/bg"
         android:orientation="vertical" >
 
         <ImageView 
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_margin="30dp"
+            android:layout_margin="15dp"
             android:src="@drawable/ad1"
             />
         
@@ -51,16 +51,26 @@
             android:layout_height="wrap_content"
             android:hint="@string/prompt_username"
             android:inputType="number"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:maxLines="1"
             android:textSize="30sp"
             android:singleLine="true"/>
 
+        <CheckBox
+            android:id="@+id/rememberTele"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="15dp"
+            android:maxLines="1"
+            android:textSize="30sp"
+            android:text="@string/action_remember_tele" />
+
         <LinearLayout
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
+            
 
         <Button
                 android:id="@+id/sign_in_button"

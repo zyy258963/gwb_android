@@ -41,14 +41,13 @@ public class MenuActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ApplicationManager.add(MenuActivity.this);
+		setContentView(R.layout.activity_main);
 		new MenuAsynTask().execute();
 
 	}
 
 	@SuppressLint("NewApi")
 	private void initLayout() {
-		// FragmentManager fm = getSupportFragmentManager();
-
 		// 获得layout 对象
 		LayoutInflater inflater = (LayoutInflater) MenuActivity.this
 				.getSystemService(LAYOUT_INFLATER_SERVICE);
