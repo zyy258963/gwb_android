@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    tools:context=".SearchResultActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/editText_searchResult"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:hint="@string/common_search_hint" >
+        </EditText>
+
+        <Button
+            android:id="@+id/btn_searchResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="@string/common_search"/>
+    </LinearLayout>
+
+
+    
+    
+    <TextView
+        android:id="@+id/textView_searchResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/common_search_noresult"
+        android:textColor="@color/red"
+        android:textSize="25sp" />
+
+    <ListView
+        android:id="@+id/listView_searchResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+</LinearLayout>

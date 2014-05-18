@@ -1,0 +1,8 @@
+<xml   encoding="utf-8"     version="1.0" >
+    <searchable
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:hint="@string/common_search_hint"
+        android:label="@string/common_search" >
+    </searchable>
+
+</xml>

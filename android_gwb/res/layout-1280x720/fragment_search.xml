@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_seatch"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top"
+    android:orientation="horizontal" >
+
+    <!-- <EditText
+        android:id="@+id/editText_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_margin="2dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:hint="@string/common_search_hint"
+        android:singleLine="true"
+        android:textAlignment="center" /> -->
+
+<!--     <Button
+        android:id="@+id/btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="2dp"
+        android:layout_gravity="top"
+        android:gravity="center"
+        android:text="@string/common_search"
+        android:textAlignment="center" /> -->
+
+</LinearLayout>

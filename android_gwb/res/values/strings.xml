@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_activity_login">公文包</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_username">请输入手机号</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in_register">注册</string>
+    <string name="action_sign_in_short">登录</string>
+    <string name="action_forgot_password">忘记密码</string>
+    <string name="login_progress_signing_in">登录中&#8230;</string>
+    <string name="error_invalid_email">用户名输入有误</string>
+    <string name="error_invalid_password">密码输入有误</string>
+    <string name="error_incorrect_password">用户名或密码不正确</string>
+    <string name="error_incorrect_telephone">错误的手机号</string>
+    <string name="error_field_required">必填项</string>
+    <string name="app_name">公文包</string>
+    <string name="action_settings">设置</string>
+    <string name="hello_world"></string>
+    <string name="title_activity_menu">菜单</string>
+    <string name="title_activity_class">专业</string>
+    <string name="title_activity_favorite">我的常用文件</string>
+    <string name="title_activity_book_title">文件列表</string>
+    <string name="title_activity_chapterlist">章节目录索引</string>
+
+    
+    <string name="prompt_error_file">文件不存在或打开文件出错</string>
+    
+    <!-- 通用文字定义 -->
+    <string name="common_logoDesc">公文包文件管理系统</string>
+    <string name="common_search_hint">文件名称或标准号</string>
+    <string name="common_search_text">查找</string>
+    <string name="common_search">查找</string>
+    <string name="common_return">返回</string>
+    <string name="common_mainPage">首页</string>
+    <string name="common_adDesc">这是最新消息展示</string>
+    <string name="common_search_noresult">您需要的文件尚未出版或未纳入公文包数据库，请电客服：XXXXXX联系或给XXXX@XXX留言，谢谢</string>
+    <string name="common_book_noresult">还未添加文件</string>
+    <string name="common_chapter_noresult">还未添加章节</string>
+    <string name="common_major_noresult">还未添加分类</string>
+
+    <!-- 主页面文字 -->
+    <string name="menu_search">搜索</string>
+    <string name="pop_no_favorite_book">当前没有常用文件</string>
+
+    <!-- 行业分类 -->
+    <string name="category_1">专业规范标准</string>
+    <string name="category_2">专业技术管理文件</string>
+    <string name="category_3">单位行政类文件</string>
+    <string name="category_4">我的常用文件</string>
+    <string name="category_5">行业主管单位文件</string>
+
+    <!-- 专业分类 -->
+    <string name="class_1_1">规划</string>
+    <string name="class_1_2">建筑</string>
+    <string name="class_1_3">结构</string>
+    <string name="class_1_4">暖通</string>
+    <string name="class_1_5">电力</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_book">文件</string>
+    <string name="title_activity_chapter">章节</string>
+    <string name="title_activity_chapter_list">章节列表</string>
+    <string name="title_activity_search">搜索</string>
+    <string name="title_activity_search_result">搜索结果</string>
+    <string name="title_activity_category">文档分类</string>
+    <string name="title_activity_major">专业</string>
+    <string name="title_activity_chapter_pdf">查看pdf</string>
+    <string name="title_activity_pdfViwer">PDF查看页面</string>
+
+    <!-- 弹出框中的文字 -->
+    <string name="title_dialog_viewPdf">查看PDF内容</string>
+    <string name="title_dialog_view">查看内容</string>
+    <string name="title_dialog_favourite">加入我的常用文件</string>
+    <string name="title_dialog_favourite_delete">从常用文件移除</string>
+    <string name="title_dialog_cancel">取消</string>
+    <string name="title_pdfdialog_view">查看PDF文件</string>
+    <string name="title_pdfdialog_cancel">取消</string>
+    
+  
+    
+    <string name="drawer_open">打开</string>
+    <string name="drawer_close">关闭</string>
+    
+    
+    <string name="version">1.2</string>
+    <string name="no_media_warning">Storage Media not present</string>
+    <string name="no_media_hint">Sharing the storage media with a PC can make it inaccessible</string>
+    <string name="open_failed">不能打开文件</string>
+    <string name="content_failure">%1$s: %2$s</string>
+    <string name="cancel">取消</string>
+    <string name="search_backwards">Search backwards</string>
+    <string name="search_forwards">Search forwards</string>
+    <string name="search_document">Search document</string>
+    <string name="picker_title">%1$s %2$s: %3$s</string>
+    <string name="outline_title">目录</string>
+    <string name="enter_password">请输入密码</string>
+    <string name="text_not_found">未找到相关文字</string>
+    <string name="searching_">搜索中...</string>
+    <string name="link_control">Link highlighting and enabling</string>
+    <string name="no_further_occurences_found">No further occurences found</string>
+    <string name="select">Select</string>
+    <string name="search">搜索</string>
+    <string name="copy">复制</string>
+    <string name="strike_out">Strike out</string>
+
+    
+</resources>

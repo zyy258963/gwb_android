@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_menu_top"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout_menu_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/editText_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="center"
+            android:hint="@string/common_search_hint"
+            android:singleLine="true"
+            android:textAlignment="center" />
+
+        <!--
+             <Button
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/common_search" />
+        -->
+    </LinearLayout>
+
+    <!--
+         <fragment
+        android:id="@+id/fragment_top_search"
+        android:name="com.gwb.fragment.SearchFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    -->
+
+    <ImageView
+        android:id="@+id/imageViewAd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_ad_height"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="1dp"
+        android:contentDescription="@string/common_adDesc"
+        android:scaleType="fitXY"
+        android:src="@drawable/ad1" />
+
+    <ScrollView
+        android:id="@+id/scrollView_menu"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content" >
+    </ScrollView>
+
+</LinearLayout>
