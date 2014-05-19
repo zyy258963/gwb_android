@@ -20,7 +20,7 @@ public class DownloadUtils {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void getTempFile(String uriPath) {
+	public static void getTempFile(String uriPath) throws Exception{
 		URL url;
 		FileOutputStream fos = null;
 		BufferedInputStream bis = null;
@@ -41,7 +41,7 @@ public class DownloadUtils {
 				fos = new FileOutputStream(ConstantParams.TEMP_FILE_PATH);
 				bis = new BufferedInputStream(is);
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw e;
 			}
 			if (is == null) {
 //				ConstantParams.TEMP_FILE = null;
@@ -62,9 +62,11 @@ public class DownloadUtils {
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if (fos!=null) {
@@ -79,6 +81,7 @@ public class DownloadUtils {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
@@ -89,7 +92,12 @@ public class DownloadUtils {
 		try {
 			String path1 = new String(path.getBytes("UTF-8"),"UTF-8");
 			System.out.println(path1);
-			DownloadUtils.getTempFile(path1);
+			try {
+				DownloadUtils.getTempFile(path1);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

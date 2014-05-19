@@ -1,7 +1,13 @@
 package com.gwb.activity;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +15,6 @@ import java.util.Map;
 
 import com.artifex.mupdfdemo.R;
 import com.gwb.activity.pojo.Books;
-import com.gwb.utils.ApplicationManager;
 import com.gwb.utils.ConstantParams;
 import com.gwb.utils.DownloadUtils;
 import com.gwb.utils.FastjsonTools;
@@ -21,8 +26,11 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -39,13 +47,29 @@ public class BookActivity extends BaseActivity {
 	private ListView listViewBook = null;
 	private TextView tvNoResult = null;
 	private ProgressDialog dialog;
-
+	private Handler handler = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// ApplicationManager.add(this);
 		dialog = new ProgressDialog(this);
+		dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		dialog.setCancelable(false);
+		dialog.setProgress(0);
+		dialog.setMax(100);
+
+		handler = new Handler(){
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what >=100) {
+					dialog.cancel();
+					dialog.dismiss();
+				}
+				dialog.setProgress(msg.what);
+				super.handleMessage(msg);
+			}
+		};
+		
 		new BookAsynTask().execute();
 	}
 
@@ -145,7 +169,7 @@ public class BookActivity extends BaseActivity {
 	}
 
 	@SuppressLint("NewApi")
-	private class downLoadFileAsyn extends AsyncTask<String, Void, Void> {
+	private class downLoadFileAsyn extends AsyncTask<String, Void, Boolean> {
 
 		@Override
 		protected void onPreExecute() {
@@ -155,20 +179,26 @@ public class BookActivity extends BaseActivity {
 
 		@SuppressWarnings("deprecation")
 		@Override
-		protected Void doInBackground(String... params) {
+		protected Boolean doInBackground(String... params) {
 			Log.i("BookActivity", "inbackground:" + params[0]);
 			ConstantParams.TEMP_FILE = null;
-			
-			DownloadUtils.getTempFile(params[0]);
-			
-			return null;
+
+			try {
+				getTempFile(params[0]);
+				return true;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+
 		}
 
 		@Override
-		protected void onPostExecute(Void result) {
+		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			// Log.i("PDF", ConstantParams.TEMP_FILE.getAbsolutePath());
-			if (ConstantParams.TEMP_FILE != null
+			if (result && ConstantParams.TEMP_FILE != null
 					&& ConstantParams.TEMP_FILE.length() > 0) {
 				showPdf(ConstantParams.TEMP_FILE_PATH);
 			} else {
@@ -184,6 +214,76 @@ public class BookActivity extends BaseActivity {
 							}
 						}).create();
 				dialog.show();
+			}
+		}
+	}
+	
+	public void getTempFile(String uriPath) throws Exception{
+		URL url;
+		FileOutputStream fos = null;
+		BufferedInputStream bis = null;
+		InputStream is = null;
+		int size =0;
+		int total = 0;
+		try {			
+			url = new URL(Uri.decode(uriPath));
+			HttpURLConnection connection = (HttpURLConnection) url
+					.openConnection();
+			connection.setConnectTimeout(5000);
+			// 获得文件大小
+			size = connection.getContentLength();
+			System.out.println("size:" + size);
+			try {
+				is = connection.getInputStream();
+				fos = new FileOutputStream(ConstantParams.TEMP_FILE_PATH);
+				bis = new BufferedInputStream(is);
+			} catch (Exception e) {
+				throw e;
+			}
+			if (is == null) {
+//				ConstantParams.TEMP_FILE = null;
+			}else {
+				byte buffer[] = new byte[1024];
+				int len;
+				while ((len = bis.read(buffer)) != -1) {
+					fos.write(buffer, 0, len);
+					total += len;
+					
+					Message msg = new Message();
+					msg.what = total*100/size;
+					handler.sendMessage(msg);
+					
+				}
+				ConstantParams.TEMP_FILE = new File(ConstantParams.TEMP_FILE_PATH);
+			}
+			
+			Log.i("PDF", "ConstantParams.TEMP_FILE " + ConstantParams.TEMP_FILE.getAbsolutePath());
+			Log.i("DownloadUtils", "fos:" + fos + ": bis:"+bis+": is:"+is + ": total:" +total);
+			
+			
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				if (fos!=null) {
+					fos.close();
+				}
+				if (bis!=null) {
+					bis.close();
+				}
+				if (is!=null) {
+					is.close();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw e;
 			}
 		}
 	}

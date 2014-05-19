@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.artifex.mupdfdemo.R;
-
 import com.gwb.activity.pojo.Books;
+import com.gwb.activity.pojo.FavouriteBook;
 import com.gwb.utils.ConstantParams;
 import com.gwb.utils.DownloadUtils;
 import com.gwb.utils.FastjsonTools;
@@ -218,7 +218,7 @@ public class SearchResultActivity extends BaseActivity {
 	}
 
 	@SuppressLint("NewApi")
-	private class downLoadFileAsyn extends AsyncTask<String, Void, Void> {
+	private class downLoadFileAsyn extends AsyncTask<String, Void, Boolean> {
 
 		@Override
 		protected void onPreExecute() {
@@ -226,26 +226,33 @@ public class SearchResultActivity extends BaseActivity {
 			super.onPreExecute();
 		}
 
+		@SuppressWarnings("deprecation")
 		@Override
-		protected Void doInBackground(String... params) {
+		protected Boolean doInBackground(String... params) {
 			Log.i("BookActivity", "inbackground:" + params[0]);
 			ConstantParams.TEMP_FILE = null;
-			DownloadUtils.getTempFile(params[0]);
-
-			return null;
+			
+			try {
+				DownloadUtils.getTempFile(params[0]);
+				return true;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+			
 		}
 
 		@Override
-		protected void onPostExecute(Void result) {
+		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			// Log.i("PDF", ConstantParams.TEMP_FILE.getAbsolutePath());
-			if (ConstantParams.TEMP_FILE != null
+			if (result && ConstantParams.TEMP_FILE != null
 					&& ConstantParams.TEMP_FILE.length() > 0) {
 				showPdf(ConstantParams.TEMP_FILE_PATH);
 			} else {
-				AlertDialog dialog = new AlertDialog.Builder(
-						SearchResultActivity.this).setTitle("提示框")
-						.setMessage(R.string.prompt_error_file)
+				AlertDialog dialog = new AlertDialog.Builder(SearchResultActivity.this)
+						.setTitle("提示框").setMessage(R.string.prompt_error_file)
 						.setPositiveButton("确定", new OnClickListener() {
 
 							@Override

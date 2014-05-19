@@ -46,6 +46,7 @@ public class MajorActivity extends BaseActivity {
 		new MajorAsynTask().execute();
 	}
 
+	@SuppressLint({ "InlinedApi", "NewApi" })
 	private void initLayout() {
 		// 用代码创建布局文件
 		// 获得layout 对象
@@ -151,15 +152,19 @@ public class MajorActivity extends BaseActivity {
 			}
 			scrollView.addView(tableLayout);
 		}
+		
 		// scrollView.addView(layout);
 		this.setContentView(layout);
-
+		
 		txNoResult = (TextView) findViewById(R.id.tv_major_noresult);
+		txNoResult.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
 		if (classList != null && !"".equals(classList) && classList.size() > 0) {
 			txNoResult.setVisibility(View.GONE);
 		} else {
 			txNoResult.setVisibility(View.VISIBLE);
 		}
+		
+		
 	}
 
 	@SuppressLint("NewApi")
