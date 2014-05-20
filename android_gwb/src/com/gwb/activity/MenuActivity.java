@@ -77,12 +77,10 @@ public class MenuActivity extends BaseActivity {
 			}
 		});
 
-		
 		ImageView imageView = (ImageView) layout.findViewById(R.id.imageViewAd);
 		imageView.setLayoutParams(new LayoutParams(getScreenWidth(),
 				ConstantParams.SIZE_MENU_BTN_HEIGHT * 3));
-		
-		
+
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		layoutParams.setMargins(2, -1, 2, 0);
@@ -103,7 +101,8 @@ public class MenuActivity extends BaseActivity {
 				public void onClick(View view) {
 					Intent intent = new Intent();
 					intent.setClass(MenuActivity.this, MajorActivity.class);
-					ConstantParams.CURRENT_CATEGORY_NAME = button.getText().toString();
+					ConstantParams.CURRENT_CATEGORY_NAME = button.getText()
+							.toString();
 					intent.putExtra(ConstantParams.FIELD_CATEGORY_ID,
 							button.getId());
 					startActivity(intent);
@@ -143,7 +142,9 @@ public class MenuActivity extends BaseActivity {
 							+ ConstantParams.FIELD_TELEPHONE + "="
 							+ ConstantParams.CURRENT_TELEPHONE + "&"
 							+ ConstantParams.FIELD_MAC_ADDRESS + "="
-							+ ConstantParams.CURRENT_MACADDRESS, "utf-8");
+							+ ConstantParams.CURRENT_MACADDRESS + "&"
+							+ ConstantParams.FIELD_USER_ID + "="
+							+ ConstantParams.CURRENT_USER_ID, "utf-8");
 
 			// String str =
 			// "{\"content\":[{\"categoryId\":1,\"categoryName\":\"专业规范标准\"},{\"categoryId\":2,\"categoryName\":\"专业管理文件\"},{\"categoryId\":3,\"categoryName\":\"单位行政文件\"},{\"categoryId\":4,\"categoryName\":\"上级单位文件\"},{\"categoryId\":5,\"categoryName\":\"最新各类文档\"}],\"header\":{\"code\":\"1\",\"msg\":\"SUCCESS\"}}";
@@ -178,9 +179,9 @@ public class MenuActivity extends BaseActivity {
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which) {
-//									 finish();
-//									 System.exit(0);
-									 ApplicationManager.finishProgram();
+									// finish();
+									// System.exit(0);
+									ApplicationManager.finishProgram();
 								}
 							})
 					.setNegativeButton(
@@ -203,7 +204,7 @@ public class MenuActivity extends BaseActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		 ApplicationManager.remove(MenuActivity.this);
+		ApplicationManager.remove(MenuActivity.this);
 	}
 
 }
