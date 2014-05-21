@@ -28,7 +28,7 @@ public class DownloadUtils {
 		int size =0;
 		int total = 0;
 		try {			
-			url = new URL(Uri.decode(uriPath));
+			url = new URL(uriPath);
 //			url = new URL(new String(uriPath.getBytes("UTF-8"),"UTF-8"));
 			HttpURLConnection connection = (HttpURLConnection) url
 					.openConnection();

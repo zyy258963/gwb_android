@@ -116,6 +116,7 @@ public class BookActivity extends BaseActivity {
 					String path = ConstantParams.URL_DOWN_PDF_BASE
 							+ bookList.get(position).getBookUrl();
 					Log.i("PDF", "------------------" + path);
+					path = path.replace("\\", "/");
 					new downLoadFileAsyn().execute(path);
 				}
 			});
@@ -182,7 +183,6 @@ public class BookActivity extends BaseActivity {
 		protected Boolean doInBackground(String... params) {
 			Log.i("BookActivity", "inbackground:" + params[0]);
 			ConstantParams.TEMP_FILE = null;
-
 			try {
 				getTempFile(params[0]);
 				return true;
@@ -226,7 +226,7 @@ public class BookActivity extends BaseActivity {
 		int size =0;
 		int total = 0;
 		try {			
-			url = new URL(Uri.decode(uriPath));
+			url = new URL(uriPath);
 			HttpURLConnection connection = (HttpURLConnection) url
 					.openConnection();
 			connection.setConnectTimeout(5000);

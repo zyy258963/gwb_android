@@ -53,6 +53,8 @@ public class ConstantParams {
 	public static final String URL_DOWN_PDF_BASE = "http://192.168.1.2:8080/FileUpload/upload/books/";
 
 	// 临时文件的存放位置
+	public static final String FILE_STORE_PATH = Environment
+			.getExternalStorageDirectory().getAbsolutePath() + "/gwb/books";
 	public static final String TEMP_FILE_PATH = Environment
 			.getExternalStorageDirectory().getAbsolutePath() + "/temp.pdf";
 	public static File TEMP_FILE = new File(TEMP_FILE_PATH);

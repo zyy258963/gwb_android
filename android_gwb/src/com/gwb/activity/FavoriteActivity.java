@@ -1,5 +1,6 @@
 package com.gwb.activity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,13 +11,17 @@ import com.gwb.activity.pojo.FavouriteBook;
 import com.gwb.utils.ConstantParams;
 import com.gwb.utils.DownloadUtils;
 import com.gwb.utils.FastjsonTools;
+import com.gwb.utils.FileUtil;
 import com.gwb.utils.HttpHelper;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.DialogInterface.OnClickListener;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -250,7 +255,7 @@ public class FavoriteActivity extends BaseActivity {
 
 
 	@SuppressLint("NewApi")
-	private class downLoadFileAsyn extends AsyncTask<String, Void, Boolean> {
+	private class downLoadFileAsyn extends AsyncTask<String, Void, String> {
 
 		@Override
 		protected void onPreExecute() {
@@ -260,29 +265,43 @@ public class FavoriteActivity extends BaseActivity {
 
 		@SuppressWarnings("deprecation")
 		@Override
-		protected Boolean doInBackground(String... params) {
-			Log.i("BookActivity", "inbackground:" + params[0]);
-			ConstantParams.TEMP_FILE = null;
+		protected String doInBackground(String... params) {
 			
-			try {
-				DownloadUtils.getTempFile(params[0]);
-				return true;
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return false;
+
+			
+//			bookId   
+			// 讲电话和MAC地址存储到本地
+			SharedPreferences sp = getApplicationContext().getSharedPreferences(
+					ConstantParams.SHARED_PREFERENCE_NAME,
+					Context.MODE_PRIVATE);
+			String localFile = sp.getString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
+			
+			if (!"".equals(localFile)) {
+				return localFile;
+			}else {
+				Log.i("BookActivity", "inbackground:" + params[0]);
+				ConstantParams.TEMP_FILE = null;
+				
+				try {
+					DownloadUtils.getTempFile(params[0]);
+					return "success";
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return "fail";
+				}
 			}
 			
 		}
 
 		@Override
-		protected void onPostExecute(Boolean result) {
+		protected void onPostExecute(String result) {
 			dialog.dismiss();
 			// Log.i("PDF", ConstantParams.TEMP_FILE.getAbsolutePath());
-			if (result && ConstantParams.TEMP_FILE != null
+			if ("success".equals(result) && ConstantParams.TEMP_FILE != null
 					&& ConstantParams.TEMP_FILE.length() > 0) {
 				showPdf(ConstantParams.TEMP_FILE_PATH);
-			} else {
+			} else if("fail".equals(result)){
 				AlertDialog dialog = new AlertDialog.Builder(FavoriteActivity.this)
 						.setTitle("提示框").setMessage(R.string.prompt_error_file)
 						.setPositiveButton("确定", new OnClickListener() {
@@ -295,6 +314,8 @@ public class FavoriteActivity extends BaseActivity {
 							}
 						}).create();
 				dialog.show();
+			}else {
+				showPdf(result);
 			}
 		}
 	}

@@ -3,12 +3,14 @@ package com.artifex.mupdfdemo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
+import java.io.File;
 import java.io.InputStream;
 import java.io.FileInputStream;
 
 import com.gwb.activity.BookActivity;
 import com.gwb.activity.pojo.FavouriteBook;
 import com.gwb.utils.ConstantParams;
+import com.gwb.utils.FileUtil;
 import com.gwb.utils.HttpHelper;
 
 import android.animation.Animator;
@@ -23,6 +25,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -1000,6 +1003,35 @@ public class MuPDFActivity extends Activity
 			if (result) {
 				Toast.makeText(MuPDFActivity.this, "添加成功", Toast.LENGTH_SHORT)
 						.show();
+				
+			
+				try {
+					
+//					将文件村至本地并且存在 sharedPerference中
+					File path = new File(ConstantParams.FILE_STORE_PATH);
+					if (!path.exists()) {
+						path.mkdirs();
+					}
+					File tarFile = new File(path, ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID+".pdf");
+					tarFile.createNewFile();
+					FileUtil.copyFile(ConstantParams.TEMP_FILE, tarFile);
+					
+//					bookId   
+					// 讲电话和MAC地址存储到本地
+					SharedPreferences sp = getApplicationContext().getSharedPreferences(
+							ConstantParams.SHARED_PREFERENCE_NAME,
+							Context.MODE_PRIVATE);
+					Editor editor = sp.edit();
+					editor.putString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID, tarFile.getAbsolutePath());
+					editor.commit();
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+				
+				
 			} else {
 				Toast.makeText(MuPDFActivity.this, "添加出错，请联系管理员。",
 						Toast.LENGTH_SHORT).show();
