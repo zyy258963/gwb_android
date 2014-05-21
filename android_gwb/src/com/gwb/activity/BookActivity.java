@@ -23,9 +23,11 @@ import com.gwb.utils.HttpHelper;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -117,7 +119,17 @@ public class BookActivity extends BaseActivity {
 							+ bookList.get(position).getBookUrl();
 					Log.i("PDF", "------------------" + path);
 					path = path.replace("\\", "/");
-					new downLoadFileAsyn().execute(path);
+					
+					SharedPreferences sp = getApplicationContext().getSharedPreferences(
+							ConstantParams.SHARED_PREFERENCE_NAME,
+							Context.MODE_PRIVATE);
+					
+					String localPath = sp.getString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
+					if (localPath != null && !"".equals(localPath)) {
+						showPdf(localPath);
+					}else {
+						new downLoadFileAsyn().execute(path);
+					}
 				}
 			});
 		} else {

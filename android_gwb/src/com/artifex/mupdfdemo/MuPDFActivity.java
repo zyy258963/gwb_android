@@ -1,26 +1,17 @@
 package com.artifex.mupdfdemo;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Executor;
 import java.io.File;
 import java.io.InputStream;
-import java.io.FileInputStream;
 
-import com.gwb.activity.BookActivity;
-import com.gwb.activity.pojo.FavouriteBook;
 import com.gwb.utils.ConstantParams;
 import com.gwb.utils.FileUtil;
 import com.gwb.utils.HttpHelper;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,28 +19,18 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.RectF;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -463,7 +444,18 @@ public class MuPDFActivity extends Activity
 
 		mFavouriteButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				new AddFavoriteAsynTask().execute(ConstantParams.CURRENT_BOOK_ID);
+				SharedPreferences sp = getApplicationContext().getSharedPreferences(
+						ConstantParams.SHARED_PREFERENCE_NAME,
+						Context.MODE_PRIVATE);
+				
+				String localPath = sp.getString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
+				if (localPath != null && !"".equals(localPath)) {
+					Toast.makeText(MuPDFActivity.this, "添加成功", Toast.LENGTH_SHORT)
+					.show();
+				}else {
+					new AddFavoriteAsynTask().execute(ConstantParams.CURRENT_BOOK_ID);
+				}
+				
 			}
 		});
 		
@@ -1003,7 +995,6 @@ public class MuPDFActivity extends Activity
 			if (result) {
 				Toast.makeText(MuPDFActivity.this, "添加成功", Toast.LENGTH_SHORT)
 						.show();
-				
 			
 				try {
 					

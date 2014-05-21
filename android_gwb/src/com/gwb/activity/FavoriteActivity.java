@@ -1,6 +1,7 @@
 package com.gwb.activity;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -239,6 +240,23 @@ public class FavoriteActivity extends BaseActivity {
 			if (result) {
 				Toast.makeText(FavoriteActivity.this, "移除成功",
 						Toast.LENGTH_SHORT).show();
+				
+				SharedPreferences sp = getApplicationContext().getSharedPreferences(
+						ConstantParams.SHARED_PREFERENCE_NAME,
+						Context.MODE_PRIVATE);
+				try {
+					FileUtil.delFile(sp.getString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,""));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				Editor editor= sp.edit();				
+				editor.putString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
+				editor.commit();
+				
+				
+				
 			} else {
 				Toast.makeText(FavoriteActivity.this, "移除出错，请联系管理员。",
 						Toast.LENGTH_SHORT).show();
@@ -266,9 +284,6 @@ public class FavoriteActivity extends BaseActivity {
 		@SuppressWarnings("deprecation")
 		@Override
 		protected String doInBackground(String... params) {
-			
-
-			
 //			bookId   
 			// 讲电话和MAC地址存储到本地
 			SharedPreferences sp = getApplicationContext().getSharedPreferences(

@@ -540,19 +540,20 @@ public final class R {
         public static final int menu_large=0x7f020026;
         public static final int menu_search=0x7f020027;
         public static final int menu_small=0x7f020028;
-        public static final int page_num=0x7f020029;
-        public static final int pdf=0x7f02002a;
-        public static final int right=0x7f02002b;
-        public static final int search=0x7f02002c;
-        public static final int seek_progress=0x7f02002d;
-        public static final int seek_thumb=0x7f02002e;
-        public static final int serifs=0x7f02002f;
-        public static final int shape=0x7f020030;
-        public static final int tiled_background=0x7f020031;
-        public static final int toolbar_menu_bg=0x7f020032;
-        public static final int toolbar_menu_item=0x7f020033;
-        public static final int toolbar_menu_release=0x7f020034;
-        public static final int zoom=0x7f020035;
+        public static final int outline_bg=0x7f020029;
+        public static final int page_num=0x7f02002a;
+        public static final int pdf=0x7f02002b;
+        public static final int right=0x7f02002c;
+        public static final int search=0x7f02002d;
+        public static final int seek_progress=0x7f02002e;
+        public static final int seek_thumb=0x7f02002f;
+        public static final int serifs=0x7f020030;
+        public static final int shape=0x7f020031;
+        public static final int tiled_background=0x7f020032;
+        public static final int toolbar_menu_bg=0x7f020033;
+        public static final int toolbar_menu_item=0x7f020034;
+        public static final int toolbar_menu_release=0x7f020035;
+        public static final int zoom=0x7f020036;
     }
     public static final class id {
         public static final int RelativeLayout_Item=0x7f0b0031;
@@ -773,11 +774,12 @@ public final class R {
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f090001;
-        public static final int LoginFormContainer=0x7f090002;
+        public static final int AppTheme=0x7f090002;
+        public static final int LoginFormContainer=0x7f090003;
+        public static final int Theme_OutlineTheme=0x7f090001;
         /**  主页面的button上文字大小 
          */
-        public static final int size_menu_button=0x7f090003;
+        public static final int size_menu_button=0x7f090004;
     }
     public static final class xml {
         public static final int searchable=0x7f050000;

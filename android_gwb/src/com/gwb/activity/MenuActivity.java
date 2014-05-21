@@ -41,7 +41,7 @@ public class MenuActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ApplicationManager.add(MenuActivity.this);
-		setContentView(R.layout.activity_main);
+//		setContentView(R.layout.activity_main);
 		new MenuAsynTask().execute();
 
 	}

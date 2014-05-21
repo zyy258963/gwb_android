@@ -1,5 +1,7 @@
 package com.artifex.mupdfdemo;
 
+import com.gwb.utils.ConstantParams;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,9 @@ public class OutlineAdapter extends BaseAdapter {
 		String space = "";
 		for (int i=0; i<level;i++)
 			space += "   ";
+
+		((TextView)v.findViewById(R.id.title)).setTextSize(20);
+		((TextView)v.findViewById(R.id.page)).setTextSize(20);
 		((TextView)v.findViewById(R.id.title)).setText(space+mItems[position].title);
 		((TextView)v.findViewById(R.id.page)).setText(String.valueOf(mItems[position].page+1));
 		return v;

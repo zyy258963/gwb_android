@@ -15,10 +15,10 @@ public class ConstantParams {
 
 	// 20. 193.34.134 10 .0.2.2 20 .193.34.133 117. 79.84.185
 
-	public static final String URL_BATH = "http://192.168.1.2:8080/GwbProject";
-	public static final String URL_BATH_SLASH = "http://192.168.1.2:8080/GwbProject/";
+	public static final String URL_BATH = "http://117.79.84.185:8080/GwbProject";
+	public static final String URL_BATH_SLASH = "http://117.79.84.185:8080/GwbProject/";
 
-	public static final String URL_LOGIN = "http://192.168.1.2:8080/GwbProject/AndroidLoginAction";
+	public static final String URL_LOGIN = "http://117.79.84.185:8080/GwbProject/AndroidLoginAction";
 
 	public static int CURRENT_CATEGORY_ID = 0;
 	public static int CURRENT_CLASS_ID = 0;
@@ -37,20 +37,20 @@ public class ConstantParams {
 	public static final String SHARED_PREFERENCE_NAME = "config";
 	// 获得所有的行业的列表
 
-	public static final String URL_GET_CATEGORYS = "http://192.168.1.2:8080/GwbProject/AndroidAction?type=listCategory";
-	public static final String URL_GET_CLASS = "http://192.168.1.2:8080/GwbProject/AndroidAction?type=listClass";
-	public static final String URL_GET_BOOKS = "http://192.168.1.2:8080/GwbProject/AndroidAction?type=listBook";
-	public static final String URL_SEARCH_BOOKS = "http://192.168.1.2:8080/GwbProject/AndroidAction?type=searchBook";
-	public static final String URL_LIST_FAVOURITE_BOOKS = "http://192.168.1.2:8080/GwbProject/AndroidAction?type=listFavourite";
-	public static final String URL_ADD_FAVOURITE_BOOKS = "http://192.168.1.2:8080/GwbProject/AndroidAction?type=addFavourite";
-	public static final String URL_DELETE_FAVOURITE_BOOKS = "http://192.168.1.2:8080/GwbProject/AndroidAction?type=deleteFavourite";
+	public static final String URL_GET_CATEGORYS = "http://117.79.84.185:8080/GwbProject/AndroidAction?type=listCategory";
+	public static final String URL_GET_CLASS = "http://117.79.84.185:8080/GwbProject/AndroidAction?type=listClass";
+	public static final String URL_GET_BOOKS = "http://117.79.84.185:8080/GwbProject/AndroidAction?type=listBook";
+	public static final String URL_SEARCH_BOOKS = "http://117.79.84.185:8080/GwbProject/AndroidAction?type=searchBook";
+	public static final String URL_LIST_FAVOURITE_BOOKS = "http://117.79.84.185:8080/GwbProject/AndroidAction?type=listFavourite";
+	public static final String URL_ADD_FAVOURITE_BOOKS = "http://117.79.84.185:8080/GwbProject/AndroidAction?type=addFavourite";
+	public static final String URL_DELETE_FAVOURITE_BOOKS = "http://117.79.84.185:8080/GwbProject/AndroidAction?type=deleteFavourite";
 	public static final String URL_PDF_DOWN = "";
 
 	// public static String URL_DOWN_PDF_BASE=
-	// "http://192.168.1.2:8080/FileUpload/upload/books/18-16/2014-05-04-09-30-37.pdf";
+	// "http://117.79.84.185:8080/FileUpload/upload/books/18-16/2014-05-04-09-30-37.pdf";
 	// public static String URL_DOWN_PDF_BASE=
-	// "http://192.168.1.2:8080/FileUpload/upload/";
-	public static final String URL_DOWN_PDF_BASE = "http://192.168.1.2:8080/FileUpload/upload/books/";
+	// "http://117.79.84.185:8080/FileUpload/upload/";
+	public static final String URL_DOWN_PDF_BASE = "http://117.79.84.185:8080/FileUpload/upload/books/";
 
 	// 临时文件的存放位置
 	public static final String FILE_STORE_PATH = Environment
@@ -60,7 +60,7 @@ public class ConstantParams {
 	public static File TEMP_FILE = new File(TEMP_FILE_PATH);
 
 	// public static String URL_TEMP_PDF=
-	// "http://192.168.1.2:8080/GwbProject/upload/android1.pdf";
+	// "http://117.79.84.185:8080/GwbProject/upload/android1.pdf";
 
 	public static String FIELD_CHAPTER_LIST = "currentChapterList";
 	public static List<BookChapter> CURRENT_CHAPTER_LIST = new ArrayList<BookChapter>();
