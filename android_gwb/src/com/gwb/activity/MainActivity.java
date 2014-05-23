@@ -8,6 +8,7 @@ import com.gwb.activity.pojo.HeaderVo;
 import com.gwb.activity.pojo.Users;
 import com.gwb.utils.ConstantParams;
 import com.gwb.utils.FastjsonTools;
+import com.gwb.utils.FileUtil;
 import com.gwb.utils.HttpHelper;
 
 import android.net.ConnectivityManager;
@@ -21,17 +22,20 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.widget.ImageView;
 
 public class MainActivity extends BaseActivity {
 
 	private ConnectivityManager connManager = null;
 	private int isSucc = 0;
+	private ImageView imageView = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +43,28 @@ public class MainActivity extends BaseActivity {
 
 		final View view = View.inflate(this, R.layout.activity_main, null);
 		setContentView(view);
-
+		imageView = (ImageView) view.findViewById(R.id.imageMainBg);
+		SharedPreferences sp = getApplicationContext().getSharedPreferences(
+				ConstantParams.SHARED_PREFERENCE_NAME,
+				Context.MODE_PRIVATE);
+		int code = sp.getInt("BgNo", 1);
+		if (code==1) {
+			Editor editor = sp.edit();
+			editor.putInt("BgNo", 2);
+			editor.commit();
+			imageView.setImageResource(R.drawable.main_bg);
+		}else if(code==2) {
+			Editor editor = sp.edit();
+			editor.putInt("BgNo", 3);
+			editor.commit();
+			imageView.setImageResource(R.drawable.main_bg1);
+		}else {
+			Editor editor = sp.edit();
+			editor.putInt("BgNo", 1);
+			editor.commit();
+			imageView.setImageResource(R.drawable.main_bg2);
+		}
+		
 		// 获得手机联网信息，是3g还是wifi
 		connManager = (ConnectivityManager) this
 				.getSystemService(this.CONNECTIVITY_SERVICE);
@@ -56,7 +81,7 @@ public class MainActivity extends BaseActivity {
 		aa.setAnimationListener(new AnimationListener() {
 			@Override
 			public void onAnimationEnd(Animation arg0) {
-				Log.i("PDF", " isSuccess： "+isSucc);
+				Log.i("PDF", " isSuccess： " + isSucc);
 				attemptLogin();
 			}
 
@@ -68,7 +93,7 @@ public class MainActivity extends BaseActivity {
 			@Override
 			public void onAnimationStart(Animation animation) {
 				if (info_wifi.isConnected()) {
-//					attemptLogin();
+					// attemptLogin();
 				} else if (info_3g.isConnected()) {
 					// 提示当前使用的是3g 将产生较多流量
 					AlertDialog dialog = new AlertDialog.Builder(
@@ -92,7 +117,7 @@ public class MainActivity extends BaseActivity {
 								}
 							}).create();
 					dialog.show();
-				}else {
+				} else {
 					// 提示当前使用的是3g 将产生较多流量
 					AlertDialog dialog = new AlertDialog.Builder(
 							MainActivity.this).setTitle("提示")
@@ -199,7 +224,7 @@ public class MainActivity extends BaseActivity {
 			} else if ("fail".equals(result)) {
 				redirectToLogin();
 			}
-			Log.i("PDF", " isSuccess： "+isSucc);
+			Log.i("PDF", " isSuccess： " + isSucc);
 		}
 
 	}
