@@ -2,13 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/linearLayout_favourite_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bg_all"
         android:layout_marginBottom="5dp"
         android:orientation="horizontal" >
 
@@ -19,7 +20,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/title_activity_favorite"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <TextView

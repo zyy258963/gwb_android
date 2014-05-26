@@ -15,6 +15,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -46,7 +47,7 @@ public class MenuActivity extends BaseActivity {
 
 	}
 
-	@SuppressLint("NewApi")
+	@SuppressLint({ "NewApi", "ResourceAsColor" })
 	private void initLayout() {
 		// 获得layout 对象
 		LayoutInflater inflater = (LayoutInflater) MenuActivity.this
@@ -83,7 +84,7 @@ public class MenuActivity extends BaseActivity {
 
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		layoutParams.setMargins(2, -1, 2, 0);
+		layoutParams.setMargins(2, 0, 2, 4);
 
 		LinearLayout layout_menu = new LinearLayout(MenuActivity.this);
 		layout_menu.setOrientation(LinearLayout.VERTICAL);
@@ -92,8 +93,10 @@ public class MenuActivity extends BaseActivity {
 			category = cateList.get(i);
 			final Button button = new Button(this);
 			button.setId(category.getCategoryId());
-			button.setText(category.getCategoryName());
+			button.setTextColor(Color.WHITE);
+			button.setBackgroundResource(R.drawable.button_style);
 			button.setTextSize(ConstantParams.SIZE_MENU_BTN_TEXT);
+			button.setText(category.getCategoryName());
 			button.setHeight(ConstantParams.SIZE_MENU_BTN_HEIGHT);
 			button.setLayoutParams(layoutParams);
 			button.setOnClickListener(new OnClickListener() {
@@ -112,8 +115,10 @@ public class MenuActivity extends BaseActivity {
 		}
 		// 增加我的常用文档 button
 		Button btnFavorite = new Button(this);
-		btnFavorite.setText(R.string.title_activity_favorite);
 		btnFavorite.setTextSize(ConstantParams.SIZE_MENU_BTN_TEXT);
+		btnFavorite.setTextColor(Color.WHITE);
+		btnFavorite.setText(R.string.title_activity_favorite);
+		btnFavorite.setBackgroundResource(R.drawable.button_style);
 		btnFavorite.setHeight(ConstantParams.SIZE_MENU_BTN_HEIGHT);
 		btnFavorite.setLayoutParams(layoutParams);
 		btnFavorite.setOnClickListener(new OnClickListener() {

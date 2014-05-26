@@ -1,13 +1,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/linerLayout_book_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bg_all"
         android:orientation="horizontal" >
 
         <TextView
@@ -17,9 +18,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
-            android:background="@color/white"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             
              />
     </LinearLayout>

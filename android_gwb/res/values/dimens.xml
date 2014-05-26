@@ -18,8 +18,8 @@
     
     <dimen name="size_menu_edit_text">5sp</dimen>
     <dimen name="size_menu_button_text">9sp</dimen>
-    <dimen name="size_menu_button_height">32dp</dimen>
-    <dimen name="size_major_text_view">7sp</dimen>
+    <dimen name="size_menu_button_height">31dp</dimen>
+    <dimen name="size_major_text_view">6sp</dimen>
     <dimen name="size_major_text_view_height">27dp</dimen>
     <dimen name="size_ad_height">60dp</dimen>
     <dimen name="size_book_item_text">25sp</dimen>

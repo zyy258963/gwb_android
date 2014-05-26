@@ -44,26 +44,28 @@ public class MainActivity extends BaseActivity {
 		final View view = View.inflate(this, R.layout.activity_main, null);
 		setContentView(view);
 		imageView = (ImageView) view.findViewById(R.id.imageMainBg);
-		SharedPreferences sp = getApplicationContext().getSharedPreferences(
-				ConstantParams.SHARED_PREFERENCE_NAME,
-				Context.MODE_PRIVATE);
-		int code = sp.getInt("BgNo", 1);
-		if (code==1) {
-			Editor editor = sp.edit();
-			editor.putInt("BgNo", 2);
-			editor.commit();
-			imageView.setImageResource(R.drawable.main_bg);
-		}else if(code==2) {
-			Editor editor = sp.edit();
-			editor.putInt("BgNo", 3);
-			editor.commit();
-			imageView.setImageResource(R.drawable.main_bg1);
-		}else {
-			Editor editor = sp.edit();
-			editor.putInt("BgNo", 1);
-			editor.commit();
-			imageView.setImageResource(R.drawable.main_bg2);
-		}
+		imageView.setImageResource(R.drawable.main_bg2);
+		
+//		SharedPreferences sp = getApplicationContext().getSharedPreferences(
+//				ConstantParams.SHARED_PREFERENCE_NAME,
+//				Context.MODE_PRIVATE);
+//		int code = sp.getInt("BgNo", 1);
+//		if (code==1) {
+//			Editor editor = sp.edit();
+//			editor.putInt("BgNo", 2);
+//			editor.commit();
+//			imageView.setImageResource(R.drawable.main_bg);
+//		}else if(code==2) {
+//			Editor editor = sp.edit();
+//			editor.putInt("BgNo", 3);
+//			editor.commit();
+//			imageView.setImageResource(R.drawable.main_bg1);
+//		}else {
+//			Editor editor = sp.edit();
+//			editor.putInt("BgNo", 1);
+//			editor.commit();
+//			imageView.setImageResource(R.drawable.main_bg2);
+//		}
 		
 		// 获得手机联网信息，是3g还是wifi
 		connManager = (ConnectivityManager) this

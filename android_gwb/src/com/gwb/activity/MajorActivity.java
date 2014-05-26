@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.artifex.mupdfdemo.R;
-
 import com.gwb.activity.pojo.BookClass;
 import com.gwb.utils.ApplicationManager;
 import com.gwb.utils.ConstantParams;
@@ -16,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -89,17 +89,23 @@ public class MajorActivity extends BaseActivity {
 
 		ScrollView scrollView = (ScrollView) layout
 				.findViewById(R.id.scrollView_major);
-		scrollView.setBackgroundResource(R.drawable.bg);
 		if (classList != null && !"".equals(classList) && classList.size() > 0) {
 			TableLayout tableLayout = new TableLayout(this);
+			
 			tableLayout.setColumnStretchable(0, false);
 			tableLayout.setColumnStretchable(1, false);
 			tableLayout.setColumnShrinkable(0, false);
 			tableLayout.setColumnShrinkable(1, false);
 
 			LayoutParams layoutParams1 = new LayoutParams(0);
+			layoutParams1.setMargins(2, 2, 2, 2);
 			layoutParams1.gravity = Gravity.CENTER_VERTICAL;
+			layoutParams1.weight=1;
+			layoutParams1.width = 0;
 			LayoutParams layoutParams2 = new LayoutParams(1);
+			layoutParams2.setMargins(2, 2, 2, 2);
+			layoutParams2.weight = 1;
+			layoutParams2.width = 0;
 			layoutParams2.gravity = Gravity.CENTER_VERTICAL;
 			for (int i = 0, len = classList.size(); i < len;) {
 				// 在循环中遍历所有专业名称进行添加
@@ -110,10 +116,13 @@ public class MajorActivity extends BaseActivity {
 				Button button1 = new Button(this);
 				Button button2 = new Button(this);
 				button1.setSingleLine(false);
-				button1.setWidth(ConstantParams.SIZE_MAJOR_BTN_WIDTH);
+//				button1.setWidth(ConstantParams.SIZE_MAJOR_BTN_WIDTH);
+//				button1.setWidth(0);
+				button1.setTextSize(ConstantParams.SIZE_MENU_BTN_TEXT );
+				button1.setTextColor(Color.WHITE);
+				button1.setBackgroundResource(R.drawable.button_style);
 				button1.setText(bookClass1.getClassName());
 				button1.setHeight(ConstantParams.SIZE_MENU_BTN_HEIGHT);
-				button1.setTextSize(ConstantParams.SIZE_MENU_BTN_TEXT);
 				button1.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -128,11 +137,13 @@ public class MajorActivity extends BaseActivity {
 				row.addView(button1, layoutParams1);
 				if (i + 1 < len) {
 					final BookClass bookClass2 = classList.get(i + 1);
-					button2.setText(bookClass2.getClassName());
 					button2.setSingleLine(false);
-					button2.setWidth(ConstantParams.SIZE_MAJOR_BTN_WIDTH);
+					button2.setTextColor(Color.WHITE);
+					button2.setBackgroundResource(R.drawable.button_style);
+//					button2.setWidth(ConstantParams.SIZE_MAJOR_BTN_WIDTH);
 					button2.setHeight(ConstantParams.SIZE_MENU_BTN_HEIGHT);
-					button2.setTextSize(ConstantParams.SIZE_MENU_BTN_TEXT);
+					button2.setTextSize(ConstantParams.SIZE_MENU_BTN_TEXT );
+					button2.setText(bookClass2.getClassName());
 					button2.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {

@@ -77,15 +77,10 @@ public class FavoriteActivity extends BaseActivity {
 				data.add(item);
 			}
 
-//			listViewFavorite.setAdapter(new SimpleAdapter(this, data,
-//					android.R.layout.simple_list_item_1,
-//					new String[] { ConstantParams.COLUMN_BOOK_NAME },
-//					new int[] { android.R.id.text1 }));
-
 			listViewFavorite.setAdapter(new SimpleAdapter(this, data,
-					R.layout.book_favourite_list,
+					R.layout.book_list,
 					new String[] { ConstantParams.COLUMN_BOOK_NAME },
-					new int[] { R.id.book_favourite_list_item_name }));
+					new int[] { R.id.book_list_item_name }));
 			
 			// 为ListView设置列表项点击监听器
 			listViewFavorite.setOnItemClickListener(new OnItemClickListener() {

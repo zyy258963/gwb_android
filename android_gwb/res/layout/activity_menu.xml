@@ -3,7 +3,7 @@
     android:id="@+id/layout_menu_top"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
@@ -11,6 +11,7 @@
         android:id="@+id/linearLayout_menu_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/btn_normal"
         android:orientation="horizontal" >
 
         <EditText

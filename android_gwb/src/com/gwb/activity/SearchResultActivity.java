@@ -86,9 +86,9 @@ public class SearchResultActivity extends BaseActivity {
 			}
 
 			listViewSearchResult.setAdapter(new SimpleAdapter(this, data,
-					android.R.layout.simple_list_item_1,
+					R.layout.book_list,
 					new String[] { ConstantParams.COLUMN_BOOK_NAME },
-					new int[] { android.R.id.text1 }));
+					new int[] { R.id.book_list_item_name }));
 
 			// 为ListView设置列表项点击监听器
 

@@ -50,7 +50,8 @@ public class BaseActivity extends FragmentActivity {
 
 		ConstantParams.SIZE_MENU_EDIT_TEXT = densityUtil.dip2px(getResources().getDimension(
 				R.dimen.size_menu_edit_text));
-		ConstantParams.SIZE_MAJOR_BTN_WIDTH = getScreenWidth()/2;
+		ConstantParams.SIZE_MAJOR_BTN_WIDTH = getScreenWidth()/3;
+		Log.i("LOG", "屏幕宽度 ：" + ConstantParams.SIZE_MAJOR_BTN_WIDTH);
 
 		ConstantParams.SIZE_MAJOR_TEXT_VIEW = densityUtil.dip2px(getResources().getDimension(
 				R.dimen.size_major_text_view)) ;

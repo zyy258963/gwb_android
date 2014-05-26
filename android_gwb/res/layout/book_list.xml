@@ -13,6 +13,7 @@
 		android:layout_marginRight="5dp"
 		android:gravity="center_vertical|left"
 		android:textAlignment="gravity"
+		android:textColor="@color/black"
 		android:textSize="@dimen/size_book_item_text"
 	    />
 	
