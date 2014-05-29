@@ -86,5 +86,7 @@ public class ConstantParams {
 	public static int SIZE_MAJOR_BTN_WIDTH = 0;
 	public static int SIZE_MAJOR_TEXT_VIEW = 0;
 	public static int SIZE_MAJOR_TEXT_VIEW_HEIGHT = 0;
+	public static int SCREEN_WIDTH = 0;
+	public static int SCREEN_HEIGHT = 0;
 
 }

@@ -30,7 +30,7 @@
     
     <!-- 通用文字定义 -->
     <string name="common_logoDesc">公文包文件管理系统</string>
-    <string name="common_search_hint">文件名称或标准号</string>
+    <string name="common_search_hint">输入文件名称或标准号</string>
     <string name="common_search_text">查找</string>
     <string name="common_search">查找</string>
     <string name="common_return">返回</string>

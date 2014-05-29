@@ -80,7 +80,7 @@ public class MenuActivity extends BaseActivity {
 
 		ImageView imageView = (ImageView) layout.findViewById(R.id.imageViewAd);
 		imageView.setLayoutParams(new LayoutParams(getScreenWidth(),
-				ConstantParams.SIZE_MENU_BTN_HEIGHT * 3));
+				(int)(ConstantParams.SIZE_MENU_BTN_HEIGHT * 2.8f)));
 
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);

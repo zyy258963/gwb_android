@@ -30,6 +30,7 @@ public class BaseActivity extends FragmentActivity {
 
 	DisplayMetrics dm = new DisplayMetrics();
 	public DensityUtil densityUtil = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,20 +44,23 @@ public class BaseActivity extends FragmentActivity {
 	
 	private void initSize(){
 		densityUtil = new DensityUtil(getApplicationContext());
-		ConstantParams.SIZE_MENU_BTN_HEIGHT = densityUtil.dip2px(getResources().getDimension(
-				R.dimen.size_menu_button_height));
+//		ConstantParams.SIZE_MENU_BTN_HEIGHT = densityUtil.dip2px(getResources().getDimension(
+//				R.dimen.size_menu_button_height));
+		ConstantParams.SIZE_MENU_BTN_HEIGHT = getScreenHeight()/10;
 		ConstantParams.SIZE_MENU_BTN_TEXT = densityUtil.dip2px(getResources().getDimension(
 				R.dimen.size_menu_button_text));
 
 		ConstantParams.SIZE_MENU_EDIT_TEXT = densityUtil.dip2px(getResources().getDimension(
 				R.dimen.size_menu_edit_text));
-		ConstantParams.SIZE_MAJOR_BTN_WIDTH = getScreenWidth()/3;
+		ConstantParams.SIZE_MAJOR_BTN_WIDTH = getScreenWidth()/2;
 		Log.i("LOG", "屏幕宽度 ：" + ConstantParams.SIZE_MAJOR_BTN_WIDTH);
 
 		ConstantParams.SIZE_MAJOR_TEXT_VIEW = densityUtil.dip2px(getResources().getDimension(
 				R.dimen.size_major_text_view)) ;
 		ConstantParams.SIZE_MAJOR_TEXT_VIEW_HEIGHT = densityUtil.dip2px(getResources().getDimension(
 				R.dimen.size_major_text_view_height)) ;
+		ConstantParams.SCREEN_WIDTH = getScreenWidth();
+		ConstantParams.SCREEN_HEIGHT = getScreenHeight();
 	}
 	
 	@Override

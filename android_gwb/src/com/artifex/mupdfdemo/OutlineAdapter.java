@@ -1,6 +1,5 @@
 package com.artifex.mupdfdemo;
 
-import com.gwb.utils.ConstantParams;
 
 import android.view.LayoutInflater;
 import android.view.View;

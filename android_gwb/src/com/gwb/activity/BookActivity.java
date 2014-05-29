@@ -89,7 +89,7 @@ public class BookActivity extends BaseActivity {
 				+ ConstantParams.CURRENT_CLASS_NAME);
 
 		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-		Log.i("PDF", bookList.toString());
+//		Log.i("PDF", bookList.toString());
 		if (bookList != null && !"".equals(bookList) && bookList.size() > 0) {
 			Log.i("BookActivity", "----- 1");
 			tvNoResult.setVisibility(View.GONE);

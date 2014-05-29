@@ -466,17 +466,6 @@ public final class R {
         public static final int yellow=0x7f060011;
     }
     public static final class dimen {
-        /** 
-         Customize dimensions originally defined in res/values/dimens.xml (such as
-         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
-
-    
-
-         Customize dimensions originally defined in res/values/dimens.xml (such as
-         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
-    
-         */
-        public static final int activity_horizontal_margin=0x7f070008;
         public static final int size_ad_height=0x7f070005;
         public static final int size_book_item_height=0x7f070007;
         public static final int size_book_item_text=0x7f070006;
@@ -488,78 +477,32 @@ public final class R {
    <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen> 
  字体大小 
- <dimen name="size_menu_edit_text">3sp</dimen>
-    <dimen name="size_menu_button_text">6sp</dimen>
-    <dimen name="size_menu_button_height">22dp</dimen>
-    <dimen name="size_major_text_view">5sp</dimen>
-    <dimen name="size_major_text_view_height">18dp</dimen>
-    <dimen name="size_ad_height">40dp</dimen>
-    <dimen name="size_book_item_text">16sp</dimen>
-    <dimen name="size_book_item_height">40dp</dimen> 
          */
         public static final int size_menu_edit_text=0x7f070000;
     }
     public static final class drawable {
         public static final int ad1=0x7f020000;
-        public static final int arrowup=0x7f020001;
-        public static final int bg=0x7f020002;
-        public static final int bg_button=0x7f020003;
-        public static final int book=0x7f020004;
-        public static final int btn_normal=0x7f020005;
-        public static final int btn_press=0x7f020006;
-        public static final int busy=0x7f020007;
-        public static final int button=0x7f020008;
-        public static final int button_create=0x7f020009;
-        public static final int button_style=0x7f02000a;
-        public static final int center=0x7f02000b;
-        public static final int controlbar_back=0x7f02000c;
-        public static final int controlbar_backward_enable=0x7f02000d;
-        public static final int controlbar_forward_enable=0x7f02000e;
-        public static final int controlbar_homepage=0x7f02000f;
-        public static final int controlbar_menu=0x7f020010;
-        public static final int controlbar_showtype_list=0x7f020011;
-        public static final int controlbar_window=0x7f020012;
-        public static final int darkdenim3=0x7f020013;
-        public static final int favourite_button=0x7f020014;
-        public static final int folderopen=0x7f020015;
-        public static final int gallery_zoom_in=0x7f020016;
-        public static final int gallery_zoom_in_touch=0x7f020017;
-        public static final int gallery_zoom_out=0x7f020018;
-        public static final int gallery_zoom_out_touch=0x7f020019;
-        public static final int ic_arrow_left=0x7f02001a;
-        public static final int ic_arrow_right=0x7f02001b;
-        public static final int ic_arrow_up=0x7f02001c;
-        public static final int ic_cancel=0x7f02001d;
-        public static final int ic_clipboard=0x7f02001e;
-        public static final int ic_dir=0x7f02001f;
-        public static final int ic_doc=0x7f020020;
-        public static final int ic_launcher=0x7f020021;
-        public static final int ic_list=0x7f020022;
-        public static final int ic_magnifying_glass=0x7f020023;
-        public static final int icon=0x7f020024;
-        public static final int icon_top=0x7f020025;
-        public static final int left=0x7f020026;
-        public static final int login=0x7f020027;
-        public static final int main_bg2=0x7f020028;
-        public static final int menu_bg=0x7f020029;
-        public static final int menu_bg2=0x7f02002a;
-        public static final int menu_large=0x7f02002b;
-        public static final int menu_search=0x7f02002c;
-        public static final int menu_small=0x7f02002d;
-        public static final int outline_bg=0x7f02002e;
-        public static final int page_num=0x7f02002f;
-        public static final int pdf=0x7f020030;
-        public static final int right=0x7f020031;
-        public static final int search=0x7f020032;
-        public static final int seek_progress=0x7f020033;
-        public static final int seek_thumb=0x7f020034;
-        public static final int serifs=0x7f020035;
-        public static final int shape=0x7f020036;
-        public static final int tiled_background=0x7f020037;
-        public static final int toolbar_menu_bg=0x7f020038;
-        public static final int toolbar_menu_item=0x7f020039;
-        public static final int toolbar_menu_release=0x7f02003a;
-        public static final int zoom=0x7f02003b;
+        public static final int bg_button=0x7f020001;
+        public static final int btn_normal=0x7f020002;
+        public static final int btn_press=0x7f020003;
+        public static final int busy=0x7f020004;
+        public static final int button=0x7f020005;
+        public static final int button_style=0x7f020006;
+        public static final int darkdenim3=0x7f020007;
+        public static final int favourite_button=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int ic_list=0x7f02000a;
+        public static final int ic_magnifying_glass=0x7f02000b;
+        public static final int icon=0x7f02000c;
+        public static final int login=0x7f02000d;
+        public static final int main_bg2=0x7f02000e;
+        public static final int outline_bg=0x7f02000f;
+        public static final int page_num=0x7f020010;
+        public static final int search=0x7f020011;
+        public static final int seek_progress=0x7f020012;
+        public static final int seek_thumb=0x7f020013;
+        public static final int shape=0x7f020014;
+        public static final int tiled_background=0x7f020015;
     }
     public static final class id {
         public static final int RelativeLayout_Item=0x7f0b0030;

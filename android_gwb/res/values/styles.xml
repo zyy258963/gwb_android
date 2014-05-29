@@ -14,9 +14,8 @@
     </style>
 
     <style name="Theme.OutlineTheme" parent="android:style/Theme.Dialog">
-
+		
 　　		<item name="android:windowBackground">@drawable/outline_bg</item>
-
 　　</style>
     
     
@@ -185,8 +184,6 @@
     <color name="darkblue">#00008B</color> <!-- 暗蓝色 -->
     <color name="navy">#000080</color> <!-- 海军色 -->
     <color name="black">#000000</color> <!-- 黑色 -->
-
-
 
 
 </resources>

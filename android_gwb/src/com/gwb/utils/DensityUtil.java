@@ -13,6 +13,9 @@ public class DensityUtil {
 	private static float dmDensityDpi = 0.0f;
 	private static DisplayMetrics dm;
 	private static float scale = 0.0f;
+	private static float default_dmDensityDpi = 320.0f;
+	private static int default_width = 720;
+	private static int default_height= 1280;
 
 	/**
 	 * 
@@ -24,11 +27,14 @@ public class DensityUtil {
 		// 获取当前屏幕
 		dm = new DisplayMetrics();
 		dm = context.getApplicationContext().getResources().getDisplayMetrics();
+//		default_width = dm.widthPixels;
+//		default_height = dm.heightPixels;
 		// 设置DensityDpi
 		setDmDensityDpi(dm.densityDpi);
 		// 密度因子
+//		scale = getDmDensityDpi() / 160 * ( dm.densityDpi / default_dmDensityDpi);
 		scale = getDmDensityDpi() / 160;
-		Log.i(TAG, toString());
+		Log.i(TAG, toString()+"  dm.densityDpi: "+dm.densityDpi + " default_dmDensityDpi: "+default_dmDensityDpi + " \n scale:" +scale);
 	}
 
 	/**
@@ -55,7 +61,6 @@ public class DensityUtil {
 	 * 密度转换像素
 	 * */
 	public int dip2px(float dipValue) {
-		Log.i("PDF", "1111  dipValue" + dipValue + "   scale: " + scale);
 		return (int) (dipValue * scale + 0.5f);
 	}
 
@@ -63,8 +68,6 @@ public class DensityUtil {
 	 * 像素转换密度
 	 * */
 	public int px2dip(float pxValue) {
-
-		Log.i("PDF", "2222  pxValue" + pxValue + "   scale: " + scale);
 		return (int) (pxValue / scale + 0.5f);
 	}
 

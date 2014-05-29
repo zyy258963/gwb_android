@@ -124,7 +124,7 @@ public class HttpHelper {
 			
 			HttpURLConnection httpURLConnection = (HttpURLConnection) url
 					.openConnection();
-			httpURLConnection.setReadTimeout(2000);
+			httpURLConnection.setReadTimeout(4000);
 			httpURLConnection.setRequestMethod("POST");
 			httpURLConnection.setDoInput(true);// 从服务器获得数据
 			httpURLConnection.setDoOutput(true);// 向服务器写数据
