@@ -111,25 +111,43 @@ public class BookActivity extends BaseActivity {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						final int position, final long id) {
-					ConstantParams.CURRENT_BOOK_ID = bookList.get(position)
-							.getBookId();
-					ConstantParams.CURRENT_BOOK_NAME = bookList.get(position)
-							.getBookName();
-					String path = ConstantParams.URL_DOWN_PDF_BASE
-							+ bookList.get(position).getBookUrl();
-					Log.i("PDF", "------------------" + path);
-					path = path.replace("\\", "/");
 					
-					SharedPreferences sp = getApplicationContext().getSharedPreferences(
-							ConstantParams.SHARED_PREFERENCE_NAME,
-							Context.MODE_PRIVATE);
+					AlertDialog alertDialog = new AlertDialog.Builder(BookActivity.this).setTitle("提示").setMessage("继续下载将会产生流量，是否继续？").setPositiveButton("继续", new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialogInterface, int arg1) {
+							dialogInterface.dismiss();
+							ConstantParams.CURRENT_BOOK_ID = bookList.get(position)
+									.getBookId();
+							ConstantParams.CURRENT_BOOK_NAME = bookList.get(position)
+									.getBookName();
+							String path = ConstantParams.URL_DOWN_PDF_BASE
+									+ bookList.get(position).getBookUrl();
+							Log.i("PDF", "------------------" + path);
+							path = path.replace("\\", "/");
+							
+							SharedPreferences sp = getApplicationContext().getSharedPreferences(
+									ConstantParams.SHARED_PREFERENCE_NAME,
+									Context.MODE_PRIVATE);
+							
+							String localPath = sp.getString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
+							if (localPath != null && !"".equals(localPath)) {
+								showPdf(localPath);
+							}else {
+								new downLoadFileAsyn().execute(path);
+							}
+							
+						}
+					}).setNegativeButton("取消", new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialogInterface, int arg1) {
+							// TODO Auto-generated method stub
+							dialogInterface.dismiss();
+						}
+					}).create();
+					alertDialog.show();
 					
-					String localPath = sp.getString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
-					if (localPath != null && !"".equals(localPath)) {
-						showPdf(localPath);
-					}else {
-						new downLoadFileAsyn().execute(path);
-					}
 				}
 			});
 		} else {
