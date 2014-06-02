@@ -466,19 +466,59 @@ public final class R {
         public static final int yellow=0x7f060011;
     }
     public static final class dimen {
-        public static final int size_ad_height=0x7f070005;
-        public static final int size_book_item_height=0x7f070007;
-        public static final int size_book_item_text=0x7f070006;
-        public static final int size_major_text_view=0x7f070003;
-        public static final int size_major_text_view_height=0x7f070004;
-        public static final int size_menu_button_height=0x7f070002;
-        public static final int size_menu_button_text=0x7f070001;
         /**  Default screen margins, per the Android Design guidelines. 
    <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen> 
  字体大小 
+     <dimen name="size_menu_edit_text">7sp</dimen>
+    <dimen name="size_menu_button_text">8sp</dimen>
+    <dimen name="size_major_text_view">6sp</dimen>
+     
+     <dimen name="size_menu_button_height">31dp</dimen>
+    <dimen name="size_major_text_view_height">27dp</dimen> 
+
+         Customize dimensions originally defined in res/values/dimens.xml (such as
+         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
+
+    
+  <dimen name="size_menu_edit_text">7sp</dimen>
+    <dimen name="size_menu_button_text">8sp</dimen>
+    <dimen name="size_menu_button_height">31dp</dimen>
+    <dimen name="size_major_text_view">6sp</dimen>
+    <dimen name="size_major_text_view_height">27dp</dimen>
+    <dimen name="size_ad_height">60dp</dimen>
+    <dimen name="size_book_item_text">25sp</dimen>
+    <dimen name="size_book_item_height">60dp</dimen> 
+     <dimen name="size_menu_edit_text">2sp</dimen>
+    <dimen name="size_menu_button_text">4sp</dimen>
+    <dimen name="size_menu_button_height">31dp</dimen>
+    <dimen name="size_major_text_view">4sp</dimen>
+    <dimen name="size_major_text_view_height">27dp</dimen> 
+
+         Customize dimensions originally defined in res/values/dimens.xml (such as
+         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
+
+    
+ 	<dimen name="size_menu_edit_text">7sp</dimen>
+    <dimen name="size_menu_button_text">8sp</dimen>
+    <dimen name="size_menu_button_height">31dp</dimen>
+    <dimen name="size_major_text_view">6sp</dimen>
+    <dimen name="size_major_text_view_height">27dp</dimen> 
          */
-        public static final int size_menu_edit_text=0x7f070000;
+        public static final int size_ad_height=0x7f070002;
+        public static final int size_book_item_height=0x7f070001;
+        /**  Default screen margins, per the Android Design guidelines. 
+   <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen> 
+ 字体大小 
+     <dimen name="size_menu_edit_text">7sp</dimen>
+    <dimen name="size_menu_button_text">8sp</dimen>
+    <dimen name="size_menu_button_height">31dp</dimen>
+    <dimen name="size_major_text_view">6sp</dimen>
+    <dimen name="size_major_text_view_height">27dp</dimen>
+    <dimen name="size_ad_height">60dp</dimen> 
+         */
+        public static final int size_book_item_text=0x7f070000;
     }
     public static final class drawable {
         public static final int ad1=0x7f020000;
@@ -711,11 +751,6 @@ public final class R {
             backward-compatibility can go here.
 
         
-
-        Base application theme for API 11+. This theme completely replaces
-        AppBaseTheme from res/values/styles.xml on API 11+ devices.
-    
- API 11 theme customizations can go here. 
          */
         public static final int AppBaseTheme=0x7f090000;
         /**  Application theme. 

@@ -7,14 +7,18 @@ import com.artifex.mupdfdemo.R;
 import com.gwb.activity.pojo.BookCategory;
 import com.gwb.utils.ApplicationManager;
 import com.gwb.utils.ConstantParams;
-import com.gwb.utils.DensityUtil;
+//import com.gwb.utils.DensityUtil;
 import com.gwb.utils.FastjsonTools;
 import com.gwb.utils.HttpHelper;
 
+import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,14 +40,22 @@ import android.widget.ScrollView;
 public class MenuActivity extends BaseActivity {
 
 	public List<BookCategory> cateList = new ArrayList<BookCategory>();
-	private BookCategory category = new BookCategory();
-
+	private BookCategory category = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ApplicationManager.add(MenuActivity.this);
-//		setContentView(R.layout.activity_main);
-		new MenuAsynTask().execute();
+		// setContentView(R.layout.activity_main);
+
+		SharedPreferences sp = getApplicationContext().getSharedPreferences(
+				ConstantParams.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+		String str = sp.getString(ConstantParams.FIELD_CATEGORY_LIST, "");
+		if (str!=null && !"".equals(str)) {
+			initLayout();
+		}else {
+			new MenuAsynTask().execute();
+		}
+		
 
 	}
 
@@ -60,8 +72,8 @@ public class MenuActivity extends BaseActivity {
 		// 搜索框事件
 		EditText editText = (EditText) layout
 				.findViewById(R.id.editText_search);
-		editText.setTextSize(ConstantParams.SIZE_MENU_EDIT_TEXT);
-		editText.setHeight(ConstantParams.SIZE_MENU_BTN_HEIGHT);
+		editText.setTextSize(ConstantParams.SIZE_TOP_TEXT);
+		editText.setHeight(ConstantParams.SIZE_ROW);
 		editText.setOnTouchListener(new OnTouchListener() {
 
 			@Override
@@ -80,7 +92,7 @@ public class MenuActivity extends BaseActivity {
 
 		ImageView imageView = (ImageView) layout.findViewById(R.id.imageViewAd);
 		imageView.setLayoutParams(new LayoutParams(getScreenWidth(),
-				(int)(ConstantParams.SIZE_MENU_BTN_HEIGHT * 2.8f)));
+				(int) (ConstantParams.SIZE_ROW * 2.8f)));
 
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -88,38 +100,94 @@ public class MenuActivity extends BaseActivity {
 
 		LinearLayout layout_menu = new LinearLayout(MenuActivity.this);
 		layout_menu.setOrientation(LinearLayout.VERTICAL);
-		for (int i = 0; i < cateList.size(); i++) {
-			Log.i("MenuActivity", "---->>>" + String.valueOf(i));
-			category = cateList.get(i);
-			final Button button = new Button(this);
-			button.setId(category.getCategoryId());
-			button.setTextColor(Color.WHITE);
-			button.setBackgroundResource(R.drawable.button_style);
-			button.setTextSize(ConstantParams.SIZE_MENU_BTN_TEXT);
-			button.setText(category.getCategoryName());
-			button.setHeight(ConstantParams.SIZE_MENU_BTN_HEIGHT);
-			button.setLayoutParams(layoutParams);
-			button.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					Intent intent = new Intent();
-					intent.setClass(MenuActivity.this, MajorActivity.class);
-					ConstantParams.CURRENT_CATEGORY_NAME = button.getText()
-							.toString();
-					intent.putExtra(ConstantParams.FIELD_CATEGORY_ID,
-							button.getId());
-					startActivity(intent);
-				}
-			});
-			layout_menu.addView(button);
+		
+		SharedPreferences sp = getApplicationContext().getSharedPreferences(
+				ConstantParams.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+		String str = sp.getString(ConstantParams.FIELD_CATEGORY_LIST, "");
+		
+		if (str !=null&&!"".equals(str) ) {
+			cateList = new ArrayList<BookCategory>();
+			String [] cateStr = str.split(";");
+			for (int i = 0; i < cateStr.length; i++) {
+				String caStr [] = cateStr[i].split(",");
+				Log.i("LOG", cateStr[i]);
+//				BookCategory cate = new BookCategory(Integer.parseInt(caStr[0]),cateStr[1]);
+//				cateList.add(cate);
+//			}
+			
+//			for (int i = 0; i < cateList.size(); i++) {
+//				Log.i("MenuActivity", "---->>>" + String.valueOf(i));
+//				category = cateList.get(i);	
+//				Log.i("LOG", category.toString());
+				final Button button = new Button(this);
+//				button.setId(category.getCategoryId());
+				button.setId(Integer.parseInt(caStr[0]));
+				button.setTextColor(Color.WHITE);
+				button.setBackgroundResource(R.drawable.button_style);
+				button.setTextSize(ConstantParams.SIZE_MAIN_TEXT);
+//				button.setText(category.getCategoryName());
+				button.setText(caStr[1]);
+				button.setHeight(ConstantParams.SIZE_ROW);
+				button.setLayoutParams(layoutParams);
+				button.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						Intent intent = new Intent();
+						intent.setClass(MenuActivity.this, MajorActivity.class);
+						ConstantParams.CURRENT_CATEGORY_NAME = button.getText()
+								.toString();
+						intent.putExtra(ConstantParams.FIELD_CATEGORY_ID,
+								button.getId());
+						startActivity(intent);
+					}
+				});
+				layout_menu.addView(button);
+			}
+		}else {
+			SharedPreferences sp1 = getApplicationContext().getSharedPreferences(
+					ConstantParams.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+			Editor editor = sp1.edit();
+			StringBuffer sb = new StringBuffer("");
+			for (int i = 0; i < cateList.size(); i++) {
+				Log.i("MenuActivity", "---->>>" + String.valueOf(i));
+				category = cateList.get(i);
+				sb.append(category.getCategoryId()+","+category.getCategoryName()+";");
+				
+				final Button button = new Button(this);
+				button.setId(category.getCategoryId());
+				button.setTextColor(Color.WHITE);
+				button.setBackgroundResource(R.drawable.button_style);
+				button.setTextSize(ConstantParams.SIZE_MAIN_TEXT);
+				button.setText(category.getCategoryName());
+				button.setHeight(ConstantParams.SIZE_ROW);
+				button.setLayoutParams(layoutParams);
+				button.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						Intent intent = new Intent();
+						intent.setClass(MenuActivity.this, MajorActivity.class);
+						ConstantParams.CURRENT_CATEGORY_NAME = button.getText()
+								.toString();
+						intent.putExtra(ConstantParams.FIELD_CATEGORY_ID,
+								button.getId());
+						startActivity(intent);
+					}
+				});
+				layout_menu.addView(button);
+			}
+
+			editor.putString(ConstantParams.FIELD_CATEGORY_LIST, sb.toString());
+			editor.commit();
+			
 		}
+		
 		// 增加我的常用文档 button
 		Button btnFavorite = new Button(this);
-		btnFavorite.setTextSize(ConstantParams.SIZE_MENU_BTN_TEXT);
+		btnFavorite.setTextSize(ConstantParams.SIZE_MAIN_TEXT);
 		btnFavorite.setTextColor(Color.WHITE);
 		btnFavorite.setText(R.string.title_activity_favorite);
 		btnFavorite.setBackgroundResource(R.drawable.button_style);
-		btnFavorite.setHeight(ConstantParams.SIZE_MENU_BTN_HEIGHT);
+		btnFavorite.setHeight(ConstantParams.SIZE_ROW);
 		btnFavorite.setLayoutParams(layoutParams);
 		btnFavorite.setOnClickListener(new OnClickListener() {
 			@Override
@@ -142,20 +210,19 @@ public class MenuActivity extends BaseActivity {
 		protected Boolean doInBackground(Void... arg0) {
 			String jsonString = null;
 
-			jsonString = HttpHelper.sendGetMessage(
-					ConstantParams.URL_GET_CATEGORYS + "&"
-							+ ConstantParams.FIELD_TELEPHONE + "="
-							+ ConstantParams.CURRENT_TELEPHONE + "&"
-							+ ConstantParams.FIELD_MAC_ADDRESS + "="
-							+ ConstantParams.CURRENT_MACADDRESS + "&"
-							+ ConstantParams.FIELD_USER_ID + "="
-							+ ConstantParams.CURRENT_USER_ID, "utf-8");
-
-			// String str =
-			// "{\"content\":[{\"categoryId\":1,\"categoryName\":\"专业规范标准\"},{\"categoryId\":2,\"categoryName\":\"专业管理文件\"},{\"categoryId\":3,\"categoryName\":\"单位行政文件\"},{\"categoryId\":4,\"categoryName\":\"上级单位文件\"},{\"categoryId\":5,\"categoryName\":\"最新各类文档\"}],\"header\":{\"code\":\"1\",\"msg\":\"SUCCESS\"}}";
-
-			// cateList = FastjsonTools.getContentListPojos(str,
-			// BookCategory.class);
+			try {
+				jsonString = HttpHelper.sendGetMessage(
+						ConstantParams.URL_GET_CATEGORYS + "&"
+								+ ConstantParams.FIELD_TELEPHONE + "="
+								+ ConstantParams.CURRENT_TELEPHONE + "&"
+								+ ConstantParams.FIELD_MAC_ADDRESS + "="
+								+ ConstantParams.CURRENT_MACADDRESS + "&"
+								+ ConstantParams.FIELD_USER_ID + "="
+								+ ConstantParams.CURRENT_USER_ID, "utf-8");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			cateList = FastjsonTools.getContentListPojos(jsonString,
 					BookCategory.class);
 

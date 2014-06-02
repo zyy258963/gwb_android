@@ -1,5 +1,7 @@
 package com.artifex.mupdfdemo;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.Executor;
 import java.io.File;
 import java.io.InputStream;
@@ -12,8 +14,11 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -444,17 +449,63 @@ public class MuPDFActivity extends Activity
 
 		mFavouriteButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				SharedPreferences sp = getApplicationContext().getSharedPreferences(
-						ConstantParams.SHARED_PREFERENCE_NAME,
-						Context.MODE_PRIVATE);
 				
-				String localPath = sp.getString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
-				if (localPath != null && !"".equals(localPath)) {
-					Toast.makeText(MuPDFActivity.this, "添加成功", Toast.LENGTH_SHORT)
-					.show();
-				}else {
-					new AddFavoriteAsynTask().execute(ConstantParams.CURRENT_BOOK_ID);
-				}
+				AlertDialog.Builder builder = new Builder(MuPDFActivity.this).setMessage("为了节省您的手机空间，‘我的常用文档’内只能存放三篇文档，请慎重选择!").setPositiveButton("继续", new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int arg1) {
+						dialog.dismiss();
+						SharedPreferences sp = getApplicationContext().getSharedPreferences(
+								ConstantParams.SHARED_PREFERENCE_NAME,
+								Context.MODE_PRIVATE);
+						
+						Set<String> set = sp.getStringSet(ConstantParams.FIELD_FAVOURITE_BOOK_SET, null);
+						if (set==null){
+							set = new HashSet<String>();
+							set.add(ConstantParams.CURRENT_BOOK_ID+"");
+							sp.edit().putStringSet(ConstantParams.FIELD_FAVOURITE_BOOK_SET, set).commit();
+							
+							String localPath = sp.getString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
+							if (localPath != null && !"".equals(localPath)) {
+								Toast.makeText(MuPDFActivity.this, "添加成功", Toast.LENGTH_SHORT)
+								.show();
+							}else {
+								new AddFavoriteAsynTask().execute(ConstantParams.CURRENT_BOOK_ID);
+							}
+						}else {
+							if (set.contains(ConstantParams.CURRENT_BOOK_ID+"")) {
+								Toast.makeText(MuPDFActivity.this, "您已经收藏改文檔，不能重复收藏！", Toast.LENGTH_LONG)
+								.show();
+							}else {
+								if (set.size()>=3) {
+									Toast.makeText(MuPDFActivity.this, "您已经收藏3篇文档，不能继续收藏！", Toast.LENGTH_LONG)
+									.show();
+								}else {
+									set.add(ConstantParams.CURRENT_BOOK_ID+"");
+									sp.edit().putStringSet(ConstantParams.FIELD_FAVOURITE_BOOK_SET, set).commit();
+									
+									String localPath = sp.getString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
+									if (localPath != null && !"".equals(localPath)) {
+										Toast.makeText(MuPDFActivity.this, "添加成功", Toast.LENGTH_SHORT)
+										.show();
+									}else {
+										new AddFavoriteAsynTask().execute(ConstantParams.CURRENT_BOOK_ID);
+									}
+								}
+							}
+						}
+					}
+				}).setNegativeButton("取消", new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						
+					}
+				});
+				builder.create().show();
+				
+				
 				
 			}
 		});
@@ -976,17 +1027,22 @@ public class MuPDFActivity extends Activity
 					+ ConstantParams.CURRENT_USER_ID + "&"
 					+ ConstantParams.FIELD_BOOK_ID + "=" + params[0];
 			// success - 成功 。。 fail 。。。 失败
-			jsonString1 = HttpHelper.sendGetMessage(addurl, "utf-8");
-			// Looper.prepare();
-			Log.i("PDF", "addurl ：>" + addurl + "<");
-			Log.i("PDF", "添加返回的数据：>" + jsonString1 + "<");
-			if (jsonString1 != null && !"".equals(jsonString1)
-					&& jsonString1.contains("success")) {
-				return true;
-			} else {
+			try {
+				jsonString1 = HttpHelper.sendGetMessage(addurl, "utf-8");
+				Log.i("PDF", "addurl ：>" + addurl + "<");
+				Log.i("PDF", "添加返回的数据：>" + jsonString1 + "<");
+				if (jsonString1 != null && !"".equals(jsonString1)
+						&& jsonString1.contains("success")) {
+					return true;
+				} else {
+					return false;
+				}
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 				return false;
 			}
-
 		}
 
 		@Override
@@ -995,9 +1051,7 @@ public class MuPDFActivity extends Activity
 			if (result) {
 				Toast.makeText(MuPDFActivity.this, "添加成功", Toast.LENGTH_SHORT)
 						.show();
-			
 				try {
-					
 //					将文件村至本地并且存在 sharedPerference中
 					File path = new File(ConstantParams.FILE_STORE_PATH);
 					if (!path.exists()) {
@@ -1020,8 +1074,6 @@ public class MuPDFActivity extends Activity
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			
-				
 				
 			} else {
 				Toast.makeText(MuPDFActivity.this, "添加出错，请联系管理员。",

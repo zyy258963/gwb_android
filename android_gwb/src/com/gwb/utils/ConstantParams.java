@@ -54,7 +54,7 @@ public class ConstantParams {
 
 	// 临时文件的存放位置
 	public static final String FILE_STORE_PATH = Environment
-			.getExternalStorageDirectory().getAbsolutePath() + "/gwb/books";
+			.getExternalStorageDirectory().getAbsolutePath() + "/.gwb/books";
 	public static final String TEMP_FILE_PATH = Environment
 			.getExternalStorageDirectory().getAbsolutePath() + "/temp.pdf";
 	public static File TEMP_FILE = new File(TEMP_FILE_PATH);
@@ -80,13 +80,14 @@ public class ConstantParams {
 	public static final String COLUMN_BOOK_ID = "bookId";
 	public static final String COLUMN_BOOK_NAME = "bookName";
 
-	public static int SIZE_MENU_BTN_HEIGHT = 0;
-	public static int SIZE_MENU_EDIT_TEXT = 0;
-	public static int SIZE_MENU_BTN_TEXT = 0;
-	public static int SIZE_MAJOR_BTN_WIDTH = 0;
-	public static int SIZE_MAJOR_TEXT_VIEW = 0;
-	public static int SIZE_MAJOR_TEXT_VIEW_HEIGHT = 0;
+	public static int SIZE_ROW = 0;
+	public static int SIZE_BUTTON_WIDTH = 0;
+	public static float SIZE_TOP_TEXT = 0;
+	public static float SIZE_MAIN_TEXT = 0;
 	public static int SCREEN_WIDTH = 0;
 	public static int SCREEN_HEIGHT = 0;
+
+	public static String FIELD_CATEGORY_LIST = "categoryList";
+	public static String FIELD_FAVOURITE_BOOK_SET = "favouriteset";
 
 }

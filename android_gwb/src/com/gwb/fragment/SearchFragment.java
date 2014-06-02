@@ -31,8 +31,8 @@ public class SearchFragment extends Fragment{
 //		btnSearch.setHeight(ConstantParams.SIZE_MENU_BTN_HEIGHT);
 //		btnSearch.setTextSize(ConstantParams.SIZE_MENU_BTN_TEXT);
 
-		editTextSearch.setTextSize(ConstantParams.SIZE_MENU_EDIT_TEXT);
-		editTextSearch.setHeight(ConstantParams.SIZE_MENU_BTN_HEIGHT);
+		editTextSearch.setTextSize(ConstantParams.SIZE_MAIN_TEXT);
+		editTextSearch.setHeight(ConstantParams.SIZE_ROW);
 //		editTextSearch.setOnTouchListener(new OnTouchListener() {
 //			
 //			@Override

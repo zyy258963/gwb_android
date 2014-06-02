@@ -3,12 +3,13 @@ package com.gwb.activity;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.artifex.mupdfdemo.R;
 import com.gwb.activity.pojo.HeaderVo;
 import com.gwb.activity.pojo.Users;
 import com.gwb.utils.ApplicationManager;
-import com.gwb.utils.DensityUtil;
+//import com.gwb.utils.DensityUtil;
 import com.gwb.utils.FastjsonTools;
 import com.gwb.utils.HttpHelper;
 import com.gwb.utils.ConstantParams;
@@ -77,9 +78,14 @@ public class LoginActivity extends BaseActivity {
 		phoneMgr = (TelephonyManager) this
 				.getSystemService(Context.TELEPHONY_SERVICE);
 
-		macAddress = phoneMgr.getDeviceId();
-		
-		
+		// macAddress = phoneMgr.getDeviceId();
+		String androidId = android.provider.Settings.Secure.getString(
+				getContentResolver(),
+				android.provider.Settings.Secure.ANDROID_ID);
+		UUID deviceUuid = new UUID(androidId.hashCode(),
+				((long) androidId.hashCode() << 32) | androidId.hashCode());
+		macAddress = deviceUuid.toString();
+
 		// Set up the login form.
 		mUsernameView = (EditText) findViewById(R.id.username);
 		/*
@@ -245,35 +251,43 @@ public class LoginActivity extends BaseActivity {
 			postParam.put("type", "appLogin");
 			postParam.put("telephone", mUsername);
 			postParam.put("macAddress", macAddress);
-			String jsonStr = HttpHelper.sendPostMessage(
-					ConstantParams.URL_LOGIN, postParam, "utf-8");
-			Log.i("LoginActivity", "login return  : " + jsonStr);
-			if (jsonStr != null && !"".equals(jsonStr)) {
+			String jsonStr = null;
+			try {
+				jsonStr = HttpHelper.sendPostMessage(
+						ConstantParams.URL_LOGIN, postParam, "utf-8");
+				Log.i("LoginActivity", "login return  : " + jsonStr);
+				if (jsonStr != null && !"".equals(jsonStr)) {
 
-				// 此处先判断 heeader 中的 code是否正确
-				HeaderVo headerVo = FastjsonTools.getHeader(jsonStr);
-				if (headerVo != null && "1".equals(headerVo.getCode())) {
-					Users user = FastjsonTools.getContentPojo(jsonStr,
-							Users.class);
-					if (user != null && !"".equals(user)) {
-						Log.i("LoginActivity", "login::  1 ");
-						System.out.println("userId :::" + user.getUserId());
-						ConstantParams.CURRENT_USER_ID = user.getUserId();
-						ConstantParams.CURRENT_USER_NAME = user.getUserName();
-						ConstantParams.CURRENT_MACADDRESS = user
-								.getMacAddress();
-						ConstantParams.CURRENT_TELEPHONE = user.getTelephone();
-						return "success";
+					// 此处先判断 heeader 中的 code是否正确
+					HeaderVo headerVo = FastjsonTools.getHeader(jsonStr);
+					if (headerVo != null && "1".equals(headerVo.getCode())) {
+						Users user = FastjsonTools.getContentPojo(jsonStr,
+								Users.class);
+						if (user != null && !"".equals(user)) {
+							Log.i("LoginActivity", "login::  1 ");
+							System.out.println("userId :::" + user.getUserId());
+							ConstantParams.CURRENT_USER_ID = user.getUserId();
+							ConstantParams.CURRENT_USER_NAME = user.getUserName();
+							ConstantParams.CURRENT_MACADDRESS = user
+									.getMacAddress();
+							ConstantParams.CURRENT_TELEPHONE = user.getTelephone();
+							return "success";
+						} else {
+							Log.i("LoginActivity", "login::  2 ");
+							return "fail";
+						}
 					} else {
-						Log.i("LoginActivity", "login::  2 ");
 						return "fail";
 					}
 				} else {
 					return "fail";
 				}
-			} else {
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 				return "fail";
 			}
+			
 
 		}
 
@@ -285,14 +299,15 @@ public class LoginActivity extends BaseActivity {
 			if ("success".equals(result)) {
 
 				// 讲电话和MAC地址存储到本地
-				SharedPreferences sp = getApplicationContext().getSharedPreferences(
-						ConstantParams.SHARED_PREFERENCE_NAME,
-						Context.MODE_PRIVATE);
+				SharedPreferences sp = getApplicationContext()
+						.getSharedPreferences(
+								ConstantParams.SHARED_PREFERENCE_NAME,
+								Context.MODE_PRIVATE);
 				Editor editor = sp.edit();
 				editor.putString(ConstantParams.FIELD_TELEPHONE, mUsername);
 				editor.putString(ConstantParams.FIELD_MAC_ADDRESS, macAddress);
 				editor.commit();
-				
+
 				Intent intent = new Intent();
 				intent.setClass(LoginActivity.this, MenuActivity.class);
 				startActivity(intent);

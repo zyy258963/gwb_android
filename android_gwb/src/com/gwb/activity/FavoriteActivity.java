@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.artifex.mupdfdemo.R;
 import com.gwb.activity.pojo.FavouriteBook;
@@ -52,8 +53,8 @@ public class FavoriteActivity extends BaseActivity {
 		setContentView(R.layout.activity_favorite);
 
 		TextView textView = (TextView)findViewById(R.id.textView_favorite_title);
-		textView.setTextSize(ConstantParams.SIZE_MAJOR_TEXT_VIEW);
-		textView.setHeight(ConstantParams.SIZE_MAJOR_TEXT_VIEW_HEIGHT);
+		textView.setTextSize(ConstantParams.SIZE_MAIN_TEXT);
+		textView.setHeight(ConstantParams.SIZE_ROW);
 		textView.setGravity(Gravity.CENTER);
 		
 		
@@ -121,10 +122,22 @@ public class FavoriteActivity extends BaseActivity {
 					});
 					btnFavourite.setOnClickListener(new View.OnClickListener() {
 
+						@SuppressLint("NewApi")
 						@Override
 						public void onClick(View v) {
 							int favId = favoriteList.get(position).getFavouriteId();
 							alertDialog.dismiss();
+							
+							SharedPreferences sp = getApplicationContext().getSharedPreferences(
+									ConstantParams.SHARED_PREFERENCE_NAME,
+									Context.MODE_PRIVATE);
+							Set<String> set = sp.getStringSet(ConstantParams.FIELD_FAVOURITE_BOOK_SET, null);
+							if (set!=null) {
+								set.remove(favoriteList.get(position).getBookId()+"");
+							}
+							Log.i("LOG", "收藏的文档："+set.toString() + " remmove :"+favId);
+							sp.edit().putStringSet(ConstantParams.FIELD_FAVOURITE_BOOK_SET, set).commit();
+							
 							new DeleteFavoriteAsynTask().execute(favId);
 
 						}
@@ -157,18 +170,24 @@ public class FavoriteActivity extends BaseActivity {
 					+ ConstantParams.CURRENT_MACADDRESS + "&"
 					+ConstantParams.FIELD_USER_ID+"="
 					+ ConstantParams.CURRENT_USER_ID;
-			jsonString = HttpHelper.sendGetMessage(url, "utf-8");
-			Log.i("favoriteListActivty", jsonString);
-			Log.i("favoriteListActivty", url);
-			favoriteList = FastjsonTools.getContentListPojos(jsonString,
-					FavouriteBook.class);
-			if (favoriteList != null && !"".equals(favoriteList)) {
-				ConstantParams.CURRENT_FAVOURITE_BOOK_SIZE = favoriteList
-						.size();
-			} else {
-				ConstantParams.CURRENT_FAVOURITE_BOOK_SIZE = 0;
-			}
+			try {
+				jsonString = HttpHelper.sendGetMessage(url, "utf-8");
+				Log.i("favoriteListActivty", jsonString);
+				Log.i("favoriteListActivty", url);
+				favoriteList = FastjsonTools.getContentListPojos(jsonString,
+						FavouriteBook.class);
+				if (favoriteList != null && !"".equals(favoriteList)) {
+					ConstantParams.CURRENT_FAVOURITE_BOOK_SIZE = favoriteList
+							.size();
+				} else {
+					ConstantParams.CURRENT_FAVOURITE_BOOK_SIZE = 0;
+				}
 
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			return true;
 		}
 
@@ -206,26 +225,33 @@ public class FavoriteActivity extends BaseActivity {
 					+ ConstantParams.CURRENT_MACADDRESS + "&"
 					+ ConstantParams.FIELD_FAVOURITE_ID + "=" + params[0];
 			// success - 成功 。。 fail 。。。 失败
-			jsonString1 = HttpHelper.sendGetMessage(deleteurl, "utf-8");
-			// Looper.prepare();
-			Log.i("BookActivity", "删除返回的数据：>" + deleteurl + "<");
-			Log.i("BookActivity", "favoriteList.size()：>" + favoriteList.size()
-					+ "<\n" + " ConstantParams.CURRENT_FAVORITE_BOOK_SIZE：>"
-					+ ConstantParams.CURRENT_FAVOURITE_BOOK_SIZE + "<");
+			try {
+				jsonString1 = HttpHelper.sendGetMessage(deleteurl, "utf-8");
+				// Looper.prepare();
+				Log.i("BookActivity", "删除返回的数据：>" + deleteurl + "<");
+				Log.i("BookActivity", "favoriteList.size()：>" + favoriteList.size()
+						+ "<\n" + " ConstantParams.CURRENT_FAVORITE_BOOK_SIZE：>"
+						+ ConstantParams.CURRENT_FAVOURITE_BOOK_SIZE + "<");
 
-			if (jsonString1 != null && !"".equals(jsonString1)) {
-				favoriteList = FastjsonTools.getContentListPojos(jsonString1,
-						FavouriteBook.class);
-				if (favoriteList != null
-						&& !"".equals(favoriteList)
-						&& favoriteList.size() < ConstantParams.CURRENT_FAVOURITE_BOOK_SIZE) {
-					return true;
+				if (jsonString1 != null && !"".equals(jsonString1)) {
+					favoriteList = FastjsonTools.getContentListPojos(jsonString1,
+							FavouriteBook.class);
+					if (favoriteList != null
+							&& !"".equals(favoriteList)
+							&& favoriteList.size() < ConstantParams.CURRENT_FAVOURITE_BOOK_SIZE) {
+						return true;
+					} else {
+						return false;
+					}
 				} else {
 					return false;
 				}
-			} else {
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 				return false;
 			}
+			
 
 		}
 

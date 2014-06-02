@@ -10,6 +10,12 @@ public class BookCategory implements Serializable {
 	private int categoryId;
 	private String categoryName;
 
+	public BookCategory(int categoryId, String categoryName) {
+		super();
+		this.categoryId = categoryId;
+		this.categoryName = categoryName;
+	}
+
 	public BookCategory() {
 	}
 
@@ -28,5 +34,13 @@ public class BookCategory implements Serializable {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+
+	@Override
+	public String toString() {
+		return "BookCategory [categoryId=" + categoryId + ", categoryName="
+				+ categoryName + "]";
+	}
+	
+	
 
 }

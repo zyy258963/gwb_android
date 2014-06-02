@@ -82,8 +82,8 @@ public class BookActivity extends BaseActivity {
 		tvNoResult = (TextView) findViewById(R.id.tv_no_booklist);
 
 		TextView textView = (TextView) findViewById(R.id.textView_book_menu);
-		textView.setTextSize(ConstantParams.SIZE_MAJOR_TEXT_VIEW);
-		textView.setHeight(ConstantParams.SIZE_MAJOR_TEXT_VIEW_HEIGHT);
+		textView.setTextSize(ConstantParams.SIZE_TOP_TEXT);
+		textView.setHeight(ConstantParams.SIZE_ROW);
 		textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
 		textView.setText(ConstantParams.CURRENT_CATEGORY_NAME + ">>"
 				+ ConstantParams.CURRENT_CLASS_NAME);
@@ -156,11 +156,17 @@ public class BookActivity extends BaseActivity {
 						+ ConstantParams.CURRENT_MACADDRESS + "&"
 						+ ConstantParams.FIELD_CLASS_ID + "="
 						+ ConstantParams.CURRENT_CLASS_ID;
-				jsonString = HttpHelper.sendGetMessage(url, "utf-8");
-				Log.i("BookActivty", jsonString);
-				Log.i("BookActivty", url);
-				bookList = FastjsonTools.getContentListPojos(jsonString,
-						Books.class);
+				try {
+					jsonString = HttpHelper.sendGetMessage(url, "utf-8");
+					Log.i("BookActivty", jsonString);
+					Log.i("BookActivty", url);
+					bookList = FastjsonTools.getContentListPojos(jsonString,
+							Books.class);
+				} catch (Exception e) {
+					e.printStackTrace();
+					bookList = null;
+				}
+				
 
 			} else {
 				ConstantParams.CURRENT_CATEGORY_ID = 0;

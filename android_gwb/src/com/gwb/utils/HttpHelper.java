@@ -40,9 +40,9 @@ public class HttpHelper {
 		return EntityUtils.toString(entity, "UTF-8");
 	}
 
-	public static String sendGetMessage(String path, String encode) {
+	public static String sendGetMessage(String path, String encode) throws Exception{
 		HttpURLConnection connection = null;
-		try {
+//		try {
 			URL url = new URL(path);
 			if (url != null) {
 				connection = (HttpURLConnection) url.openConnection();
@@ -58,12 +58,12 @@ public class HttpHelper {
 				}
 			}
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			connection.disconnect();
-		}
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			connection.disconnect();
+//		}
 		return "";
 	}
 
@@ -105,10 +105,10 @@ public class HttpHelper {
 	}
 
 	public static String sendPostMessage(String path, Map<String, String> params,
-			String encode) {
+			String encode) throws Exception{
 		// 获得url的输入输出流
 		StringBuffer buffer = new StringBuffer();
-		try {
+//		try {
 			if (params != null && !params.isEmpty()) {
 				for (Map.Entry<String, String> entry : params.entrySet()) {
 					buffer.append(entry.getKey())
@@ -148,13 +148,13 @@ public class HttpHelper {
 				return changeInputStreamToString(
 						httpURLConnection.getInputStream(), encode);
 			}
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		return "";
 	}
 
@@ -167,7 +167,13 @@ public class HttpHelper {
 //		String rs = sendPostMessage(LOGIN_PATH, params, "utf-8");
 //		System.out.println("--result-->>" + rs);
 		
-		String str = sendGetMessage(ConstantParams.URL_GET_CATEGORYS, "utf-8");
+		String str = null;
+		try {
+			str = sendGetMessage(ConstantParams.URL_GET_CATEGORYS, "utf-8");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println(str);
 		
 	}

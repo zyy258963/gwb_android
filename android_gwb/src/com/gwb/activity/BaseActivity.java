@@ -2,12 +2,11 @@ package com.gwb.activity;
 
 import java.io.File;
 
-
 import com.artifex.mupdfdemo.MuPDFActivity;
 import com.artifex.mupdfdemo.R;
 import com.gwb.utils.ApplicationManager;
 import com.gwb.utils.ConstantParams;
-import com.gwb.utils.DensityUtil;
+//import com.gwb.utils.DensityUtil;
 import com.gwb.utils.OpenFiles;
 
 import android.net.ConnectivityManager;
@@ -29,40 +28,63 @@ import android.widget.Toast;
 public class BaseActivity extends FragmentActivity {
 
 	DisplayMetrics dm = new DisplayMetrics();
-	public DensityUtil densityUtil = null;
-	
+
+	// public DensityUtil densityUtil = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_base);
-		 ApplicationManager.add(BaseActivity.this);
+		ApplicationManager.add(BaseActivity.this);
 		Log.i("PDF", "cccccccccccccccccccccccccccccccccc");
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		initSize();
 	}
 
-	
-	private void initSize(){
-		densityUtil = new DensityUtil(getApplicationContext());
-//		ConstantParams.SIZE_MENU_BTN_HEIGHT = densityUtil.dip2px(getResources().getDimension(
-//				R.dimen.size_menu_button_height));
-		ConstantParams.SIZE_MENU_BTN_HEIGHT = getScreenHeight()/10;
-		ConstantParams.SIZE_MENU_BTN_TEXT = densityUtil.dip2px(getResources().getDimension(
-				R.dimen.size_menu_button_text));
+	private void initSize() {
+		// densityUtil = new DensityUtil(getApplicationContext());
+		ConstantParams.SIZE_ROW = getScreenHeight() / 10;
+		ConstantParams.SIZE_BUTTON_WIDTH = getScreenWidth() / 2;
+		if (getScreenHeight() == 800) {
+			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 4.0f;
+			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 3.0f;
+		}else if (getScreenHeight() == 1280) {
+			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 5.0f;
+			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 4.0f;
+		}else if (getScreenHeight() == 1920) {
+			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 5.0f;
+			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 4.0f;
+		}else {
+			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 5.0f;
+			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 4.0f;
+		}
+		
+		Log.i("LOG",
+				"major textview 高度："
+						+ ConstantParams.SIZE_ROW
+						+ "\n ConstantParams.SIZE_TOP_TEXT:"+
+						ConstantParams.SIZE_TOP_TEXT
+						+ "\n  ConstantParams.SIZE_MAIN_TEXT:"
+						+ ConstantParams.SIZE_MAIN_TEXT);
 
-		ConstantParams.SIZE_MENU_EDIT_TEXT = densityUtil.dip2px(getResources().getDimension(
-				R.dimen.size_menu_edit_text));
-		ConstantParams.SIZE_MAJOR_BTN_WIDTH = getScreenWidth()/2;
-		Log.i("LOG", "屏幕宽度 ：" + ConstantParams.SIZE_MAJOR_BTN_WIDTH);
 
-		ConstantParams.SIZE_MAJOR_TEXT_VIEW = densityUtil.dip2px(getResources().getDimension(
-				R.dimen.size_major_text_view)) ;
-		ConstantParams.SIZE_MAJOR_TEXT_VIEW_HEIGHT = densityUtil.dip2px(getResources().getDimension(
-				R.dimen.size_major_text_view_height)) ;
+		// ConstantParams.SIZE_MENU_BTN_TEXT = getResources().getDimension(
+		// R.dimen.size_menu_button_text)
+		// / dm.scaledDensity;
+		// ConstantParams.SIZE_MENU_EDIT_TEXT = getResources().getDimension(
+		// R.dimen.size_menu_edit_text)
+		// / dm.scaledDensity;
+		// ConstantParams.SIZE_MAJOR_TEXT_VIEW = getResources().getDimension(
+		// R.dimen.size_major_text_view)
+		// / dm.scaledDensity;
+		// ConstantParams.SIZE_MAJOR_TEXT_VIEW_HEIGHT =(int)(getResources()
+		// .getDimension(R.dimen.size_major_text_view_height)
+		// / dm.scaledDensity);
+
 		ConstantParams.SCREEN_WIDTH = getScreenWidth();
 		ConstantParams.SCREEN_HEIGHT = getScreenHeight();
 	}
-	
+
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
@@ -95,7 +117,7 @@ public class BaseActivity extends FragmentActivity {
 		case Menu.FIRST + 3:
 			showExitDialog();
 			break;
-			
+
 		default:
 			break;
 		}
@@ -132,42 +154,40 @@ public class BaseActivity extends FragmentActivity {
 	}
 
 	public void showExitDialog() {
-//		AlertDialog dialog = new AlertDialog.Builder(this)
-//				.setMessage("确定要退出程序？")
-//				.setPositiveButton("确定",
-//						new android.content.DialogInterface.OnClickListener() {
-//
-//							@Override
-//							public void onClick(DialogInterface dialog,
-//									int which) {
-//								// finish();
-//								// System.exit(0);
-////								ApplicationManager.finishProgram();
-//							}
-//						})
-//				.setNegativeButton("取消",
-//						new android.content.DialogInterface.OnClickListener() {
-//
-//							@Override
-//							public void onClick(DialogInterface dialog,
-//									int which) {
-//								// TODO Auto-generated method stub
-//								dialog.dismiss();
-//							}
-//
-//						}).create();
-//		dialog.show();
+		// AlertDialog dialog = new AlertDialog.Builder(this)
+		// .setMessage("确定要退出程序？")
+		// .setPositiveButton("确定",
+		// new android.content.DialogInterface.OnClickListener() {
+		//
+		// @Override
+		// public void onClick(DialogInterface dialog,
+		// int which) {
+		// // finish();
+		// // System.exit(0);
+		// // ApplicationManager.finishProgram();
+		// }
+		// })
+		// .setNegativeButton("取消",
+		// new android.content.DialogInterface.OnClickListener() {
+		//
+		// @Override
+		// public void onClick(DialogInterface dialog,
+		// int which) {
+		// // TODO Auto-generated method stub
+		// dialog.dismiss();
+		// }
+		//
+		// }).create();
+		// dialog.show();
 	}
-	
-	
 
 	private void showMessage(String msg) {
 		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 	}
 
-	public void showPdf(String path){
+	public void showPdf(String path) {		
 		Uri uri = Uri.parse(path);
-		Intent intent = new Intent(this,MuPDFActivity.class);
+		Intent intent = new Intent(this, MuPDFActivity.class);
 		intent.setAction(Intent.ACTION_VIEW);
 		intent.setData(uri);
 		startActivity(intent);

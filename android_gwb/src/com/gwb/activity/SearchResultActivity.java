@@ -58,10 +58,10 @@ public class SearchResultActivity extends BaseActivity {
 		listViewSearchResult = (ListView) findViewById(R.id.listView_searchResult);
 		tvSearchResult.setVisibility(View.GONE);
 
-		btnSearch.setHeight(ConstantParams.SIZE_MENU_BTN_HEIGHT -5 );
-		btnSearch.setTextSize(ConstantParams.SIZE_MENU_BTN_TEXT);
-		tvKeywords.setTextSize(ConstantParams.SIZE_MENU_EDIT_TEXT);
-		tvKeywords.setHeight(ConstantParams.SIZE_MENU_BTN_HEIGHT);
+		btnSearch.setHeight(ConstantParams.SIZE_ROW -5 );
+		btnSearch.setTextSize(ConstantParams.SIZE_TOP_TEXT);
+		tvKeywords.setTextSize(ConstantParams.SIZE_TOP_TEXT);
+		tvKeywords.setHeight(ConstantParams.SIZE_ROW);
 
 		
 
@@ -139,11 +139,17 @@ public class SearchResultActivity extends BaseActivity {
 				e.printStackTrace();
 			}
 			// + URLEncoder.encode(keywords, "UTF-8");
-			jsonString = HttpHelper.sendGetMessage(url, "utf-8");
-			Log.i("bookListActivty", jsonString);
-			Log.i("bookListActivty", url);
-			bookList = FastjsonTools.getContentListPojos(jsonString,
-					Books.class);
+			try {
+				jsonString = HttpHelper.sendGetMessage(url, "utf-8");
+				Log.i("bookListActivty", jsonString);
+				Log.i("bookListActivty", url);
+				bookList = FastjsonTools.getContentListPojos(jsonString,
+						Books.class);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			// } catch (UnsupportedEncodingException e) {
 			// // TODO Auto-generated catch block
 			// e.printStackTrace();
@@ -184,17 +190,23 @@ public class SearchResultActivity extends BaseActivity {
 					+ ConstantParams.CURRENT_USER_ID + "&"
 					+ ConstantParams.FIELD_BOOK_ID + "=" + params[0];
 			// success - 成功 。。 fail 。。。 失败
-			jsonString1 = HttpHelper.sendGetMessage(addurl, "utf-8");
-			// Looper.prepare();
-			Log.i("PDF", "addurl ：>" + addurl + "<");
-			Log.i("PDF", "添加返回的数据：>" + jsonString1 + "<");
-			if (jsonString1 != null && !"".equals(jsonString1)
-					&& jsonString1.contains("success")) {
-				return true;
-			} else {
-				return false;
-			}
+			try {
+				jsonString1 = HttpHelper.sendGetMessage(addurl, "utf-8");
+				Log.i("PDF", "addurl ：>" + addurl + "<");
+				Log.i("PDF", "添加返回的数据：>" + jsonString1 + "<");
+				if (jsonString1 != null && !"".equals(jsonString1)
+						&& jsonString1.contains("success")) {
+					return true;
+				} else {
+					return false;
+				}
 
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;
+			
 		}
 
 		@Override

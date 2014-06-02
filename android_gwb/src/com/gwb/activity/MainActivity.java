@@ -188,33 +188,41 @@ public class MainActivity extends BaseActivity {
 			postParam.put("type", "appLogin");
 			postParam.put("telephone", params[0]);
 			postParam.put("macAddress", params[1]);
-			String jsonStr = HttpHelper.sendPostMessage(
-					ConstantParams.URL_LOGIN, postParam, "utf-8");
-			if (jsonStr != null && !"".equals(jsonStr)) {
-				// 此处先判断 heeader 中的 code是否正确
-				HeaderVo headerVo = FastjsonTools.getHeader(jsonStr);
-				if (headerVo != null && "1".equals(headerVo.getCode())) {
-					Users user = FastjsonTools.getContentPojo(jsonStr,
-							Users.class);
-					if (user != null && !"".equals(user)) {
-						Log.i("LoginActivity", "login::  1 ");
-						System.out.println("userId :::" + user.getUserId());
-						ConstantParams.CURRENT_USER_ID = user.getUserId();
-						ConstantParams.CURRENT_USER_NAME = user.getUserName();
-						ConstantParams.CURRENT_MACADDRESS = user
-								.getMacAddress();
-						ConstantParams.CURRENT_TELEPHONE = user.getTelephone();
-						return "success";
+			String jsonStr = null;
+			try {
+				jsonStr = HttpHelper.sendPostMessage(
+						ConstantParams.URL_LOGIN, postParam, "utf-8");
+				if (jsonStr != null && !"".equals(jsonStr)) {
+					// 此处先判断 heeader 中的 code是否正确
+					HeaderVo headerVo = FastjsonTools.getHeader(jsonStr);
+					if (headerVo != null && "1".equals(headerVo.getCode())) {
+						Users user = FastjsonTools.getContentPojo(jsonStr,
+								Users.class);
+						if (user != null && !"".equals(user)) {
+							Log.i("LoginActivity", "login::  1 ");
+							System.out.println("userId :::" + user.getUserId());
+							ConstantParams.CURRENT_USER_ID = user.getUserId();
+							ConstantParams.CURRENT_USER_NAME = user.getUserName();
+							ConstantParams.CURRENT_MACADDRESS = user
+									.getMacAddress();
+							ConstantParams.CURRENT_TELEPHONE = user.getTelephone();
+							return "success";
+						} else {
+							Log.i("LoginActivity", "login::  2 ");
+							return "fail";
+						}
 					} else {
-						Log.i("LoginActivity", "login::  2 ");
 						return "fail";
 					}
 				} else {
 					return "fail";
 				}
-			} else {
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 				return "fail";
 			}
+			
 
 		}
 
