@@ -124,7 +124,7 @@ public class HttpHelper {
 			
 			HttpURLConnection httpURLConnection = (HttpURLConnection) url
 					.openConnection();
-			httpURLConnection.setReadTimeout(4000);
+			httpURLConnection.setReadTimeout(3000);
 			httpURLConnection.setRequestMethod("POST");
 			httpURLConnection.setDoInput(true);// 从服务器获得数据
 			httpURLConnection.setDoOutput(true);// 向服务器写数据
@@ -137,8 +137,7 @@ public class HttpHelper {
 					String.valueOf(data.length));
 
 			// 通过输出流来向服务器发送数据
-			OutputStream outputStream = (OutputStream) httpURLConnection
-					.getOutputStream();
+			OutputStream outputStream = (OutputStream) httpURLConnection.getOutputStream();
 			outputStream.write(data);
 			// 获得返回类型编码
 			int responseCode = httpURLConnection.getResponseCode();

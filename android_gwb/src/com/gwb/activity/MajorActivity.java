@@ -118,7 +118,7 @@ public class MajorActivity extends BaseActivity {
 				button1.setSingleLine(false);
 //				button1.setWidth(ConstantParams.SIZE_MAJOR_BTN_WIDTH);
 //				button1.setWidth(0);
-				button1.setTextSize(ConstantParams.SIZE_MAIN_TEXT );
+				button1.setTextSize(ConstantParams.SIZE_TOP_TEXT );
 				button1.setTextColor(Color.WHITE);
 				button1.setBackgroundResource(R.drawable.button_style);
 				button1.setText(bookClass1.getClassName());
@@ -142,7 +142,7 @@ public class MajorActivity extends BaseActivity {
 					button2.setBackgroundResource(R.drawable.button_style);
 //					button2.setWidth(ConstantParams.SIZE_MAJOR_BTN_WIDTH);
 					button2.setHeight(ConstantParams.SIZE_ROW);
-					button2.setTextSize(ConstantParams.SIZE_MAIN_TEXT );
+					button2.setTextSize(ConstantParams.SIZE_TOP_TEXT );
 					button2.setText(bookClass2.getClassName());
 					button2.setOnClickListener(new OnClickListener() {
 						@Override

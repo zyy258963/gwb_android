@@ -35,9 +35,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -50,6 +53,7 @@ public class BookActivity extends BaseActivity {
 	private TextView tvNoResult = null;
 	private ProgressDialog dialog;
 	private Handler handler = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,10 +64,10 @@ public class BookActivity extends BaseActivity {
 		dialog.setProgress(0);
 		dialog.setMax(100);
 
-		handler = new Handler(){
+		handler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-				if (msg.what >=100) {
+				if (msg.what >= 100) {
 					dialog.cancel();
 					dialog.dismiss();
 				}
@@ -71,7 +75,7 @@ public class BookActivity extends BaseActivity {
 				super.handleMessage(msg);
 			}
 		};
-		
+
 		new BookAsynTask().execute();
 	}
 
@@ -89,7 +93,7 @@ public class BookActivity extends BaseActivity {
 				+ ConstantParams.CURRENT_CLASS_NAME);
 
 		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-//		Log.i("PDF", bookList.toString());
+		// Log.i("PDF", bookList.toString());
 		if (bookList != null && !"".equals(bookList) && bookList.size() > 0) {
 			Log.i("BookActivity", "----- 1");
 			tvNoResult.setVisibility(View.GONE);
@@ -100,10 +104,12 @@ public class BookActivity extends BaseActivity {
 				data.add(item);
 			}
 
-			listViewBook.setAdapter(new SimpleAdapter(this, data,
-					R.layout.book_list,
-					new String[] { ConstantParams.COLUMN_BOOK_NAME },
-					new int[] { R.id.book_list_item_name }));
+			// listViewBook.setAdapter(new SimpleAdapter(this, data,
+			// R.layout.book_list,
+			// new String[] { ConstantParams.COLUMN_BOOK_NAME },
+			// new int[] { R.id.book_list_item_name }));
+
+			listViewBook.setAdapter(new BookAdapter(BookActivity.this,bookList));
 
 			// 为ListView设置列表项点击监听器
 			listViewBook.setOnItemClickListener(new OnItemClickListener() {
@@ -111,48 +117,99 @@ public class BookActivity extends BaseActivity {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						final int position, final long id) {
-					
-					AlertDialog alertDialog = new AlertDialog.Builder(BookActivity.this).setTitle("提示").setMessage("继续下载将会产生流量，是否继续？").setPositiveButton("继续", new OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialogInterface, int arg1) {
-							dialogInterface.dismiss();
-							ConstantParams.CURRENT_BOOK_ID = bookList.get(position)
-									.getBookId();
-							ConstantParams.CURRENT_BOOK_NAME = bookList.get(position)
-									.getBookName();
-							String path = ConstantParams.URL_DOWN_PDF_BASE
-									+ bookList.get(position).getBookUrl();
-							Log.i("PDF", "------------------" + path);
-							path = path.replace("\\", "/");
-							
-							SharedPreferences sp = getApplicationContext().getSharedPreferences(
-									ConstantParams.SHARED_PREFERENCE_NAME,
-									Context.MODE_PRIVATE);
-							
-							String localPath = sp.getString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
-							if (localPath != null && !"".equals(localPath)) {
-								showPdf(localPath);
-							}else {
-								new downLoadFileAsyn().execute(path);
-							}
-							
-						}
-					}).setNegativeButton("取消", new OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialogInterface, int arg1) {
-							// TODO Auto-generated method stub
-							dialogInterface.dismiss();
-						}
-					}).create();
+
+					AlertDialog alertDialog = new AlertDialog.Builder(
+							BookActivity.this).setTitle("提示")
+							.setMessage("继续下载将会产生流量，是否继续？")
+							.setPositiveButton("继续", new OnClickListener() {
+
+								@Override
+								public void onClick(
+										DialogInterface dialogInterface,
+										int arg1) {
+									dialogInterface.dismiss();
+									ConstantParams.CURRENT_BOOK_ID = bookList
+											.get(position).getBookId();
+									ConstantParams.CURRENT_BOOK_NAME = bookList
+											.get(position).getBookName();
+									String path = ConstantParams.URL_DOWN_PDF_BASE
+											+ bookList.get(position).getBookUrl();
+									Log.i("PDF", "------------------" + path);
+									path = path.replace("\\", "/");
+
+									SharedPreferences sp = getApplicationContext()
+											.getSharedPreferences(
+													ConstantParams.SHARED_PREFERENCE_NAME,
+													Context.MODE_PRIVATE);
+
+									String localPath = sp.getString(ConstantParams.FIELD_FAVOURITE_ID
+															+ ConstantParams.CURRENT_BOOK_ID,"");
+									if (localPath != null
+											&& !"".equals(localPath)) {
+										showPdf(localPath);
+									} else {
+										new downLoadFileAsyn().execute(path);
+									}
+
+								}
+							}).setNegativeButton("取消", new OnClickListener() {
+
+								@Override
+								public void onClick(
+										DialogInterface dialogInterface,
+										int arg1) {
+									// TODO Auto-generated method stub
+									dialogInterface.dismiss();
+								}
+							}).create();
 					alertDialog.show();
-					
+
 				}
 			});
 		} else {
 			Log.i("BookActivity", "-----");
 			tvNoResult.setVisibility(View.VISIBLE);
+		}
+
+	}
+
+	class BookAdapter extends BaseAdapter {
+
+		private LayoutInflater myInflater;
+		private List<Books> datas ;
+
+		public BookAdapter(Context context, List<Books> data) {
+			this.myInflater = LayoutInflater.from(context);
+			this.datas = data;
+		}
+
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return datas.size();
+		}
+
+		@Override
+		public Object getItem(int arg0) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public long getItemId(int arg0) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public View getView(int position, View contentView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			contentView = myInflater.inflate(R.layout.book_list, null);
+			TextView tv = (TextView) contentView
+					.findViewById(R.id.book_list_item_name);
+			tv.setTextSize(ConstantParams.SIZE_TOP_TEXT);
+			tv.setText(datas.get(position).getBookName());
+			return contentView;
 		}
 
 	}
@@ -184,7 +241,6 @@ public class BookActivity extends BaseActivity {
 					e.printStackTrace();
 					bookList = null;
 				}
-				
 
 			} else {
 				ConstantParams.CURRENT_CATEGORY_ID = 0;
@@ -253,15 +309,15 @@ public class BookActivity extends BaseActivity {
 			}
 		}
 	}
-	
-	public void getTempFile(String uriPath) throws Exception{
+
+	public void getTempFile(String uriPath) throws Exception {
 		URL url;
 		FileOutputStream fos = null;
 		BufferedInputStream bis = null;
 		InputStream is = null;
-		int size =0;
+		int size = 0;
 		int total = 0;
-		try {			
+		try {
 			url = new URL(uriPath);
 			HttpURLConnection connection = (HttpURLConnection) url
 					.openConnection();
@@ -277,26 +333,29 @@ public class BookActivity extends BaseActivity {
 				throw e;
 			}
 			if (is == null) {
-//				ConstantParams.TEMP_FILE = null;
-			}else {
+				// ConstantParams.TEMP_FILE = null;
+			} else {
 				byte buffer[] = new byte[1024];
 				int len;
 				while ((len = bis.read(buffer)) != -1) {
 					fos.write(buffer, 0, len);
 					total += len;
-					
+
 					Message msg = new Message();
-					msg.what = total*100/size;
+					msg.what = total * 100 / size;
 					handler.sendMessage(msg);
-					
+
 				}
-				ConstantParams.TEMP_FILE = new File(ConstantParams.TEMP_FILE_PATH);
+				ConstantParams.TEMP_FILE = new File(
+						ConstantParams.TEMP_FILE_PATH);
 			}
-			
-			Log.i("PDF", "ConstantParams.TEMP_FILE " + ConstantParams.TEMP_FILE.getAbsolutePath());
-			Log.i("DownloadUtils", "fos:" + fos + ": bis:"+bis+": is:"+is + ": total:" +total);
-			
-			
+
+			Log.i("PDF",
+					"ConstantParams.TEMP_FILE "
+							+ ConstantParams.TEMP_FILE.getAbsolutePath());
+			Log.i("DownloadUtils", "fos:" + fos + ": bis:" + bis + ": is:" + is
+					+ ": total:" + total);
+
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -307,13 +366,13 @@ public class BookActivity extends BaseActivity {
 			throw e;
 		} finally {
 			try {
-				if (fos!=null) {
+				if (fos != null) {
 					fos.close();
 				}
-				if (bis!=null) {
+				if (bis != null) {
 					bis.close();
 				}
-				if (is!=null) {
+				if (is != null) {
 					is.close();
 				}
 			} catch (IOException e) {

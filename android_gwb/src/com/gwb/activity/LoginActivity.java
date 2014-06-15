@@ -53,6 +53,8 @@ public class LoginActivity extends BaseActivity {
 	 */
 	private UserLoginTask mAuthTask = null;
 	private TelephonyManager phoneMgr = null;
+	
+//	private boolean logSucc = false; 
 
 	// Values for email and password at the time of the login attempt.
 	private String mUsername;
@@ -123,6 +125,17 @@ public class LoginActivity extends BaseActivity {
 						attemptLogin();
 					}
 				});
+		
+		
+		SharedPreferences sp = getApplicationContext().getSharedPreferences(
+				ConstantParams.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+		String telephone1 = sp.getString(ConstantParams.FIELD_TELEPHONE, "");
+		String macAddress1 = sp.getString(ConstantParams.FIELD_MAC_ADDRESS, "");
+		if (!"".equals(telephone1) && !"".equals(macAddress1)) {
+			mUsername = telephone1;
+			new UserLoginTask().execute();
+		}
+		
 	}
 
 	@Override
@@ -153,13 +166,6 @@ public class LoginActivity extends BaseActivity {
 		boolean cancel = false;
 		View focusView = null;
 
-		// Check for a valid password.
-		// if (TextUtils.isEmpty(mPassword)) {
-		// mPasswordView.setError(getString(R.string.error_field_required));
-		// focusView = mPasswordView;
-		// cancel = true;
-		// }
-
 		// Check for a valid email address.
 		if (TextUtils.isEmpty(mUsername)) {
 			mUsernameView.setError(getString(R.string.error_field_required));
@@ -180,6 +186,7 @@ public class LoginActivity extends BaseActivity {
 						.setText(R.string.login_progress_signing_in);
 				showProgress(true);
 				mAuthTask = new UserLoginTask();
+//				mAuthTask.execute(mUsername,macAddress);
 				mAuthTask.execute((Void) null);
 			} else {
 				Dialog dialog = new AlertDialog.Builder(LoginActivity.this)

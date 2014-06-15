@@ -1,7 +1,13 @@
 package com.gwb.activity;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.artifex.mupdfdemo.R;
+import com.gwb.activity.pojo.Books;
 import com.gwb.activity.pojo.FavouriteBook;
 import com.gwb.utils.ConstantParams;
 import com.gwb.utils.DownloadUtils;
@@ -26,11 +33,16 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -46,6 +58,7 @@ public class FavoriteActivity extends BaseActivity {
 	private List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
 
 	private ProgressDialog dialog = null;
+	private Handler handler = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +72,23 @@ public class FavoriteActivity extends BaseActivity {
 		
 		
 		dialog = new ProgressDialog(this);
-//		ApplicationManager.add(this);
+		dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		dialog.setCancelable(false);
+		dialog.setProgress(0);
+		dialog.setMax(100);
+		
+		handler = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what >= 100) {
+					dialog.cancel();
+					dialog.dismiss();
+				}
+				dialog.setProgress(msg.what);
+				super.handleMessage(msg);
+			}
+		};
+		
 		listViewFavorite = (ListView) findViewById(R.id.listView_favoriteBooks);
 		tvPopResult = (TextView) findViewById(R.id.textView_favorite_noresult);
 		new FavoriteListAsynTask().execute();
@@ -78,10 +107,12 @@ public class FavoriteActivity extends BaseActivity {
 				data.add(item);
 			}
 
-			listViewFavorite.setAdapter(new SimpleAdapter(this, data,
-					R.layout.book_list,
-					new String[] { ConstantParams.COLUMN_BOOK_NAME },
-					new int[] { R.id.book_list_item_name }));
+//			listViewFavorite.setAdapter(new SimpleAdapter(this, data,
+//					R.layout.book_list,
+//					new String[] { ConstantParams.COLUMN_BOOK_NAME },
+//					new int[] { R.id.book_list_item_name }));
+			
+			listViewFavorite.setAdapter(new FavouriteBookAdapter(FavoriteActivity.this, favoriteList));
 			
 			// 为ListView设置列表项点击监听器
 			listViewFavorite.setOnItemClickListener(new OnItemClickListener() {
@@ -158,6 +189,48 @@ public class FavoriteActivity extends BaseActivity {
 		}
 	}
 
+	class FavouriteBookAdapter extends BaseAdapter {
+
+		private LayoutInflater myInflater;
+		private List<FavouriteBook>  datas ;
+
+		public FavouriteBookAdapter(Context context, List<FavouriteBook> data) {
+			this.myInflater = LayoutInflater.from(context);
+			this.datas = data;
+		}
+
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return datas.size();
+		}
+
+		@Override
+		public Object getItem(int arg0) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public long getItemId(int arg0) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public View getView(int position, View contentView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			contentView = myInflater.inflate(R.layout.book_list, null);
+			TextView tv = (TextView) contentView
+					.findViewById(R.id.book_list_item_name);
+			tv.setTextSize(ConstantParams.SIZE_TOP_TEXT);
+			tv.setText(datas.get(position).getBookName());
+			return contentView;
+		}
+
+	}
+	
+	
 	@SuppressLint("NewApi")
 	private class FavoriteListAsynTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
@@ -306,20 +379,17 @@ public class FavoriteActivity extends BaseActivity {
 		@Override
 		protected String doInBackground(String... params) {
 //			bookId   
-			// 讲电话和MAC地址存储到本地
-			SharedPreferences sp = getApplicationContext().getSharedPreferences(
-					ConstantParams.SHARED_PREFERENCE_NAME,
-					Context.MODE_PRIVATE);
-			String localFile = sp.getString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
-			
-			if (!"".equals(localFile)) {
-				return localFile;
+
+//			先判断本地有无已下载的文件
+			File file = new File(ConstantParams.FILE_STORE_PATH,ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID+".pdf");
+			if (file.exists()) {
+				return file.getAbsolutePath();
 			}else {
 				Log.i("BookActivity", "inbackground:" + params[0]);
 				ConstantParams.TEMP_FILE = null;
 				
 				try {
-					DownloadUtils.getTempFile(params[0]);
+					getTempFile(params[0]);
 					return "success";
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -328,6 +398,27 @@ public class FavoriteActivity extends BaseActivity {
 				}
 			}
 			
+//			SharedPreferences sp = getApplicationContext().getSharedPreferences(
+//					ConstantParams.SHARED_PREFERENCE_NAME,
+//					Context.MODE_PRIVATE);
+//			String localFile = sp.getString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
+			
+//			if (!"".equals(localFile)) {
+//				return localFile;
+//			}else {
+//				Log.i("BookActivity", "inbackground:" + params[0]);
+//				ConstantParams.TEMP_FILE = null;
+//				
+//				try {
+//					getTempFile(params[0]);
+//					return "success";
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//					return "fail";
+//				}
+//			}
+//			
 		}
 
 		@Override
@@ -352,6 +443,79 @@ public class FavoriteActivity extends BaseActivity {
 				dialog.show();
 			}else {
 				showPdf(result);
+			}
+		}
+	}
+	
+	public void getTempFile(String uriPath) throws Exception {
+		URL url;
+		FileOutputStream fos = null;
+		BufferedInputStream bis = null;
+		InputStream is = null;
+		int size = 0;
+		int total = 0;
+		try {
+			url = new URL(uriPath);
+			HttpURLConnection connection = (HttpURLConnection) url
+					.openConnection();
+			connection.setConnectTimeout(5000);
+			// 获得文件大小
+			size = connection.getContentLength();
+			System.out.println("size:" + size);
+			try {
+				is = connection.getInputStream();
+				fos = new FileOutputStream(ConstantParams.TEMP_FILE_PATH);
+				bis = new BufferedInputStream(is);
+			} catch (Exception e) {
+				throw e;
+			}
+			if (is == null) {
+				// ConstantParams.TEMP_FILE = null;
+			} else {
+				byte buffer[] = new byte[1024];
+				int len;
+				while ((len = bis.read(buffer)) != -1) {
+					fos.write(buffer, 0, len);
+					total += len;
+
+					Message msg = new Message();
+					msg.what = total * 100 / size;
+					handler.sendMessage(msg);
+
+				}
+				ConstantParams.TEMP_FILE = new File(
+						ConstantParams.TEMP_FILE_PATH);
+			}
+
+			Log.i("PDF",
+					"ConstantParams.TEMP_FILE "
+							+ ConstantParams.TEMP_FILE.getAbsolutePath());
+			Log.i("DownloadUtils", "fos:" + fos + ": bis:" + bis + ": is:" + is
+					+ ": total:" + total);
+
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				if (fos != null) {
+					fos.close();
+				}
+				if (bis != null) {
+					bis.close();
+				}
+				if (is != null) {
+					is.close();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw e;
 			}
 		}
 	}

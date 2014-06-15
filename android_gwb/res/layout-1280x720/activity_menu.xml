@@ -24,6 +24,7 @@
             android:layout_marginRight="2dp"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="0dp"
+            android:focusable="false"
             android:gravity="center"
             android:hint="@string/common_search_hint"
             android:singleLine="true"

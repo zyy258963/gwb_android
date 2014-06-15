@@ -84,7 +84,8 @@ public class MainActivity extends BaseActivity {
 			@Override
 			public void onAnimationEnd(Animation arg0) {
 				Log.i("PDF", " isSuccess： " + isSucc);
-				attemptLogin();
+//				attemptLogin();
+				redirectToLogin();
 			}
 
 			@Override
@@ -107,7 +108,8 @@ public class MainActivity extends BaseActivity {
 								public void onClick(DialogInterface dialog,
 										int which) {
 									dialog.dismiss();
-									attemptLogin();
+									redirectToLogin();
+//									attemptLogin();
 								}
 							}).setNegativeButton("退出", new OnClickListener() {
 
@@ -141,14 +143,14 @@ public class MainActivity extends BaseActivity {
 
 	}
 
-	protected void attemptLogin() {
-		// TODO Auto-generated method stub
-		SharedPreferences sp = getApplicationContext().getSharedPreferences(
-				ConstantParams.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
-		String telephone = sp.getString(ConstantParams.FIELD_TELEPHONE, "");
-		String macAddress = sp.getString(ConstantParams.FIELD_MAC_ADDRESS, "");
-		new UserLoginTask().execute(telephone, macAddress);
-	}
+//	protected void attemptLogin() {
+//		// TODO Auto-generated method stub
+//		SharedPreferences sp = getApplicationContext().getSharedPreferences(
+//				ConstantParams.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+//		String telephone = sp.getString(ConstantParams.FIELD_TELEPHONE, "");
+//		String macAddress = sp.getString(ConstantParams.FIELD_MAC_ADDRESS, "");
+//		new UserLoginTask().execute(telephone, macAddress);
+//	}
 
 	/**
 	 * 跳转到主角面的方法
@@ -162,11 +164,11 @@ public class MainActivity extends BaseActivity {
 	/**
 	 * 跳转到主角面的方法
 	 */
-	private void redirectToMenu() {
-		Intent intent = new Intent(this, MenuActivity.class);
-		startActivity(intent);
-		finish();
-	}
+//	private void redirectToMenu() {
+//		Intent intent = new Intent(this, MenuActivity.class);
+//		startActivity(intent);
+//		finish();
+//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -179,64 +181,64 @@ public class MainActivity extends BaseActivity {
 		super.onDestroy();
 	}
 
-	@SuppressLint("NewApi")
-	public class UserLoginTask extends AsyncTask<String, Void, String> {
-		@Override
-		protected String doInBackground(String... params) {
-			// TODO: attempt authentication against a network service.
-			Map<String, String> postParam = new HashMap<String, String>();
-			postParam.put("type", "appLogin");
-			postParam.put("telephone", params[0]);
-			postParam.put("macAddress", params[1]);
-			String jsonStr = null;
-			try {
-				jsonStr = HttpHelper.sendPostMessage(
-						ConstantParams.URL_LOGIN, postParam, "utf-8");
-				if (jsonStr != null && !"".equals(jsonStr)) {
-					// 此处先判断 heeader 中的 code是否正确
-					HeaderVo headerVo = FastjsonTools.getHeader(jsonStr);
-					if (headerVo != null && "1".equals(headerVo.getCode())) {
-						Users user = FastjsonTools.getContentPojo(jsonStr,
-								Users.class);
-						if (user != null && !"".equals(user)) {
-							Log.i("LoginActivity", "login::  1 ");
-							System.out.println("userId :::" + user.getUserId());
-							ConstantParams.CURRENT_USER_ID = user.getUserId();
-							ConstantParams.CURRENT_USER_NAME = user.getUserName();
-							ConstantParams.CURRENT_MACADDRESS = user
-									.getMacAddress();
-							ConstantParams.CURRENT_TELEPHONE = user.getTelephone();
-							return "success";
-						} else {
-							Log.i("LoginActivity", "login::  2 ");
-							return "fail";
-						}
-					} else {
-						return "fail";
-					}
-				} else {
-					return "fail";
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return "fail";
-			}
-			
-
-		}
-
-		@Override
-		protected void onPostExecute(final String result) {
-			Log.i("LoginActivity", "login::" + result);
-			if ("success".equals(result)) {
-				redirectToMenu();
-			} else if ("fail".equals(result)) {
-				redirectToLogin();
-			}
-			Log.i("PDF", " isSuccess： " + isSucc);
-		}
-
-	}
+//	@SuppressLint("NewApi")
+//	public class UserLoginTask extends AsyncTask<String, Void, String> {
+//		@Override
+//		protected String doInBackground(String... params) {
+//			// TODO: attempt authentication against a network service.
+//			Map<String, String> postParam = new HashMap<String, String>();
+//			postParam.put("type", "appLogin");
+//			postParam.put("telephone", params[0]);
+//			postParam.put("macAddress", params[1]);
+//			String jsonStr = null;
+//			try {
+//				jsonStr = HttpHelper.sendPostMessage(
+//						ConstantParams.URL_LOGIN, postParam, "utf-8");
+//				if (jsonStr != null && !"".equals(jsonStr)) {
+//					// 此处先判断 heeader 中的 code是否正确
+//					HeaderVo headerVo = FastjsonTools.getHeader(jsonStr);
+//					if (headerVo != null && "1".equals(headerVo.getCode())) {
+//						Users user = FastjsonTools.getContentPojo(jsonStr,
+//								Users.class);
+//						if (user != null && !"".equals(user)) {
+//							Log.i("LoginActivity", "login::  1 ");
+//							System.out.println("userId :::" + user.getUserId());
+//							ConstantParams.CURRENT_USER_ID = user.getUserId();
+//							ConstantParams.CURRENT_USER_NAME = user.getUserName();
+//							ConstantParams.CURRENT_MACADDRESS = user
+//									.getMacAddress();
+//							ConstantParams.CURRENT_TELEPHONE = user.getTelephone();
+//							return "success";
+//						} else {
+//							Log.i("LoginActivity", "login::  2 ");
+//							return "fail";
+//						}
+//					} else {
+//						return "fail";
+//					}
+//				} else {
+//					return "fail";
+//				}
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//				return "fail";
+//			}
+//			
+//
+//		}
+//
+//		@Override
+//		protected void onPostExecute(final String result) {
+//			Log.i("LoginActivity", "login::" + result);
+//			if ("success".equals(result)) {
+//				redirectToMenu();
+//			} else if ("fail".equals(result)) {
+//				redirectToLogin();
+//			}
+//			Log.i("PDF", " isSuccess： " + isSucc);
+//		}
+//
+//	}
 
 }
