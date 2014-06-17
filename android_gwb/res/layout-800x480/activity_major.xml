@@ -43,6 +43,8 @@
             android:layout_marginBottom="0dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:hint="@string/common_search_hint"
             android:singleLine="true"
             android:textAlignment="center" />

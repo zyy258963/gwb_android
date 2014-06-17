@@ -321,7 +321,7 @@ public class BookActivity extends BaseActivity {
 			url = new URL(uriPath);
 			HttpURLConnection connection = (HttpURLConnection) url
 					.openConnection();
-			connection.setConnectTimeout(5000);
+			connection.setConnectTimeout(3000);
 			// 获得文件大小
 			size = connection.getContentLength();
 			System.out.println("size:" + size);

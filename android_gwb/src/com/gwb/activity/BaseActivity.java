@@ -36,7 +36,6 @@ public class BaseActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_base);
 		ApplicationManager.add(BaseActivity.this);
-		Log.i("PDF", "cccccccccccccccccccccccccccccccccc");
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		initSize();
 	}
@@ -45,7 +44,8 @@ public class BaseActivity extends FragmentActivity {
 		// densityUtil = new DensityUtil(getApplicationContext());
 		ConstantParams.SIZE_ROW = getScreenHeight() / 10;
 		ConstantParams.SIZE_BUTTON_WIDTH = getScreenWidth() / 2;
-		if (getScreenHeight() == 800) {
+		Log.i("LOG", ConstantParams.SIZE_ROW+"");
+		if (getScreenHeight() == 800) { 
 			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 4.0f;
 			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 3.0f;
 		}else if (getScreenHeight() == 1280) {
@@ -59,14 +59,6 @@ public class BaseActivity extends FragmentActivity {
 			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 4.0f;
 		}
 		
-		Log.i("LOG",
-				"major textview 高度："
-						+ ConstantParams.SIZE_ROW
-						+ "\n ConstantParams.SIZE_TOP_TEXT:"+
-						ConstantParams.SIZE_TOP_TEXT
-						+ "\n  ConstantParams.SIZE_MAIN_TEXT:"
-						+ ConstantParams.SIZE_MAIN_TEXT);
-
 
 		// ConstantParams.SIZE_MENU_BTN_TEXT = getResources().getDimension(
 		// R.dimen.size_menu_button_text)

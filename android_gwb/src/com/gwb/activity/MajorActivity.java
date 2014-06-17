@@ -123,6 +123,7 @@ public class MajorActivity extends BaseActivity {
 				button1.setBackgroundResource(R.drawable.button_style);
 				button1.setText(bookClass1.getClassName());
 				button1.setHeight(ConstantParams.SIZE_ROW);
+				button1.setPadding(2, 1, 2, 1);
 				button1.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -144,6 +145,7 @@ public class MajorActivity extends BaseActivity {
 					button2.setHeight(ConstantParams.SIZE_ROW);
 					button2.setTextSize(ConstantParams.SIZE_TOP_TEXT );
 					button2.setText(bookClass2.getClassName());
+					button2.setPadding(2, 1, 2, 1);
 					button2.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {

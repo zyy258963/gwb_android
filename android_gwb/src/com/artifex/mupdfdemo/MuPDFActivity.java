@@ -1058,17 +1058,18 @@ public class MuPDFActivity extends Activity
 						path.mkdirs();
 					}
 					File tarFile = new File(path, ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID+".pdf");
+					
 					tarFile.createNewFile();
 					FileUtil.copyFile(ConstantParams.TEMP_FILE, tarFile);
 					
 //					bookId   
 					// 讲电话和MAC地址存储到本地
-					SharedPreferences sp = getApplicationContext().getSharedPreferences(
-							ConstantParams.SHARED_PREFERENCE_NAME,
-							Context.MODE_PRIVATE);
-					Editor editor = sp.edit();
-					editor.putString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID, tarFile.getAbsolutePath());
-					editor.commit();
+//					SharedPreferences sp = getApplicationContext().getSharedPreferences(
+//							ConstantParams.SHARED_PREFERENCE_NAME,
+//							Context.MODE_PRIVATE);
+//					Editor editor = sp.edit();
+//					editor.putString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID, tarFile.getAbsolutePath());
+//					editor.commit();
 					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

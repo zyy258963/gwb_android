@@ -110,25 +110,16 @@ public class MenuActivity extends BaseActivity {
 			String [] cateStr = str.split(";");
 			for (int i = 0; i < cateStr.length; i++) {
 				String caStr [] = cateStr[i].split(",");
-				Log.i("LOG", cateStr[i]);
-//				BookCategory cate = new BookCategory(Integer.parseInt(caStr[0]),cateStr[1]);
-//				cateList.add(cate);
-//			}
-			
-//			for (int i = 0; i < cateList.size(); i++) {
-//				Log.i("MenuActivity", "---->>>" + String.valueOf(i));
-//				category = cateList.get(i);	
-//				Log.i("LOG", category.toString());
 				final Button button = new Button(this);
 //				button.setId(category.getCategoryId());
 				button.setId(Integer.parseInt(caStr[0]));
 				button.setTextColor(Color.WHITE);
 				button.setBackgroundResource(R.drawable.button_style);
 				button.setTextSize(ConstantParams.SIZE_MAIN_TEXT);
-//				button.setText(category.getCategoryName());
 				button.setText(caStr[1]);
 				button.setHeight(ConstantParams.SIZE_ROW);
 				button.setLayoutParams(layoutParams);
+				button.setPadding(5, 1, 5, 1);
 				button.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View view) {
@@ -149,7 +140,6 @@ public class MenuActivity extends BaseActivity {
 			Editor editor = sp1.edit();
 			StringBuffer sb = new StringBuffer("");
 			for (int i = 0; i < cateList.size(); i++) {
-				Log.i("MenuActivity", "---->>>" + String.valueOf(i));
 				category = cateList.get(i);
 				sb.append(category.getCategoryId()+","+category.getCategoryName()+";");
 				
@@ -175,10 +165,8 @@ public class MenuActivity extends BaseActivity {
 				});
 				layout_menu.addView(button);
 			}
-
 			editor.putString(ConstantParams.FIELD_CATEGORY_LIST, sb.toString());
 			editor.commit();
-			
 		}
 		
 		// 增加我的常用文档 button

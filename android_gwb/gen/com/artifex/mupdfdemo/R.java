@@ -533,15 +533,16 @@ public final class R {
         public static final int ic_launcher1=0x7f020009;
         public static final int ic_list=0x7f02000a;
         public static final int ic_magnifying_glass=0x7f02000b;
-        public static final int login=0x7f02000c;
-        public static final int main_bg2=0x7f02000d;
-        public static final int outline_bg=0x7f02000e;
-        public static final int page_num=0x7f02000f;
-        public static final int search=0x7f020010;
-        public static final int seek_progress=0x7f020011;
-        public static final int seek_thumb=0x7f020012;
-        public static final int shape=0x7f020013;
-        public static final int tiled_background=0x7f020014;
+        public static final int icon=0x7f02000c;
+        public static final int login=0x7f02000d;
+        public static final int main_bg2=0x7f02000e;
+        public static final int outline_bg=0x7f02000f;
+        public static final int page_num=0x7f020010;
+        public static final int search=0x7f020011;
+        public static final int seek_progress=0x7f020012;
+        public static final int seek_thumb=0x7f020013;
+        public static final int shape=0x7f020014;
+        public static final int tiled_background=0x7f020015;
     }
     public static final class id {
         public static final int RelativeLayout_Item=0x7f0b0031;

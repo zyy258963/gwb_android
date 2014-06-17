@@ -159,16 +159,6 @@ public class FavoriteActivity extends BaseActivity {
 							int favId = favoriteList.get(position).getFavouriteId();
 							alertDialog.dismiss();
 							
-							SharedPreferences sp = getApplicationContext().getSharedPreferences(
-									ConstantParams.SHARED_PREFERENCE_NAME,
-									Context.MODE_PRIVATE);
-							Set<String> set = sp.getStringSet(ConstantParams.FIELD_FAVOURITE_BOOK_SET, null);
-							if (set!=null) {
-								set.remove(favoriteList.get(position).getBookId()+"");
-							}
-							Log.i("LOG", "收藏的文档："+set.toString() + " remmove :"+favId);
-							sp.edit().putStringSet(ConstantParams.FIELD_FAVOURITE_BOOK_SET, set).commit();
-							
 							new DeleteFavoriteAsynTask().execute(favId);
 
 						}
@@ -335,21 +325,28 @@ public class FavoriteActivity extends BaseActivity {
 				Toast.makeText(FavoriteActivity.this, "移除成功",
 						Toast.LENGTH_SHORT).show();
 				
-				SharedPreferences sp = getApplicationContext().getSharedPreferences(
-						ConstantParams.SHARED_PREFERENCE_NAME,
-						Context.MODE_PRIVATE);
+				
 				try {
-					FileUtil.delFile(sp.getString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,""));
+					File file = new File(ConstantParams.FILE_STORE_PATH,ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID+".pdf");
+					if (file.exists()) {
+						FileUtil.delFile(file.getAbsolutePath());
+					}
+					SharedPreferences sp = getApplicationContext().getSharedPreferences(
+							ConstantParams.SHARED_PREFERENCE_NAME,
+							Context.MODE_PRIVATE);
+					Set<String> set = sp.getStringSet(ConstantParams.FIELD_FAVOURITE_BOOK_SET, null);
+					if (set!=null && set.contains(ConstantParams.CURRENT_BOOK_ID+"")) {
+						set.remove(ConstantParams.CURRENT_BOOK_ID+"");
+					}
+					sp.edit().putStringSet(ConstantParams.FIELD_FAVOURITE_BOOK_SET, set).commit();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
-				Editor editor= sp.edit();				
-				editor.putString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
-				editor.commit();
-				
-				
+//				Editor editor= sp.edit();				
+//				editor.putString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
+//				editor.commit();
 				
 			} else {
 				Toast.makeText(FavoriteActivity.this, "移除出错，请联系管理员。",
@@ -387,7 +384,6 @@ public class FavoriteActivity extends BaseActivity {
 			}else {
 				Log.i("BookActivity", "inbackground:" + params[0]);
 				ConstantParams.TEMP_FILE = null;
-				
 				try {
 					getTempFile(params[0]);
 					return "success";
@@ -486,7 +482,20 @@ public class FavoriteActivity extends BaseActivity {
 				ConstantParams.TEMP_FILE = new File(
 						ConstantParams.TEMP_FILE_PATH);
 			}
+//			将文件村至本地并且存在 sharedPerference中
+			File path = new File(ConstantParams.FILE_STORE_PATH);
+			if (!path.exists()) {
+				path.mkdirs();
+			}
+			
+			File tarFile = new File(path, ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID+".pdf");
+			if (tarFile.exists()) {
+				tarFile.createNewFile();
+				FileUtil.copyFile(ConstantParams.TEMP_FILE, tarFile);
+			}
+			
 
+			
 			Log.i("PDF",
 					"ConstantParams.TEMP_FILE "
 							+ ConstantParams.TEMP_FILE.getAbsolutePath());
