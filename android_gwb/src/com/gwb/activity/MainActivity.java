@@ -3,6 +3,8 @@ package com.gwb.activity;
 import java.util.HashMap;
 import java.util.Map;
 
+import sun.util.logging.resources.logging;
+
 import com.artifex.mupdfdemo.R;
 import com.gwb.activity.pojo.HeaderVo;
 import com.gwb.activity.pojo.Users;
@@ -10,6 +12,7 @@ import com.gwb.utils.ConstantParams;
 import com.gwb.utils.FastjsonTools;
 import com.gwb.utils.FileUtil;
 import com.gwb.utils.HttpHelper;
+import com.umeng.analytics.MobclickAgent;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -23,6 +26,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -40,7 +44,9 @@ public class MainActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
+//		Log.i("LOG1", getDeviceInfo(this));
+		
 		final View view = View.inflate(this, R.layout.activity_main, null);
 		setContentView(view);
 		imageView = (ImageView) view.findViewById(R.id.imageMainBg);
@@ -120,6 +126,7 @@ public class MainActivity extends BaseActivity {
 									MainActivity.this.finish();
 								}
 							}).create();
+					dialog.setCancelable(false);
 					dialog.show();
 				} else {
 					// 提示当前使用的是3g 将产生较多流量
@@ -179,6 +186,13 @@ public class MainActivity extends BaseActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+	}
+	
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		MobclickAgent.updateOnlineConfig(getApplicationContext());
 	}
 
 //	@SuppressLint("NewApi")
@@ -240,5 +254,38 @@ public class MainActivity extends BaseActivity {
 //		}
 //
 //	}
+	
+
+@SuppressLint("NewApi")
+public static String getDeviceInfo(Context context) {
+    try{
+      org.json.JSONObject json = new org.json.JSONObject();
+      android.telephony.TelephonyManager tm = (android.telephony.TelephonyManager) context
+          .getSystemService(Context.TELEPHONY_SERVICE);
+  
+      String device_id = tm.getDeviceId();
+      
+      android.net.wifi.WifiManager wifi = (android.net.wifi.WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+          
+      String mac = wifi.getConnectionInfo().getMacAddress();
+      json.put("mac", mac);
+      
+      if( TextUtils.isEmpty(device_id) ){
+        device_id = mac;
+      }
+      
+      if( TextUtils.isEmpty(device_id) ){
+        device_id = android.provider.Settings.Secure.getString(context.getContentResolver(),android.provider.Settings.Secure.ANDROID_ID);
+      }
+      
+      json.put("device_id", device_id);
+      
+      return json.toString();
+    }catch(Exception e){
+      e.printStackTrace();
+    }
+  return null;
+}
+                  
 
 }

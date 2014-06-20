@@ -44,6 +44,9 @@ public class MenuActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		turnDialog.show();
+		
 		ApplicationManager.add(MenuActivity.this);
 		// setContentView(R.layout.activity_main);
 
@@ -55,8 +58,6 @@ public class MenuActivity extends BaseActivity {
 		}else {
 			new MenuAsynTask().execute();
 		}
-		
-
 	}
 
 	@SuppressLint({ "NewApi", "ResourceAsColor" })
@@ -190,6 +191,7 @@ public class MenuActivity extends BaseActivity {
 		scrollView.addView(layout_menu);
 		MenuActivity.this.setContentView(layout);
 
+		turnDialog.dismiss();
 	}
 
 	@SuppressLint("NewApi")
@@ -223,6 +225,7 @@ public class MenuActivity extends BaseActivity {
 
 		@Override
 		protected void onPostExecute(Boolean result) {
+			
 			initLayout();
 		}
 	}

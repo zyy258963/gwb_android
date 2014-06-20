@@ -9,6 +9,7 @@ import java.io.InputStream;
 import com.gwb.utils.ConstantParams;
 import com.gwb.utils.FileUtil;
 import com.gwb.utils.HttpHelper;
+import com.umeng.analytics.MobclickAgent;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -767,6 +768,8 @@ public class MuPDFActivity extends Activity
 	protected void onPause() {
 		super.onPause();
 
+		MobclickAgent.onPause(this);
+		
 		mSearchTask.stop();
 
 		if (mFileName != null && mDocView != null) {
@@ -860,6 +863,13 @@ public class MuPDFActivity extends Activity
 			});
 			mPageSlider.startAnimation(anim);
 		}
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		MobclickAgent.onResume(this);
 	}
 
 //	void searchModeOn() {

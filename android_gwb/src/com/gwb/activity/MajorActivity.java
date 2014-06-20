@@ -41,6 +41,7 @@ public class MajorActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		// ApplicationManager.add(this);
 		new MajorAsynTask().execute();
@@ -182,6 +183,14 @@ public class MajorActivity extends BaseActivity {
 
 	@SuppressLint("NewApi")
 	private class MajorAsynTask extends AsyncTask<Void, Void, Boolean> {
+		
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			turnDialog.show();
+		}
+		
 		@Override
 		protected Boolean doInBackground(Void... arg0) {
 			Intent intent = getIntent();
@@ -228,6 +237,7 @@ public class MajorActivity extends BaseActivity {
 
 		@Override
 		protected void onPostExecute(Boolean result) {
+			turnDialog.dismiss();
 			initLayout();
 		}
 	}

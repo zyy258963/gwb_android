@@ -217,6 +217,13 @@ public class BookActivity extends BaseActivity {
 	@SuppressLint("NewApi")
 	private class BookAsynTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			turnDialog.show();
+		}
+		
+		@Override
 		protected Boolean doInBackground(Void... arg0) {
 			Intent intent = getIntent();
 			int cid = intent.getIntExtra(ConstantParams.FIELD_CLASS_ID, 0);
@@ -251,6 +258,7 @@ public class BookActivity extends BaseActivity {
 
 		@Override
 		protected void onPostExecute(Boolean result) {
+			turnDialog.dismiss();
 			initLayout();
 		}
 	}

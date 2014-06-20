@@ -8,6 +8,7 @@ import com.gwb.utils.ApplicationManager;
 import com.gwb.utils.ConstantParams;
 //import com.gwb.utils.DensityUtil;
 import com.gwb.utils.OpenFiles;
+import com.umeng.analytics.MobclickAgent;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -15,6 +16,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,7 +33,9 @@ public class BaseActivity extends FragmentActivity {
 	DisplayMetrics dm = new DisplayMetrics();
 
 	// public DensityUtil densityUtil = null;
-
+	public ProgressDialog turnDialog = null;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,6 +43,8 @@ public class BaseActivity extends FragmentActivity {
 		ApplicationManager.add(BaseActivity.this);
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		initSize();
+		
+		turnDialog = new ProgressDialog(this);
 	}
 
 	private void initSize() {
@@ -77,6 +84,20 @@ public class BaseActivity extends FragmentActivity {
 		ConstantParams.SCREEN_HEIGHT = getScreenHeight();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+	
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		MobclickAgent.onPause(this);
+	}
+	
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
