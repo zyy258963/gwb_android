@@ -107,11 +107,6 @@ public class FavoriteActivity extends BaseActivity {
 				data.add(item);
 			}
 
-//			listViewFavorite.setAdapter(new SimpleAdapter(this, data,
-//					R.layout.book_list,
-//					new String[] { ConstantParams.COLUMN_BOOK_NAME },
-//					new int[] { R.id.book_list_item_name }));
-			
 			listViewFavorite.setAdapter(new FavouriteBookAdapter(FavoriteActivity.this, favoriteList));
 			
 			// 为ListView设置列表项点击监听器
@@ -215,6 +210,7 @@ public class FavoriteActivity extends BaseActivity {
 					.findViewById(R.id.book_list_item_name);
 			tv.setTextSize(ConstantParams.SIZE_TOP_TEXT);
 			tv.setText(datas.get(position).getBookName());
+			tv.setHeight(ConstantParams.SIZE_ROW);
 			return contentView;
 		}
 

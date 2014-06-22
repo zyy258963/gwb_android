@@ -53,17 +53,12 @@ public class LoginActivity extends BaseActivity {
 	 */
 	private UserLoginTask mAuthTask = null;
 	private TelephonyManager phoneMgr = null;
-	
-//	private boolean logSucc = false; 
 
 	// Values for email and password at the time of the login attempt.
 	private String mUsername;
-	// private String mPassword;
 	private String macAddress;
 
-	// UI references.
 	private EditText mUsernameView;
-	// private EditText mPasswordView;
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
@@ -80,7 +75,6 @@ public class LoginActivity extends BaseActivity {
 		phoneMgr = (TelephonyManager) this
 				.getSystemService(Context.TELEPHONY_SERVICE);
 
-		// macAddress = phoneMgr.getDeviceId();
 		String androidId = android.provider.Settings.Secure.getString(
 				getContentResolver(),
 				android.provider.Settings.Secure.ANDROID_ID);
@@ -125,17 +119,17 @@ public class LoginActivity extends BaseActivity {
 						attemptLogin();
 					}
 				});
-		
-		
-		SharedPreferences sp = getApplicationContext().getSharedPreferences(
+
+		SharedPreferences sp = getSharedPreferences(
 				ConstantParams.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
 		String telephone1 = sp.getString(ConstantParams.FIELD_TELEPHONE, "");
 		String macAddress1 = sp.getString(ConstantParams.FIELD_MAC_ADDRESS, "");
 		if (!"".equals(telephone1) && !"".equals(macAddress1)) {
 			mUsername = telephone1;
+			mUsernameView.setText(telephone1);
 			new UserLoginTask().execute();
 		}
-		
+
 	}
 
 	@Override
@@ -157,11 +151,9 @@ public class LoginActivity extends BaseActivity {
 
 		// Reset errors.
 		mUsernameView.setError(null);
-		// mPasswordView.setError(null);
 
 		// Store values at the time of the login attempt.
 		mUsername = mUsernameView.getText().toString();
-		// mPassword = mPasswordView.getText().toString();
 
 		boolean cancel = false;
 		View focusView = null;
@@ -186,7 +178,6 @@ public class LoginActivity extends BaseActivity {
 						.setText(R.string.login_progress_signing_in);
 				showProgress(true);
 				mAuthTask = new UserLoginTask();
-//				mAuthTask.execute(mUsername,macAddress);
 				mAuthTask.execute((Void) null);
 			} else {
 				Dialog dialog = new AlertDialog.Builder(LoginActivity.this)
@@ -260,8 +251,8 @@ public class LoginActivity extends BaseActivity {
 			postParam.put("macAddress", macAddress);
 			String jsonStr = null;
 			try {
-				jsonStr = HttpHelper.sendPostMessage(
-						ConstantParams.URL_LOGIN, postParam, "utf-8");
+				jsonStr = HttpHelper.sendPostMessage(ConstantParams.URL_LOGIN,
+						postParam, "utf-8");
 				Log.i("LoginActivity", "login return  : " + jsonStr);
 				if (jsonStr != null && !"".equals(jsonStr)) {
 
@@ -274,10 +265,12 @@ public class LoginActivity extends BaseActivity {
 							Log.i("LoginActivity", "login::  1 ");
 							System.out.println("userId :::" + user.getUserId());
 							ConstantParams.CURRENT_USER_ID = user.getUserId();
-							ConstantParams.CURRENT_USER_NAME = user.getUserName();
+							ConstantParams.CURRENT_USER_NAME = user
+									.getUserName();
 							ConstantParams.CURRENT_MACADDRESS = user
 									.getMacAddress();
-							ConstantParams.CURRENT_TELEPHONE = user.getTelephone();
+							ConstantParams.CURRENT_TELEPHONE = user
+									.getTelephone();
 							return "success";
 						} else {
 							Log.i("LoginActivity", "login::  2 ");
@@ -294,7 +287,6 @@ public class LoginActivity extends BaseActivity {
 				e.printStackTrace();
 				return "fail";
 			}
-			
 
 		}
 
@@ -345,8 +337,6 @@ public class LoginActivity extends BaseActivity {
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which) {
-									// finish();
-									// System.exit(0);
 									ApplicationManager.finishProgram();
 								}
 							})

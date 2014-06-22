@@ -24,6 +24,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -112,7 +113,6 @@ public class MenuActivity extends BaseActivity {
 			for (int i = 0; i < cateStr.length; i++) {
 				String caStr [] = cateStr[i].split(",");
 				final Button button = new Button(this);
-//				button.setId(category.getCategoryId());
 				button.setId(Integer.parseInt(caStr[0]));
 				button.setTextColor(Color.WHITE);
 				button.setBackgroundResource(R.drawable.button_style);

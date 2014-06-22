@@ -465,61 +465,6 @@ public final class R {
          */
         public static final int yellow=0x7f060011;
     }
-    public static final class dimen {
-        /**  Default screen margins, per the Android Design guidelines. 
-   <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen> 
- 字体大小 
-     <dimen name="size_menu_edit_text">7sp</dimen>
-    <dimen name="size_menu_button_text">8sp</dimen>
-    <dimen name="size_major_text_view">6sp</dimen>
-     
-     <dimen name="size_menu_button_height">31dp</dimen>
-    <dimen name="size_major_text_view_height">27dp</dimen> 
-
-         Customize dimensions originally defined in res/values/dimens.xml (such as
-         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
-
-    
-  <dimen name="size_menu_edit_text">7sp</dimen>
-    <dimen name="size_menu_button_text">8sp</dimen>
-    <dimen name="size_menu_button_height">31dp</dimen>
-    <dimen name="size_major_text_view">6sp</dimen>
-    <dimen name="size_major_text_view_height">27dp</dimen>
-    <dimen name="size_ad_height">60dp</dimen>
-    <dimen name="size_book_item_text">25sp</dimen>
-    <dimen name="size_book_item_height">60dp</dimen> 
-     <dimen name="size_menu_edit_text">2sp</dimen>
-    <dimen name="size_menu_button_text">4sp</dimen>
-    <dimen name="size_menu_button_height">31dp</dimen>
-    <dimen name="size_major_text_view">4sp</dimen>
-    <dimen name="size_major_text_view_height">27dp</dimen> 
-
-         Customize dimensions originally defined in res/values/dimens.xml (such as
-         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
-
-    
- 	<dimen name="size_menu_edit_text">7sp</dimen>
-    <dimen name="size_menu_button_text">8sp</dimen>
-    <dimen name="size_menu_button_height">31dp</dimen>
-    <dimen name="size_major_text_view">6sp</dimen>
-    <dimen name="size_major_text_view_height">27dp</dimen> 
-         */
-        public static final int size_ad_height=0x7f070002;
-        public static final int size_book_item_height=0x7f070001;
-        /**  Default screen margins, per the Android Design guidelines. 
-   <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen> 
- 字体大小 
-     <dimen name="size_menu_edit_text">7sp</dimen>
-    <dimen name="size_menu_button_text">8sp</dimen>
-    <dimen name="size_menu_button_height">31dp</dimen>
-    <dimen name="size_major_text_view">6sp</dimen>
-    <dimen name="size_major_text_view_height">27dp</dimen>
-    <dimen name="size_ad_height">60dp</dimen> 
-         */
-        public static final int size_book_item_text=0x7f070000;
-    }
     public static final class drawable {
         public static final int ad1=0x7f020000;
         public static final int bg_button=0x7f020001;
@@ -545,67 +490,67 @@ public final class R {
         public static final int tiled_background=0x7f020015;
     }
     public static final class id {
-        public static final int RelativeLayout_Item=0x7f0b0031;
-        public static final int action_forgot_password=0x7f0b0039;
-        public static final int action_settings=0x7f0b0038;
-        public static final int bookListLayout=0x7f0b001e;
-        public static final int book_list_item_name=0x7f0b001f;
-        public static final int browserItemIcon=0x7f0b0021;
-        public static final int browserItemText=0x7f0b0022;
-        public static final int browserTabHost=0x7f0b0020;
-        public static final int btn_dialog_cancel=0x7f0b002f;
-        public static final int btn_dialog_delete_favourite=0x7f0b002e;
-        public static final int btn_dialog_view=0x7f0b002d;
-        public static final int btn_register=0x7f0b000d;
-        public static final int btn_searchResult=0x7f0b001b;
-        public static final int docNameText=0x7f0b0025;
-        public static final int editText_search=0x7f0b0013;
-        public static final int editText_searchResult=0x7f0b001a;
-        public static final int favouriteButton=0x7f0b0027;
-        public static final int fragment_seatch=0x7f0b0030;
-        public static final int icon=0x7f0b0037;
-        public static final int imageMainBg=0x7f0b000e;
-        public static final int imageViewAd=0x7f0b0014;
-        public static final int info=0x7f0b002b;
-        public static final int item_image=0x7f0b0032;
-        public static final int item_text=0x7f0b0033;
-        public static final int layout_menu_top=0x7f0b0017;
-        public static final int linearLayout_favourite_top=0x7f0b0004;
-        public static final int linearLayout_major_search=0x7f0b0012;
-        public static final int linearLayout_menu_search=0x7f0b0018;
-        public static final int linerLayout_book_top=0x7f0b0000;
-        public static final int linerLayout_major_top=0x7f0b0010;
-        public static final int listView_books=0x7f0b0003;
-        public static final int listView_favoriteBooks=0x7f0b0007;
-        public static final int listView_searchResult=0x7f0b001d;
-        public static final int login_form=0x7f0b000a;
-        public static final int login_status=0x7f0b0008;
-        public static final int login_status_message=0x7f0b0009;
-        public static final int lowerButtons=0x7f0b0028;
-        public static final int name=0x7f0b0036;
-        public static final int outlineButton=0x7f0b0026;
-        public static final int page=0x7f0b0035;
-        public static final int pageNumber=0x7f0b002a;
-        public static final int pageSlider=0x7f0b0029;
-        public static final int ribbon_menu_home=0x7f0b003a;
-        public static final int ribbon_menu_home2=0x7f0b003b;
-        public static final int ribbon_menu_home3=0x7f0b003c;
-        public static final int scrollView_major=0x7f0b0015;
-        public static final int scrollView_menu=0x7f0b0019;
-        public static final int sign_in_button=0x7f0b000c;
-        public static final int switcher=0x7f0b0023;
-        public static final int textView1=0x7f0b002c;
-        public static final int textView_book_menu=0x7f0b0001;
-        public static final int textView_favorite_noresult=0x7f0b0006;
-        public static final int textView_favorite_title=0x7f0b0005;
-        public static final int textView_major_menu=0x7f0b0011;
-        public static final int textView_searchResult=0x7f0b001c;
-        public static final int title=0x7f0b0034;
-        public static final int topBar=0x7f0b0024;
-        public static final int topLinerLayout=0x7f0b000f;
-        public static final int tv_major_noresult=0x7f0b0016;
-        public static final int tv_no_booklist=0x7f0b0002;
-        public static final int username=0x7f0b000b;
+        public static final int RelativeLayout_Item=0x7f0a0031;
+        public static final int action_forgot_password=0x7f0a0039;
+        public static final int action_settings=0x7f0a0038;
+        public static final int autoEditText_searchResult=0x7f0a001a;
+        public static final int bookListLayout=0x7f0a001e;
+        public static final int book_list_item_name=0x7f0a001f;
+        public static final int browserItemIcon=0x7f0a0021;
+        public static final int browserItemText=0x7f0a0022;
+        public static final int browserTabHost=0x7f0a0020;
+        public static final int btn_dialog_cancel=0x7f0a002f;
+        public static final int btn_dialog_delete_favourite=0x7f0a002e;
+        public static final int btn_dialog_view=0x7f0a002d;
+        public static final int btn_register=0x7f0a000d;
+        public static final int btn_searchResult=0x7f0a001b;
+        public static final int docNameText=0x7f0a0025;
+        public static final int editText_search=0x7f0a0013;
+        public static final int favouriteButton=0x7f0a0027;
+        public static final int fragment_seatch=0x7f0a0030;
+        public static final int icon=0x7f0a0037;
+        public static final int imageMainBg=0x7f0a000e;
+        public static final int imageViewAd=0x7f0a0014;
+        public static final int info=0x7f0a002b;
+        public static final int item_image=0x7f0a0032;
+        public static final int item_text=0x7f0a0033;
+        public static final int layout_menu_top=0x7f0a0017;
+        public static final int linearLayout_favourite_top=0x7f0a0004;
+        public static final int linearLayout_major_search=0x7f0a0012;
+        public static final int linearLayout_menu_search=0x7f0a0018;
+        public static final int linerLayout_book_top=0x7f0a0000;
+        public static final int linerLayout_major_top=0x7f0a0010;
+        public static final int listView_books=0x7f0a0003;
+        public static final int listView_favoriteBooks=0x7f0a0007;
+        public static final int listView_searchResult=0x7f0a001d;
+        public static final int login_form=0x7f0a000a;
+        public static final int login_status=0x7f0a0008;
+        public static final int login_status_message=0x7f0a0009;
+        public static final int lowerButtons=0x7f0a0028;
+        public static final int name=0x7f0a0036;
+        public static final int outlineButton=0x7f0a0026;
+        public static final int page=0x7f0a0035;
+        public static final int pageNumber=0x7f0a002a;
+        public static final int pageSlider=0x7f0a0029;
+        public static final int ribbon_menu_home=0x7f0a003a;
+        public static final int ribbon_menu_home2=0x7f0a003b;
+        public static final int ribbon_menu_home3=0x7f0a003c;
+        public static final int scrollView_major=0x7f0a0015;
+        public static final int scrollView_menu=0x7f0a0019;
+        public static final int sign_in_button=0x7f0a000c;
+        public static final int switcher=0x7f0a0023;
+        public static final int textView1=0x7f0a002c;
+        public static final int textView_book_menu=0x7f0a0001;
+        public static final int textView_favorite_noresult=0x7f0a0006;
+        public static final int textView_favorite_title=0x7f0a0005;
+        public static final int textView_major_menu=0x7f0a0011;
+        public static final int textView_searchResult=0x7f0a001c;
+        public static final int title=0x7f0a0034;
+        public static final int topBar=0x7f0a0024;
+        public static final int topLinerLayout=0x7f0a000f;
+        public static final int tv_major_noresult=0x7f0a0016;
+        public static final int tv_no_booklist=0x7f0a0002;
+        public static final int username=0x7f0a000b;
     }
     public static final class layout {
         public static final int activity_base=0x7f030000;
@@ -629,116 +574,116 @@ public final class R {
         public static final int textentry=0x7f030012;
     }
     public static final class menu {
-        public static final int base=0x7f0a0000;
-        public static final int book=0x7f0a0001;
-        public static final int chapter=0x7f0a0002;
-        public static final int chapter_list=0x7f0a0003;
-        public static final int chapter_pdf=0x7f0a0004;
-        public static final int login=0x7f0a0005;
-        public static final int main=0x7f0a0006;
-        public static final int major=0x7f0a0007;
-        public static final int menu=0x7f0a0008;
-        public static final int ribbon_menu=0x7f0a0009;
-        public static final int search=0x7f0a000a;
-        public static final int search_result=0x7f0a000b;
+        public static final int base=0x7f090000;
+        public static final int book=0x7f090001;
+        public static final int chapter=0x7f090002;
+        public static final int chapter_list=0x7f090003;
+        public static final int chapter_pdf=0x7f090004;
+        public static final int login=0x7f090005;
+        public static final int main=0x7f090006;
+        public static final int major=0x7f090007;
+        public static final int menu=0x7f090008;
+        public static final int ribbon_menu=0x7f090009;
+        public static final int search=0x7f09000a;
+        public static final int search_result=0x7f09000b;
     }
     public static final class string {
-        public static final int action_forgot_password=0x7f080005;
-        public static final int action_remember_tele=0x7f080006;
-        public static final int action_settings=0x7f08000e;
-        public static final int action_sign_in_register=0x7f080003;
-        public static final int action_sign_in_short=0x7f080004;
-        public static final int app_name=0x7f08000d;
-        public static final int cancel=0x7f080045;
+        public static final int action_forgot_password=0x7f070005;
+        public static final int action_remember_tele=0x7f070006;
+        public static final int action_settings=0x7f07000e;
+        public static final int action_sign_in_register=0x7f070003;
+        public static final int action_sign_in_short=0x7f070004;
+        public static final int app_name=0x7f07000d;
+        public static final int cancel=0x7f070045;
         /**  行业分类 
          */
-        public static final int category_1=0x7f080023;
-        public static final int category_2=0x7f080024;
-        public static final int category_3=0x7f080025;
-        public static final int category_4=0x7f080026;
-        public static final int category_5=0x7f080027;
+        public static final int category_1=0x7f070023;
+        public static final int category_2=0x7f070024;
+        public static final int category_3=0x7f070025;
+        public static final int category_4=0x7f070026;
+        public static final int category_5=0x7f070027;
         /**  专业分类 
          */
-        public static final int class_1_1=0x7f080028;
-        public static final int class_1_2=0x7f080029;
-        public static final int class_1_3=0x7f08002a;
-        public static final int class_1_4=0x7f08002b;
-        public static final int class_1_5=0x7f08002c;
-        public static final int common_adDesc=0x7f08001c;
-        public static final int common_book_noresult=0x7f08001e;
-        public static final int common_chapter_noresult=0x7f08001f;
+        public static final int class_1_1=0x7f070028;
+        public static final int class_1_2=0x7f070029;
+        public static final int class_1_3=0x7f07002a;
+        public static final int class_1_4=0x7f07002b;
+        public static final int class_1_5=0x7f07002c;
+        public static final int common_adDesc=0x7f07001c;
+        public static final int common_book_noresult=0x7f07001e;
+        public static final int common_chapter_noresult=0x7f07001f;
         /**  通用文字定义 
          */
-        public static final int common_logoDesc=0x7f080016;
-        public static final int common_mainPage=0x7f08001b;
-        public static final int common_major_noresult=0x7f080020;
-        public static final int common_return=0x7f08001a;
-        public static final int common_search=0x7f080019;
-        public static final int common_search_hint=0x7f080017;
-        public static final int common_search_noresult=0x7f08001d;
-        public static final int common_search_text=0x7f080018;
-        public static final int content_failure=0x7f080044;
-        public static final int copy=0x7f080052;
-        public static final int drawer_close=0x7f08003f;
-        public static final int drawer_open=0x7f08003e;
-        public static final int enter_password=0x7f08004b;
-        public static final int error_field_required=0x7f08000c;
-        public static final int error_incorrect_password=0x7f08000a;
-        public static final int error_incorrect_telephone=0x7f08000b;
-        public static final int error_invalid_email=0x7f080008;
-        public static final int error_invalid_password=0x7f080009;
-        public static final int hello_world=0x7f08000f;
-        public static final int link_control=0x7f08004e;
-        public static final int login_progress_signing_in=0x7f080007;
+        public static final int common_logoDesc=0x7f070016;
+        public static final int common_mainPage=0x7f07001b;
+        public static final int common_major_noresult=0x7f070020;
+        public static final int common_return=0x7f07001a;
+        public static final int common_search=0x7f070019;
+        public static final int common_search_hint=0x7f070017;
+        public static final int common_search_noresult=0x7f07001d;
+        public static final int common_search_text=0x7f070018;
+        public static final int content_failure=0x7f070044;
+        public static final int copy=0x7f070052;
+        public static final int drawer_close=0x7f07003f;
+        public static final int drawer_open=0x7f07003e;
+        public static final int enter_password=0x7f07004b;
+        public static final int error_field_required=0x7f07000c;
+        public static final int error_incorrect_password=0x7f07000a;
+        public static final int error_incorrect_telephone=0x7f07000b;
+        public static final int error_invalid_email=0x7f070008;
+        public static final int error_invalid_password=0x7f070009;
+        public static final int hello_world=0x7f07000f;
+        public static final int link_control=0x7f07004e;
+        public static final int login_progress_signing_in=0x7f070007;
         /**  主页面文字 
          */
-        public static final int menu_search=0x7f080021;
-        public static final int no_further_occurences_found=0x7f08004f;
-        public static final int no_media_hint=0x7f080042;
-        public static final int no_media_warning=0x7f080041;
-        public static final int open_failed=0x7f080043;
-        public static final int outline_title=0x7f08004a;
-        public static final int picker_title=0x7f080049;
-        public static final int pop_no_favorite_book=0x7f080022;
-        public static final int prompt_error_file=0x7f080015;
-        public static final int prompt_password=0x7f080002;
+        public static final int menu_search=0x7f070021;
+        public static final int no_further_occurences_found=0x7f07004f;
+        public static final int no_media_hint=0x7f070042;
+        public static final int no_media_warning=0x7f070041;
+        public static final int open_failed=0x7f070043;
+        public static final int outline_title=0x7f07004a;
+        public static final int picker_title=0x7f070049;
+        public static final int pop_no_favorite_book=0x7f070022;
+        public static final int prompt_error_file=0x7f070015;
+        public static final int prompt_password=0x7f070002;
         /**  Strings related to login 
          */
-        public static final int prompt_username=0x7f080001;
-        public static final int search=0x7f080051;
-        public static final int search_backwards=0x7f080046;
-        public static final int search_document=0x7f080048;
-        public static final int search_forwards=0x7f080047;
-        public static final int searching_=0x7f08004d;
-        public static final int select=0x7f080050;
-        public static final int strike_out=0x7f080053;
-        public static final int text_not_found=0x7f08004c;
-        public static final int title_activity_base=0x7f08002d;
-        public static final int title_activity_book=0x7f08002e;
-        public static final int title_activity_book_title=0x7f080013;
-        public static final int title_activity_category=0x7f080033;
-        public static final int title_activity_chapter=0x7f08002f;
-        public static final int title_activity_chapter_list=0x7f080030;
-        public static final int title_activity_chapter_pdf=0x7f080035;
-        public static final int title_activity_chapterlist=0x7f080014;
-        public static final int title_activity_class=0x7f080011;
-        public static final int title_activity_favorite=0x7f080012;
-        public static final int title_activity_login=0x7f080000;
-        public static final int title_activity_major=0x7f080034;
-        public static final int title_activity_menu=0x7f080010;
-        public static final int title_activity_pdfViwer=0x7f080036;
-        public static final int title_activity_search=0x7f080031;
-        public static final int title_activity_search_result=0x7f080032;
-        public static final int title_dialog_cancel=0x7f08003b;
-        public static final int title_dialog_favourite=0x7f080039;
-        public static final int title_dialog_favourite_delete=0x7f08003a;
-        public static final int title_dialog_view=0x7f080038;
+        public static final int prompt_username=0x7f070001;
+        public static final int search=0x7f070051;
+        public static final int search_backwards=0x7f070046;
+        public static final int search_document=0x7f070048;
+        public static final int search_forwards=0x7f070047;
+        public static final int searching_=0x7f07004d;
+        public static final int select=0x7f070050;
+        public static final int strike_out=0x7f070053;
+        public static final int text_not_found=0x7f07004c;
+        public static final int title_activity_base=0x7f07002d;
+        public static final int title_activity_book=0x7f07002e;
+        public static final int title_activity_book_title=0x7f070013;
+        public static final int title_activity_category=0x7f070033;
+        public static final int title_activity_chapter=0x7f07002f;
+        public static final int title_activity_chapter_list=0x7f070030;
+        public static final int title_activity_chapter_pdf=0x7f070035;
+        public static final int title_activity_chapterlist=0x7f070014;
+        public static final int title_activity_class=0x7f070011;
+        public static final int title_activity_favorite=0x7f070012;
+        public static final int title_activity_login=0x7f070000;
+        public static final int title_activity_major=0x7f070034;
+        public static final int title_activity_menu=0x7f070010;
+        public static final int title_activity_pdfViwer=0x7f070036;
+        public static final int title_activity_search=0x7f070031;
+        public static final int title_activity_search_result=0x7f070032;
+        public static final int title_dialog_cancel=0x7f07003b;
+        public static final int title_dialog_favourite=0x7f070039;
+        public static final int title_dialog_favourite_delete=0x7f07003a;
+        public static final int title_dialog_view=0x7f070038;
         /**  弹出框中的文字 
          */
-        public static final int title_dialog_viewPdf=0x7f080037;
-        public static final int title_pdfdialog_cancel=0x7f08003d;
-        public static final int title_pdfdialog_view=0x7f08003c;
-        public static final int version=0x7f080040;
+        public static final int title_dialog_viewPdf=0x7f070037;
+        public static final int title_pdfdialog_cancel=0x7f07003d;
+        public static final int title_pdfdialog_view=0x7f07003c;
+        public static final int version=0x7f070040;
     }
     public static final class style {
         /** 
@@ -753,16 +698,16 @@ public final class R {
 
         
          */
-        public static final int AppBaseTheme=0x7f090000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f090002;
-        public static final int LoginFormContainer=0x7f090003;
-        public static final int Theme_OutlineTheme=0x7f090001;
+        public static final int AppTheme=0x7f080002;
+        public static final int LoginFormContainer=0x7f080003;
+        public static final int Theme_OutlineTheme=0x7f080001;
         /**  主页面的button上文字大小 
          */
-        public static final int size_menu_button=0x7f090004;
+        public static final int size_menu_button=0x7f080004;
     }
     public static final class xml {
         public static final int searchable=0x7f050000;

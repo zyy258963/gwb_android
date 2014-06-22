@@ -1,25 +1,19 @@
 package com.gwb.activity;
 
-import java.io.File;
 
 import com.artifex.mupdfdemo.MuPDFActivity;
 import com.artifex.mupdfdemo.R;
 import com.gwb.utils.ApplicationManager;
 import com.gwb.utils.ConstantParams;
-//import com.gwb.utils.DensityUtil;
-import com.gwb.utils.OpenFiles;
+import com.gwb.utils.DensityUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
@@ -31,8 +25,7 @@ import android.widget.Toast;
 public class BaseActivity extends FragmentActivity {
 
 	DisplayMetrics dm = new DisplayMetrics();
-
-	// public DensityUtil densityUtil = null;
+	public float textScale = 1.0f;
 	public ProgressDialog turnDialog = null;
 	
 	
@@ -42,8 +35,8 @@ public class BaseActivity extends FragmentActivity {
 		setContentView(R.layout.activity_base);
 		ApplicationManager.add(BaseActivity.this);
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
+		textScale = getResources().getConfiguration().fontScale;
 		initSize();
-		
 		turnDialog = new ProgressDialog(this);
 	}
 
@@ -51,38 +44,26 @@ public class BaseActivity extends FragmentActivity {
 		// densityUtil = new DensityUtil(getApplicationContext());
 		ConstantParams.SIZE_ROW = getScreenHeight() / 10;
 		ConstantParams.SIZE_BUTTON_WIDTH = getScreenWidth() / 2;
-		Log.i("BASE", ConstantParams.SIZE_ROW+"-----getScreenHeight():" +getScreenHeight());
+		Log.i("BASE", ConstantParams.SIZE_ROW+"-----getScreenHeight():" + getScreenHeight() +"---" +getScreenWidth());
 		if (getScreenHeight() <= 800) { 
-			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 4.0f;
-			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 3.0f;
+			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 4.0f/ textScale;
+			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 3.0f/ textScale;
 		}else if (getScreenHeight() <= 1280) {
-			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 5.0f;
-			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 4.0f;
+			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 5.0f / textScale;
+			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 4.0f / textScale;
+			Log.i("BASE", "SIZE_TOP_TEXT:"+	ConstantParams.SIZE_TOP_TEXT+ " ----SIZE_MAIN_TEXT:" + ConstantParams.SIZE_MAIN_TEXT);
 		}else if (getScreenHeight() <= 1920) {
-			Log.i("BASE", getScreenHeight() + "");
-			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 9.0f;
-			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 6.0f;
+			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 9.0f / textScale;
+			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 6.0f  / textScale;
+			Log.i("BASE", "SIZE_TOP_TEXT:"+	ConstantParams.SIZE_TOP_TEXT+ " ----SIZE_MAIN_TEXT:" + ConstantParams.SIZE_MAIN_TEXT);
 		}else {
-			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 12.0f;
-			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 8.0f;
+			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 12.0f/ textScale;
+			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 8.0f/ textScale;
 		}
 		
-
-		// ConstantParams.SIZE_MENU_BTN_TEXT = getResources().getDimension(
-		// R.dimen.size_menu_button_text)
-		// / dm.scaledDensity;
-		// ConstantParams.SIZE_MENU_EDIT_TEXT = getResources().getDimension(
-		// R.dimen.size_menu_edit_text)
-		// / dm.scaledDensity;
-		// ConstantParams.SIZE_MAJOR_TEXT_VIEW = getResources().getDimension(
-		// R.dimen.size_major_text_view)
-		// / dm.scaledDensity;
-		// ConstantParams.SIZE_MAJOR_TEXT_VIEW_HEIGHT =(int)(getResources()
-		// .getDimension(R.dimen.size_major_text_view_height)
-		// / dm.scaledDensity);
-
 		ConstantParams.SCREEN_WIDTH = getScreenWidth();
 		ConstantParams.SCREEN_HEIGHT = getScreenHeight();
+
 	}
 
 	@Override

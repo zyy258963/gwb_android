@@ -29,6 +29,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher1"
@@ -36,6 +38,12 @@
         android:screenOrientation="portrait"
         android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
 
+        <receiver android:name="com.gwb.activity.NetWorkReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+        
         <!-- android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" -->
         <activity
             android:name="com.gwb.activity.MainActivity"
@@ -89,13 +97,6 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light" >
 
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
         <activity
             android:name="MuPDFActivity"
@@ -162,13 +163,9 @@
             android:theme="@style/Theme.OutlineTheme" >
         </activity>
 
-        <!-- <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="53a0011156240b57b602a648" >
-        </meta-data> -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="53a4442f56240bbe5b03183c" >
+            android:value="53a0011156240b57b602a648" >
         </meta-data>
         <meta-data
             android:name="UMENG_CHANNEL"

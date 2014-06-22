@@ -13,6 +13,18 @@
         android:background="@color/bg_all"
         android:orientation="horizontal" >
 
+        <AutoCompleteTextView
+            android:id="@+id/autoEditText_searchResult"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:completionThreshold="1"
+            android:dropDownHorizontalOffset="00dp"
+            android:hint="@string/common_search_hint"
+            android:singleLine="true" />
+
+        <!--
         <EditText
             android:id="@+id/editText_searchResult"
             android:layout_width="0dp"
@@ -21,19 +33,16 @@
             android:layout_gravity="top"
             android:layout_weight="1"
             android:hint="@string/common_search_hint" >
-        </EditText>
+        </EditText>-->
 
         <Button
             android:id="@+id/btn_searchResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="@string/common_search"/>
+            android:text="@string/common_search" />
     </LinearLayout>
 
-
-    
-    
     <TextView
         android:id="@+id/textView_searchResult"
         android:layout_width="match_parent"

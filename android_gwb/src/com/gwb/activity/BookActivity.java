@@ -104,12 +104,8 @@ public class BookActivity extends BaseActivity {
 				data.add(item);
 			}
 
-			// listViewBook.setAdapter(new SimpleAdapter(this, data,
-			// R.layout.book_list,
-			// new String[] { ConstantParams.COLUMN_BOOK_NAME },
-			// new int[] { R.id.book_list_item_name }));
 
-			listViewBook.setAdapter(new BookAdapter(BookActivity.this,bookList));
+			listViewBook.setAdapter(new BookListAdapter(BookActivity.this,bookList));
 
 			// 为ListView设置列表项点击监听器
 			listViewBook.setOnItemClickListener(new OnItemClickListener() {
@@ -169,47 +165,6 @@ public class BookActivity extends BaseActivity {
 		} else {
 			Log.i("BookActivity", "-----");
 			tvNoResult.setVisibility(View.VISIBLE);
-		}
-
-	}
-
-	class BookAdapter extends BaseAdapter {
-
-		private LayoutInflater myInflater;
-		private List<Books> datas ;
-
-		public BookAdapter(Context context, List<Books> data) {
-			this.myInflater = LayoutInflater.from(context);
-			this.datas = data;
-		}
-
-		@Override
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return datas.size();
-		}
-
-		@Override
-		public Object getItem(int arg0) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public long getItemId(int arg0) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		@Override
-		public View getView(int position, View contentView, ViewGroup parent) {
-			// TODO Auto-generated method stub
-			contentView = myInflater.inflate(R.layout.book_list, null);
-			TextView tv = (TextView) contentView
-					.findViewById(R.id.book_list_item_name);
-			tv.setTextSize(ConstantParams.SIZE_TOP_TEXT);
-			tv.setText(datas.get(position).getBookName());
-			return contentView;
 		}
 
 	}

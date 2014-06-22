@@ -13,9 +13,6 @@ public class DensityUtil {
 	private static float dmDensityDpi = 0.0f;
 	private static DisplayMetrics dm;
 	private static float scale = 0.0f;
-	private static float default_dmDensityDpi = 320.0f;
-	private static int default_width = 720;
-	private static int default_height= 1280;
 
 	/**
 	 * 
@@ -27,15 +24,11 @@ public class DensityUtil {
 		// 获取当前屏幕
 		dm = new DisplayMetrics();
 		dm = context.getApplicationContext().getResources().getDisplayMetrics();
-//		default_width = dm.widthPixels;
-//		default_height = dm.heightPixels;
 		// 设置DensityDpi
-		setDmDensityDpi(dm.densityDpi);
+		setDmDensityDpi(dm.density);
 	  
 		// 密度因子
-//		scale = getDmDensityDpi() / 160 * ( dm.densityDpi / default_dmDensityDpi);
-		scale = getDmDensityDpi() / 160;
-		Log.i(TAG, toString()+"  dm.densityDpi: "+dm.densityDpi + " default_dmDensityDpi: "+default_dmDensityDpi + " \n scale:" +scale);
+		Log.i(TAG, toString()+"  dm.densityDpi: "+dm.densityDpi +"  dm.density: "+dm.density + " \n scale:" +scale);
 	}
 
 	/**
@@ -45,6 +38,7 @@ public class DensityUtil {
 	 * @retrun DmDensity Getter
 	 * */
 	public static float getDmDensityDpi() {
+		Log.i("SIZE", "dmDensityDpi:"+dmDensityDpi);
 		return dmDensityDpi;
 	}
 
