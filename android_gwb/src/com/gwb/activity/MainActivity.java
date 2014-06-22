@@ -1,22 +1,11 @@
 package com.gwb.activity;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import sun.util.logging.resources.logging;
 
 import com.artifex.mupdfdemo.R;
-import com.gwb.activity.pojo.HeaderVo;
-import com.gwb.activity.pojo.Users;
-import com.gwb.utils.ConstantParams;
-import com.gwb.utils.FastjsonTools;
-import com.gwb.utils.FileUtil;
-import com.gwb.utils.HttpHelper;
 import com.umeng.analytics.MobclickAgent;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -24,8 +13,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -99,12 +86,15 @@ public class MainActivity extends BaseActivity {
 
 			}
 
-			@Override
-			public void onAnimationStart(Animation animation) {
+			@SuppressLint("NewApi") @Override
+			public void onAnimationStart(final Animation animation) {
 				if (info_wifi.isConnected()) {
 					// attemptLogin();
 				} else if (info_3g.isConnected()) {
 					// 提示当前使用的是3g 将产生较多流量
+				
+					animation.cancel();
+					
 					AlertDialog dialog = new AlertDialog.Builder(
 							MainActivity.this).setTitle("提示")
 							.setMessage("当前使用的是3G网络，是否继续？")
@@ -113,6 +103,7 @@ public class MainActivity extends BaseActivity {
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which) {
+									animation.startNow();
 									dialog.dismiss();
 									redirectToLogin();
 //									attemptLogin();

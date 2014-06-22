@@ -51,19 +51,20 @@ public class BaseActivity extends FragmentActivity {
 		// densityUtil = new DensityUtil(getApplicationContext());
 		ConstantParams.SIZE_ROW = getScreenHeight() / 10;
 		ConstantParams.SIZE_BUTTON_WIDTH = getScreenWidth() / 2;
-		Log.i("LOG", ConstantParams.SIZE_ROW+"");
-		if (getScreenHeight() == 800) { 
+		Log.i("BASE", ConstantParams.SIZE_ROW+"-----getScreenHeight():" +getScreenHeight());
+		if (getScreenHeight() <= 800) { 
 			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 4.0f;
 			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 3.0f;
-		}else if (getScreenHeight() == 1280) {
+		}else if (getScreenHeight() <= 1280) {
 			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 5.0f;
 			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 4.0f;
-		}else if (getScreenHeight() == 1920) {
-			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 5.0f;
-			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 4.0f;
+		}else if (getScreenHeight() <= 1920) {
+			Log.i("BASE", getScreenHeight() + "");
+			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 9.0f;
+			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 6.0f;
 		}else {
-			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 5.0f;
-			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 4.0f;
+			ConstantParams.SIZE_TOP_TEXT = ConstantParams.SIZE_ROW / 12.0f;
+			ConstantParams.SIZE_MAIN_TEXT = ConstantParams.SIZE_ROW / 8.0f;
 		}
 		
 

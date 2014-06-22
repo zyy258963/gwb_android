@@ -18,13 +18,17 @@ import com.gwb.utils.HttpHelper;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -85,12 +89,7 @@ public class SearchResultActivity extends BaseActivity {
 				data.add(item);
 			}
 
-			listViewSearchResult.setAdapter(new SimpleAdapter(this, data,
-					R.layout.book_list,
-					new String[] { ConstantParams.COLUMN_BOOK_NAME },
-					new int[] { R.id.book_list_item_name }));
-
-			// 为ListView设置列表项点击监听器
+			listViewSearchResult.setAdapter(new BookAdapter(SearchResultActivity.this, bookList));
 
 			// 为ListView设置列表项点击监听器
 			listViewSearchResult
@@ -116,6 +115,48 @@ public class SearchResultActivity extends BaseActivity {
 
 	}
 
+	class BookAdapter extends BaseAdapter {
+
+		private LayoutInflater myInflater;
+		private List<Books> datas ;
+
+		public BookAdapter(Context context, List<Books> data) {
+			this.myInflater = LayoutInflater.from(context);
+			this.datas = data;
+		}
+
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return datas.size();
+		}
+
+		@Override
+		public Object getItem(int arg0) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public long getItemId(int arg0) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public View getView(int position, View contentView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			contentView = myInflater.inflate(R.layout.book_list, null);
+			TextView tv = (TextView) contentView
+					.findViewById(R.id.book_list_item_name);
+			tv.setTextSize(ConstantParams.SIZE_TOP_TEXT);
+			tv.setText(datas.get(position).getBookName());
+			return contentView;
+		}
+
+	}
+
+	
 	@SuppressLint("NewApi")
 	private class bookListAsynTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
