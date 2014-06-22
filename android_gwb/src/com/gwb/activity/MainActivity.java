@@ -93,7 +93,7 @@ public class MainActivity extends BaseActivity {
 				} else if (info_3g.isConnected()) {
 					// 提示当前使用的是3g 将产生较多流量
 				
-					animation.cancel();
+//					animation.cancel();
 					
 					AlertDialog dialog = new AlertDialog.Builder(
 							MainActivity.this).setTitle("提示")
@@ -103,7 +103,7 @@ public class MainActivity extends BaseActivity {
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which) {
-									animation.startNow();
+//									animation.startNow();
 									dialog.dismiss();
 									redirectToLogin();
 //									attemptLogin();
