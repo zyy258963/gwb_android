@@ -44,7 +44,9 @@ public class BookListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View contentView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		contentView = myInflater.inflate(R.layout.book_list, null);
+		if (contentView == null) {
+			contentView = myInflater.inflate(R.layout.book_list, null);
+		}
 		TextView tv = (TextView) contentView
 				.findViewById(R.id.book_list_item_name);
 		tv.setTextSize(ConstantParams.SIZE_TOP_TEXT);

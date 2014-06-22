@@ -108,7 +108,7 @@ public class SearchResultActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				saveHistory("searchHistory", autoKeywords);
-				bookList=null;
+			
 				new bookListAsynTask().execute();
 			}
 		});
@@ -117,7 +117,7 @@ public class SearchResultActivity extends BaseActivity {
 
 	private void initLayout() {
 		initAutoComplete("searchHistory", autoKeywords);
-//		data.clear();
+Log.i("PDF", "bookList:----------" +bookList);
 		if (bookList != null && !"".equals(bookList) && bookList.size() > 0) {
 			tvSearchResult.setVisibility(View.GONE);
 			// for (int i = 0; i < bookList.size(); i++) {
@@ -156,19 +156,30 @@ public class SearchResultActivity extends BaseActivity {
 											Log.i("PDF", "------------------" + path);
 											path = path.replace("\\", "/");
 
-											SharedPreferences sp = getApplicationContext()
-													.getSharedPreferences(
-															ConstantParams.SHARED_PREFERENCE_NAME,
-															Context.MODE_PRIVATE);
-
-											String localPath = sp.getString(ConstantParams.FIELD_FAVOURITE_ID
-																	+ ConstantParams.CURRENT_BOOK_ID,"");
-											if (localPath != null
-													&& !"".equals(localPath)) {
-												showPdf(localPath);
+											
+											
+											// 先判断本地有无已下载的文件
+											File file = new File(ConstantParams.FILE_STORE_PATH,
+													ConstantParams.FIELD_FAVOURITE_ID
+															+ ConstantParams.CURRENT_BOOK_ID + ".pdf");
+											if (file.exists()) {
+												showPdf(file.getAbsolutePath());
 											} else {
 												new downLoadFileAsyn().execute(path);
 											}
+											
+//											SharedPreferences sp = getSharedPreferences(
+//													ConstantParams.SHARED_PREFERENCE_NAME,
+//													Context.MODE_PRIVATE);
+//
+//											String localPath = sp.getString(ConstantParams.FIELD_FAVOURITE_ID
+//																	+ ConstantParams.CURRENT_BOOK_ID,"");
+//											if (localPath != null
+//													&& !"".equals(localPath)) {
+//												showPdf(localPath);
+//											} else {
+//												new downLoadFileAsyn().execute(path);
+//											}
 
 										}
 									}).setNegativeButton("取消", new OnClickListener() {
@@ -187,6 +198,7 @@ public class SearchResultActivity extends BaseActivity {
 
 		} else {
 			tvSearchResult.setVisibility(View.VISIBLE);
+			listViewSearchResult.setAdapter(null);
 		}
 
 	}

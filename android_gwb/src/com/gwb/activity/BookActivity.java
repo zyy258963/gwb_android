@@ -133,16 +133,25 @@ public class BookActivity extends BaseActivity {
 									Log.i("PDF", "------------------" + path);
 									path = path.replace("\\", "/");
 
-									SharedPreferences sp = getApplicationContext()
-											.getSharedPreferences(
+									SharedPreferences sp = getSharedPreferences(
 													ConstantParams.SHARED_PREFERENCE_NAME,
 													Context.MODE_PRIVATE);
 
-									String localPath = sp.getString(ConstantParams.FIELD_FAVOURITE_ID
-															+ ConstantParams.CURRENT_BOOK_ID,"");
-									if (localPath != null
-											&& !"".equals(localPath)) {
-										showPdf(localPath);
+//									String localPath = sp.getString(ConstantParams.FIELD_FAVOURITE_ID
+//															+ ConstantParams.CURRENT_BOOK_ID,"");
+//									if (localPath != null
+//											&& !"".equals(localPath)) {
+//										showPdf(localPath);
+//									} else {
+//										new downLoadFileAsyn().execute(path);
+//									}
+									
+									// 先判断本地有无已下载的文件
+									File file = new File(ConstantParams.FILE_STORE_PATH,
+											ConstantParams.FIELD_FAVOURITE_ID
+													+ ConstantParams.CURRENT_BOOK_ID + ".pdf");
+									if (file.exists()) {
+										showPdf(file.getAbsolutePath());
 									} else {
 										new downLoadFileAsyn().execute(path);
 									}
@@ -233,7 +242,6 @@ public class BookActivity extends BaseActivity {
 			super.onPreExecute();
 		}
 
-		@SuppressWarnings("deprecation")
 		@Override
 		protected Boolean doInBackground(String... params) {
 			Log.i("BookActivity", "inbackground:" + params[0]);

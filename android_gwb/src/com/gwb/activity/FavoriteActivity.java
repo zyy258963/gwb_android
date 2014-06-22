@@ -65,18 +65,17 @@ public class FavoriteActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_favorite);
 
-		TextView textView = (TextView)findViewById(R.id.textView_favorite_title);
+		TextView textView = (TextView) findViewById(R.id.textView_favorite_title);
 		textView.setTextSize(ConstantParams.SIZE_MAIN_TEXT);
 		textView.setHeight(ConstantParams.SIZE_ROW);
 		textView.setGravity(Gravity.CENTER);
-		
-		
+
 		dialog = new ProgressDialog(this);
 		dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		dialog.setCancelable(false);
 		dialog.setProgress(0);
 		dialog.setMax(100);
-		
+
 		handler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -88,7 +87,7 @@ public class FavoriteActivity extends BaseActivity {
 				super.handleMessage(msg);
 			}
 		};
-		
+
 		listViewFavorite = (ListView) findViewById(R.id.listView_favoriteBooks);
 		tvPopResult = (TextView) findViewById(R.id.textView_favorite_noresult);
 		new FavoriteListAsynTask().execute();
@@ -96,19 +95,20 @@ public class FavoriteActivity extends BaseActivity {
 	}
 
 	private void initLayout() {
-		data.clear();
+//		data.clear();
 		if (favoriteList != null && !"".equals(favoriteList)
 				&& favoriteList.size() > 0) {
 			tvPopResult.setVisibility(View.GONE);
-			for (int i = 0; i < favoriteList.size(); i++) {
-				Map<String, Object> item = new HashMap<String, Object>();
-				FavouriteBook book = favoriteList.get(i);
-				item.put(ConstantParams.COLUMN_BOOK_NAME, book.getBookName());
-				data.add(item);
-			}
+//			for (int i = 0; i < favoriteList.size(); i++) {
+//				Map<String, Object> item = new HashMap<String, Object>();
+//				FavouriteBook book = favoriteList.get(i);
+//				item.put(ConstantParams.COLUMN_BOOK_NAME, book.getBookName());
+//				data.add(item);
+//			}
 
-			listViewFavorite.setAdapter(new FavouriteBookAdapter(FavoriteActivity.this, favoriteList));
-			
+			listViewFavorite.setAdapter(new FavouriteBookAdapter(
+					FavoriteActivity.this, favoriteList));
+
 			// 为ListView设置列表项点击监听器
 			listViewFavorite.setOnItemClickListener(new OnItemClickListener() {
 
@@ -136,12 +136,12 @@ public class FavoriteActivity extends BaseActivity {
 							alertDialog.dismiss();
 							ConstantParams.CURRENT_BOOK_ID = favoriteList.get(
 									position).getBookId();
-							ConstantParams.CURRENT_BOOK_NAME = favoriteList.get(position)
-									.getBookName();
+							ConstantParams.CURRENT_BOOK_NAME = favoriteList
+									.get(position).getBookName();
 							String path = ConstantParams.URL_DOWN_PDF_BASE
 									+ favoriteList.get(position).getBookUrl();
 							Log.i("PDF", "------------------" + path);
-							
+
 							new downLoadFileAsyn().execute(path);
 
 						}
@@ -151,9 +151,12 @@ public class FavoriteActivity extends BaseActivity {
 						@SuppressLint("NewApi")
 						@Override
 						public void onClick(View v) {
-							int favId = favoriteList.get(position).getFavouriteId();
+							int favId = favoriteList.get(position)
+									.getFavouriteId();
+							ConstantParams.CURRENT_BOOK_ID = favoriteList.get(
+									position).getBookId();
 							alertDialog.dismiss();
-							
+
 							new DeleteFavoriteAsynTask().execute(favId);
 
 						}
@@ -171,13 +174,14 @@ public class FavoriteActivity extends BaseActivity {
 
 		} else {
 			tvPopResult.setVisibility(View.VISIBLE);
+			listViewFavorite.setAdapter(null);
 		}
 	}
 
 	class FavouriteBookAdapter extends BaseAdapter {
 
 		private LayoutInflater myInflater;
-		private List<FavouriteBook>  datas ;
+		private List<FavouriteBook> datas;
 
 		public FavouriteBookAdapter(Context context, List<FavouriteBook> data) {
 			this.myInflater = LayoutInflater.from(context);
@@ -215,19 +219,19 @@ public class FavoriteActivity extends BaseActivity {
 		}
 
 	}
-	
-	
+
 	@SuppressLint("NewApi")
 	private class FavoriteListAsynTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... arg0) {
+//		此处不需要向服务器请求，直接在本地获得数据
 			String jsonString = null;
 			String url = ConstantParams.URL_LIST_FAVOURITE_BOOKS + "&"
 					+ ConstantParams.FIELD_TELEPHONE + "="
 					+ ConstantParams.CURRENT_TELEPHONE + "&"
 					+ ConstantParams.FIELD_MAC_ADDRESS + "="
 					+ ConstantParams.CURRENT_MACADDRESS + "&"
-					+ConstantParams.FIELD_USER_ID+"="
+					+ ConstantParams.FIELD_USER_ID + "="
 					+ ConstantParams.CURRENT_USER_ID;
 			try {
 				jsonString = HttpHelper.sendGetMessage(url, "utf-8");
@@ -235,6 +239,7 @@ public class FavoriteActivity extends BaseActivity {
 				Log.i("favoriteListActivty", url);
 				favoriteList = FastjsonTools.getContentListPojos(jsonString,
 						FavouriteBook.class);
+				filterLocalFile(favoriteList);
 				if (favoriteList != null && !"".equals(favoriteList)) {
 					ConstantParams.CURRENT_FAVOURITE_BOOK_SIZE = favoriteList
 							.size();
@@ -246,10 +251,9 @@ public class FavoriteActivity extends BaseActivity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			return true;
 		}
-
 
 		@Override
 		protected void onPreExecute() {
@@ -264,9 +268,26 @@ public class FavoriteActivity extends BaseActivity {
 	}
 
 	@SuppressLint("NewApi")
+	private void filterLocalFile(List<FavouriteBook> favoriteList) {
+		SharedPreferences sp = getSharedPreferences(
+				ConstantParams.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+		Set<String> set = sp.getStringSet(
+				ConstantParams.FIELD_FAVOURITE_BOOK_SET, null);
+		if (set != null) {
+			for (int i = 0; i < favoriteList.size(); i++) {
+				if (!set.contains(favoriteList.get(i).getBookId() + "")) {
+					favoriteList.remove(i);
+				}
+			}
+		} else {
+			favoriteList = null;
+		}
+	}
+
+	@SuppressLint("NewApi")
 	private class DeleteFavoriteAsynTask extends
 			AsyncTask<Integer, Void, Boolean> {
-//		List<FavouriteBook> list = new ArrayList<FavouriteBook>();
+		// List<FavouriteBook> list = new ArrayList<FavouriteBook>();
 
 		@Override
 		protected void onPreExecute() {
@@ -275,75 +296,83 @@ public class FavoriteActivity extends BaseActivity {
 
 		@Override
 		protected Boolean doInBackground(Integer... params) {
-			// 增加我喜欢的文档的时候，只需要知道是否添加成功即可，
-			String jsonString1 = null;
-			String deleteurl = ConstantParams.URL_DELETE_FAVOURITE_BOOKS + "&"
-					+ ConstantParams.FIELD_TELEPHONE + "="
-					+ ConstantParams.CURRENT_TELEPHONE + "&"
-					+ ConstantParams.FIELD_MAC_ADDRESS + "="
-					+ ConstantParams.CURRENT_MACADDRESS + "&"
-					+ ConstantParams.FIELD_FAVOURITE_ID + "=" + params[0];
-			// success - 成功 。。 fail 。。。 失败
-			try {
-				jsonString1 = HttpHelper.sendGetMessage(deleteurl, "utf-8");
-				// Looper.prepare();
-				Log.i("BookActivity", "删除返回的数据：>" + deleteurl + "<");
-				Log.i("BookActivity", "favoriteList.size()：>" + favoriteList.size()
-						+ "<\n" + " ConstantParams.CURRENT_FAVORITE_BOOK_SIZE：>"
-						+ ConstantParams.CURRENT_FAVOURITE_BOOK_SIZE + "<");
-
-				if (jsonString1 != null && !"".equals(jsonString1)) {
-					favoriteList = FastjsonTools.getContentListPojos(jsonString1,
-							FavouriteBook.class);
-					if (favoriteList != null
-							&& !"".equals(favoriteList)
-							&& favoriteList.size() < ConstantParams.CURRENT_FAVOURITE_BOOK_SIZE) {
-						return true;
-					} else {
-						return false;
-					}
-				} else {
-					return false;
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return false;
-			}
+			/** 删除的时候一共有以下几个步骤
+			1. 通知服务器，根据返回结果进行判断   后修改为  删除本地收藏文件的时候不想服务器发信息
+			2. 如果服务器正确返回，那么删除本地文件，删除favouriteset中的bookId，
 			
-
+			**/
+//			String jsonString1 = null;
+//			String deleteurl = ConstantParams.URL_DELETE_FAVOURITE_BOOKS + "&"
+//					+ ConstantParams.FIELD_TELEPHONE + "="
+//					+ ConstantParams.CURRENT_TELEPHONE + "&"
+//					+ ConstantParams.FIELD_MAC_ADDRESS + "="
+//					+ ConstantParams.CURRENT_MACADDRESS + "&"
+//					+ ConstantParams.FIELD_FAVOURITE_ID + "=" + params[0];
+//			// success - 成功 。。 fail 。。。 失败
+//			try {
+//				jsonString1 = HttpHelper.sendGetMessage(deleteurl, "utf-8");
+//				// Looper.prepare();
+//				Log.i("BookActivity", "删除返回的数据：>" + deleteurl + "<");
+//				
+//				if (jsonString1 != null && !"".equals(jsonString1)) {
+//					favoriteList = FastjsonTools.getContentListPojos(
+//							jsonString1, FavouriteBook.class);
+//					filterLocalFile(favoriteList);
+//					if (favoriteList != null
+//							&& !"".equals(favoriteList)
+//							&& favoriteList.size() < ConstantParams.CURRENT_FAVOURITE_BOOK_SIZE) {
+//						return true;
+//					} else {
+//						return false;
+//					}
+//				} else {
+//					return false;
+//				}
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//				return false;
+//			}
+			
+			return true;
+			
 		}
 
 		@Override
 		protected void onPostExecute(Boolean result) {
 			Log.i("FavoriteActivity", "result : " + result);
 			if (result) {
-				Toast.makeText(FavoriteActivity.this, "移除成功",
-						Toast.LENGTH_SHORT).show();
-				
-				
 				try {
-					File file = new File(ConstantParams.FILE_STORE_PATH,ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID+".pdf");
+					File file = new File(ConstantParams.FILE_STORE_PATH,
+							ConstantParams.FIELD_FAVOURITE_ID
+									+ ConstantParams.CURRENT_BOOK_ID + ".pdf");
 					if (file.exists()) {
 						FileUtil.delFile(file.getAbsolutePath());
 					}
-					SharedPreferences sp = getApplicationContext().getSharedPreferences(
+					SharedPreferences sp = getSharedPreferences(
 							ConstantParams.SHARED_PREFERENCE_NAME,
 							Context.MODE_PRIVATE);
-					Set<String> set = sp.getStringSet(ConstantParams.FIELD_FAVOURITE_BOOK_SET, null);
-					if (set!=null && set.contains(ConstantParams.CURRENT_BOOK_ID+"")) {
-						set.remove(ConstantParams.CURRENT_BOOK_ID+"");
+					Set<String> set = sp.getStringSet(
+							ConstantParams.FIELD_FAVOURITE_BOOK_SET, null);
+					if (set != null
+							&& set.contains(ConstantParams.CURRENT_BOOK_ID + "")) {
+						set.remove(ConstantParams.CURRENT_BOOK_ID + "");
 					}
-					sp.edit().putStringSet(ConstantParams.FIELD_FAVOURITE_BOOK_SET, set).commit();
+					Editor editor = sp.edit();
+					editor.putStringSet(
+							ConstantParams.FIELD_FAVOURITE_BOOK_SET, set);
+//					editor.putString(ConstantParams.FIELD_FAVOURITE_ID
+//							+ ConstantParams.CURRENT_BOOK_ID, "");
+					editor.commit();
+					filterLocalFile(favoriteList);
+					Toast.makeText(FavoriteActivity.this, "移除成功",
+							Toast.LENGTH_SHORT).show();
+
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-//				Editor editor= sp.edit();				
-//				editor.putString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
-//				editor.commit();
-				
+
 			} else {
 				Toast.makeText(FavoriteActivity.this, "移除出错，请联系管理员。",
 						Toast.LENGTH_SHORT).show();
@@ -355,9 +384,8 @@ public class FavoriteActivity extends BaseActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-//		ApplicationManager.remove(this);
+		// ApplicationManager.remove(this);
 	}
-
 
 	@SuppressLint("NewApi")
 	private class downLoadFileAsyn extends AsyncTask<String, Void, String> {
@@ -368,16 +396,17 @@ public class FavoriteActivity extends BaseActivity {
 			super.onPreExecute();
 		}
 
-		@SuppressWarnings("deprecation")
 		@Override
 		protected String doInBackground(String... params) {
-//			bookId   
+			// bookId
 
-//			先判断本地有无已下载的文件
-			File file = new File(ConstantParams.FILE_STORE_PATH,ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID+".pdf");
+			// 先判断本地有无已下载的文件
+			File file = new File(ConstantParams.FILE_STORE_PATH,
+					ConstantParams.FIELD_FAVOURITE_ID
+							+ ConstantParams.CURRENT_BOOK_ID + ".pdf");
 			if (file.exists()) {
 				return file.getAbsolutePath();
-			}else {
+			} else {
 				Log.i("BookActivity", "inbackground:" + params[0]);
 				ConstantParams.TEMP_FILE = null;
 				try {
@@ -389,28 +418,30 @@ public class FavoriteActivity extends BaseActivity {
 					return "fail";
 				}
 			}
-			
-//			SharedPreferences sp = getApplicationContext().getSharedPreferences(
-//					ConstantParams.SHARED_PREFERENCE_NAME,
-//					Context.MODE_PRIVATE);
-//			String localFile = sp.getString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
-			
-//			if (!"".equals(localFile)) {
-//				return localFile;
-//			}else {
-//				Log.i("BookActivity", "inbackground:" + params[0]);
-//				ConstantParams.TEMP_FILE = null;
-//				
-//				try {
-//					getTempFile(params[0]);
-//					return "success";
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//					return "fail";
-//				}
-//			}
-//			
+
+			// SharedPreferences sp =
+			// getApplicationContext().getSharedPreferences(
+			// ConstantParams.SHARED_PREFERENCE_NAME,
+			// Context.MODE_PRIVATE);
+			// String localFile =
+			// sp.getString(ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID,"");
+
+			// if (!"".equals(localFile)) {
+			// return localFile;
+			// }else {
+			// Log.i("BookActivity", "inbackground:" + params[0]);
+			// ConstantParams.TEMP_FILE = null;
+			//
+			// try {
+			// getTempFile(params[0]);
+			// return "success";
+			// } catch (Exception e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// return "fail";
+			// }
+			// }
+			//
 		}
 
 		@Override
@@ -420,9 +451,10 @@ public class FavoriteActivity extends BaseActivity {
 			if ("success".equals(result) && ConstantParams.TEMP_FILE != null
 					&& ConstantParams.TEMP_FILE.length() > 0) {
 				showPdf(ConstantParams.TEMP_FILE_PATH);
-			} else if("fail".equals(result)){
-				AlertDialog dialog = new AlertDialog.Builder(FavoriteActivity.this)
-						.setTitle("提示框").setMessage(R.string.prompt_error_file)
+			} else if ("fail".equals(result)) {
+				AlertDialog dialog = new AlertDialog.Builder(
+						FavoriteActivity.this).setTitle("提示框")
+						.setMessage(R.string.prompt_error_file)
 						.setPositiveButton("确定", new OnClickListener() {
 
 							@Override
@@ -433,12 +465,12 @@ public class FavoriteActivity extends BaseActivity {
 							}
 						}).create();
 				dialog.show();
-			}else {
+			} else {
 				showPdf(result);
 			}
 		}
 	}
-	
+
 	public void getTempFile(String uriPath) throws Exception {
 		URL url;
 		FileOutputStream fos = null;
@@ -478,25 +510,18 @@ public class FavoriteActivity extends BaseActivity {
 				ConstantParams.TEMP_FILE = new File(
 						ConstantParams.TEMP_FILE_PATH);
 			}
-//			将文件村至本地并且存在 sharedPerference中
+			// 将文件村至本地并且存在 sharedPerference中
 			File path = new File(ConstantParams.FILE_STORE_PATH);
 			if (!path.exists()) {
 				path.mkdirs();
 			}
-			
-			File tarFile = new File(path, ConstantParams.FIELD_FAVOURITE_ID+ConstantParams.CURRENT_BOOK_ID+".pdf");
-			if (tarFile.exists()) {
+
+			File tarFile = new File(path, ConstantParams.FIELD_FAVOURITE_ID
+					+ ConstantParams.CURRENT_BOOK_ID + ".pdf");
+			if (!tarFile.exists()) {
 				tarFile.createNewFile();
 				FileUtil.copyFile(ConstantParams.TEMP_FILE, tarFile);
 			}
-			
-
-			
-			Log.i("PDF",
-					"ConstantParams.TEMP_FILE "
-							+ ConstantParams.TEMP_FILE.getAbsolutePath());
-			Log.i("DownloadUtils", "fos:" + fos + ": bis:" + bis + ": is:" + is
-					+ ": total:" + total);
 
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block

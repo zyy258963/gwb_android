@@ -51,7 +51,7 @@ public class MenuActivity extends BaseActivity {
 		ApplicationManager.add(MenuActivity.this);
 		// setContentView(R.layout.activity_main);
 
-		SharedPreferences sp = getApplicationContext().getSharedPreferences(
+		SharedPreferences sp =  getSharedPreferences(
 				ConstantParams.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
 		String str = sp.getString(ConstantParams.FIELD_CATEGORY_LIST, "");
 		if (str!=null && !"".equals(str)) {
@@ -103,7 +103,7 @@ public class MenuActivity extends BaseActivity {
 		LinearLayout layout_menu = new LinearLayout(MenuActivity.this);
 		layout_menu.setOrientation(LinearLayout.VERTICAL);
 		
-		SharedPreferences sp = getApplicationContext().getSharedPreferences(
+		SharedPreferences sp =  getSharedPreferences(
 				ConstantParams.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
 		String str = sp.getString(ConstantParams.FIELD_CATEGORY_LIST, "");
 		
@@ -136,7 +136,7 @@ public class MenuActivity extends BaseActivity {
 				layout_menu.addView(button);
 			}
 		}else {
-			SharedPreferences sp1 = getApplicationContext().getSharedPreferences(
+			SharedPreferences sp1 = getSharedPreferences(
 					ConstantParams.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
 			Editor editor = sp1.edit();
 			StringBuffer sb = new StringBuffer("");
