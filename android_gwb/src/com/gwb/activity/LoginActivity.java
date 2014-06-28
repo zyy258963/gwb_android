@@ -254,23 +254,38 @@ public class LoginActivity extends BaseActivity {
 
 					// 此处先判断 heeader 中的 code是否正确
 					HeaderVo headerVo = FastjsonTools.getHeader(jsonStr);
+					String msgString = FastjsonTools.getContentMsg(jsonStr);
 					if (headerVo != null && "1".equals(headerVo.getCode())) {
-						Users user = FastjsonTools.getContentPojo(jsonStr,
-								Users.class);
-						if (user != null && !"".equals(user)) {
-							Log.i("LoginActivity", "login::  1 ");
-							System.out.println("userId :::" + user.getUserId());
-							ConstantParams.CURRENT_USER_ID = user.getUserId();
-							ConstantParams.CURRENT_USER_NAME = user
-									.getUserName();
-							ConstantParams.CURRENT_MACADDRESS = user
-									.getMacAddress();
-							ConstantParams.CURRENT_TELEPHONE = user
-									.getTelephone();
-							return "success";
-						} else {
-							Log.i("LoginActivity", "login::  2 ");
-							return "fail";
+						if (!"".equals(msgString) && msgString!=null) {
+							if ("notelephone".equals(msgString)) {
+								return "notelephone";
+							} else if ("nomatch".equals(msgString)) {
+								return "nomatch";
+							} else if ("updateerror".equals(msgString)) {
+								return "updateerror";
+							} else {
+								return "fail";
+							}
+						}else {
+							Users user = FastjsonTools.getContentPojo(jsonStr,
+									Users.class);
+							if (user != null && !"".equals(user)) {
+								Log.i("LoginActivity", "login::  1 ");
+								System.out.println("userId :::"
+										+ user.getUserId());
+								ConstantParams.CURRENT_USER_ID = user
+										.getUserId();
+								ConstantParams.CURRENT_USER_NAME = user
+										.getUserName();
+								ConstantParams.CURRENT_MACADDRESS = user
+										.getMacAddress();
+								ConstantParams.CURRENT_TELEPHONE = user
+										.getTelephone();
+								return "success";
+							} else {
+								Log.i("LoginActivity", "login::  2 ");
+								return "fail";
+							}
 						}
 					} else {
 						return "fail";
@@ -294,9 +309,9 @@ public class LoginActivity extends BaseActivity {
 			if ("success".equals(result)) {
 
 				// 讲电话和MAC地址存储到本地
-				SharedPreferences sp =getSharedPreferences(
-								ConstantParams.SHARED_PREFERENCE_NAME,
-								Context.MODE_PRIVATE);
+				SharedPreferences sp = getSharedPreferences(
+						ConstantParams.SHARED_PREFERENCE_NAME,
+						Context.MODE_PRIVATE);
 				Editor editor = sp.edit();
 				editor.putString(ConstantParams.FIELD_TELEPHONE, mUsername);
 				editor.putString(ConstantParams.FIELD_MAC_ADDRESS, macAddress);
@@ -307,7 +322,19 @@ public class LoginActivity extends BaseActivity {
 				startActivity(intent);
 			} else if ("fail".equals(result)) {
 				mUsernameView
-						.setError(getString(R.string.error_incorrect_telephone));
+						.setError(getString(R.string.error_incorrect_servererror));
+				mUsernameView.requestFocus();
+			} else if ("notelephone".equals(result)) {
+				mUsernameView
+						.setError(getString(R.string.error_incorrect_notelephone));
+				mUsernameView.requestFocus();
+			} else if ("nomatch".equals(result)) {
+				mUsernameView
+						.setError(getString(R.string.error_incorrect_nomatch));
+				mUsernameView.requestFocus();
+			} else if ("updateerror".equals(result)) {
+				mUsernameView
+						.setError(getString(R.string.error_incorrect_updateerror));
 				mUsernameView.requestFocus();
 			}
 		}

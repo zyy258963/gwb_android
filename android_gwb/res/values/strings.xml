@@ -14,7 +14,10 @@
     <string name="error_invalid_email">用户名输入有误</string>
     <string name="error_invalid_password">密码输入有误</string>
     <string name="error_incorrect_password">用户名或密码不正确</string>
-    <string name="error_incorrect_telephone">错误的手机号</string>
+    <string name="error_incorrect_servererror">请求服务器出错，请稍后重试！</string>
+    <string name="error_incorrect_notelephone">该手机号尚未注册，请确认！</string>
+    <string name="error_incorrect_nomatch">该手机号已经绑定一个手机！</string>
+    <string name="error_incorrect_updateerror">服务器更新出错，请稍后重试！</string>
     <string name="error_field_required">必填项</string>
     <string name="app_name">公文包</string>
     <string name="action_settings">设置</string>

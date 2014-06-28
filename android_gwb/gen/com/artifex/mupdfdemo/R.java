@@ -590,100 +590,103 @@ public final class R {
     public static final class string {
         public static final int action_forgot_password=0x7f070005;
         public static final int action_remember_tele=0x7f070006;
-        public static final int action_settings=0x7f07000e;
+        public static final int action_settings=0x7f070011;
         public static final int action_sign_in_register=0x7f070003;
         public static final int action_sign_in_short=0x7f070004;
-        public static final int app_name=0x7f07000d;
-        public static final int cancel=0x7f070045;
+        public static final int app_name=0x7f070010;
+        public static final int cancel=0x7f070048;
         /**  行业分类 
          */
-        public static final int category_1=0x7f070023;
-        public static final int category_2=0x7f070024;
-        public static final int category_3=0x7f070025;
-        public static final int category_4=0x7f070026;
-        public static final int category_5=0x7f070027;
+        public static final int category_1=0x7f070026;
+        public static final int category_2=0x7f070027;
+        public static final int category_3=0x7f070028;
+        public static final int category_4=0x7f070029;
+        public static final int category_5=0x7f07002a;
         /**  专业分类 
          */
-        public static final int class_1_1=0x7f070028;
-        public static final int class_1_2=0x7f070029;
-        public static final int class_1_3=0x7f07002a;
-        public static final int class_1_4=0x7f07002b;
-        public static final int class_1_5=0x7f07002c;
-        public static final int common_adDesc=0x7f07001c;
-        public static final int common_book_noresult=0x7f07001e;
-        public static final int common_chapter_noresult=0x7f07001f;
+        public static final int class_1_1=0x7f07002b;
+        public static final int class_1_2=0x7f07002c;
+        public static final int class_1_3=0x7f07002d;
+        public static final int class_1_4=0x7f07002e;
+        public static final int class_1_5=0x7f07002f;
+        public static final int common_adDesc=0x7f07001f;
+        public static final int common_book_noresult=0x7f070021;
+        public static final int common_chapter_noresult=0x7f070022;
         /**  通用文字定义 
          */
-        public static final int common_logoDesc=0x7f070016;
-        public static final int common_mainPage=0x7f07001b;
-        public static final int common_major_noresult=0x7f070020;
-        public static final int common_return=0x7f07001a;
-        public static final int common_search=0x7f070019;
-        public static final int common_search_hint=0x7f070017;
-        public static final int common_search_noresult=0x7f07001d;
-        public static final int common_search_text=0x7f070018;
-        public static final int content_failure=0x7f070044;
-        public static final int copy=0x7f070052;
-        public static final int drawer_close=0x7f07003f;
-        public static final int drawer_open=0x7f07003e;
-        public static final int enter_password=0x7f07004b;
-        public static final int error_field_required=0x7f07000c;
+        public static final int common_logoDesc=0x7f070019;
+        public static final int common_mainPage=0x7f07001e;
+        public static final int common_major_noresult=0x7f070023;
+        public static final int common_return=0x7f07001d;
+        public static final int common_search=0x7f07001c;
+        public static final int common_search_hint=0x7f07001a;
+        public static final int common_search_noresult=0x7f070020;
+        public static final int common_search_text=0x7f07001b;
+        public static final int content_failure=0x7f070047;
+        public static final int copy=0x7f070055;
+        public static final int drawer_close=0x7f070042;
+        public static final int drawer_open=0x7f070041;
+        public static final int enter_password=0x7f07004e;
+        public static final int error_field_required=0x7f07000f;
+        public static final int error_incorrect_nomatch=0x7f07000d;
+        public static final int error_incorrect_notelephone=0x7f07000c;
         public static final int error_incorrect_password=0x7f07000a;
-        public static final int error_incorrect_telephone=0x7f07000b;
+        public static final int error_incorrect_servererror=0x7f07000b;
+        public static final int error_incorrect_updateerror=0x7f07000e;
         public static final int error_invalid_email=0x7f070008;
         public static final int error_invalid_password=0x7f070009;
-        public static final int hello_world=0x7f07000f;
-        public static final int link_control=0x7f07004e;
+        public static final int hello_world=0x7f070012;
+        public static final int link_control=0x7f070051;
         public static final int login_progress_signing_in=0x7f070007;
         /**  主页面文字 
          */
-        public static final int menu_search=0x7f070021;
-        public static final int no_further_occurences_found=0x7f07004f;
-        public static final int no_media_hint=0x7f070042;
-        public static final int no_media_warning=0x7f070041;
-        public static final int open_failed=0x7f070043;
-        public static final int outline_title=0x7f07004a;
-        public static final int picker_title=0x7f070049;
-        public static final int pop_no_favorite_book=0x7f070022;
-        public static final int prompt_error_file=0x7f070015;
+        public static final int menu_search=0x7f070024;
+        public static final int no_further_occurences_found=0x7f070052;
+        public static final int no_media_hint=0x7f070045;
+        public static final int no_media_warning=0x7f070044;
+        public static final int open_failed=0x7f070046;
+        public static final int outline_title=0x7f07004d;
+        public static final int picker_title=0x7f07004c;
+        public static final int pop_no_favorite_book=0x7f070025;
+        public static final int prompt_error_file=0x7f070018;
         public static final int prompt_password=0x7f070002;
         /**  Strings related to login 
          */
         public static final int prompt_username=0x7f070001;
-        public static final int search=0x7f070051;
-        public static final int search_backwards=0x7f070046;
-        public static final int search_document=0x7f070048;
-        public static final int search_forwards=0x7f070047;
-        public static final int searching_=0x7f07004d;
-        public static final int select=0x7f070050;
-        public static final int strike_out=0x7f070053;
-        public static final int text_not_found=0x7f07004c;
-        public static final int title_activity_base=0x7f07002d;
-        public static final int title_activity_book=0x7f07002e;
-        public static final int title_activity_book_title=0x7f070013;
-        public static final int title_activity_category=0x7f070033;
-        public static final int title_activity_chapter=0x7f07002f;
-        public static final int title_activity_chapter_list=0x7f070030;
-        public static final int title_activity_chapter_pdf=0x7f070035;
-        public static final int title_activity_chapterlist=0x7f070014;
-        public static final int title_activity_class=0x7f070011;
-        public static final int title_activity_favorite=0x7f070012;
+        public static final int search=0x7f070054;
+        public static final int search_backwards=0x7f070049;
+        public static final int search_document=0x7f07004b;
+        public static final int search_forwards=0x7f07004a;
+        public static final int searching_=0x7f070050;
+        public static final int select=0x7f070053;
+        public static final int strike_out=0x7f070056;
+        public static final int text_not_found=0x7f07004f;
+        public static final int title_activity_base=0x7f070030;
+        public static final int title_activity_book=0x7f070031;
+        public static final int title_activity_book_title=0x7f070016;
+        public static final int title_activity_category=0x7f070036;
+        public static final int title_activity_chapter=0x7f070032;
+        public static final int title_activity_chapter_list=0x7f070033;
+        public static final int title_activity_chapter_pdf=0x7f070038;
+        public static final int title_activity_chapterlist=0x7f070017;
+        public static final int title_activity_class=0x7f070014;
+        public static final int title_activity_favorite=0x7f070015;
         public static final int title_activity_login=0x7f070000;
-        public static final int title_activity_major=0x7f070034;
-        public static final int title_activity_menu=0x7f070010;
-        public static final int title_activity_pdfViwer=0x7f070036;
-        public static final int title_activity_search=0x7f070031;
-        public static final int title_activity_search_result=0x7f070032;
-        public static final int title_dialog_cancel=0x7f07003b;
-        public static final int title_dialog_favourite=0x7f070039;
-        public static final int title_dialog_favourite_delete=0x7f07003a;
-        public static final int title_dialog_view=0x7f070038;
+        public static final int title_activity_major=0x7f070037;
+        public static final int title_activity_menu=0x7f070013;
+        public static final int title_activity_pdfViwer=0x7f070039;
+        public static final int title_activity_search=0x7f070034;
+        public static final int title_activity_search_result=0x7f070035;
+        public static final int title_dialog_cancel=0x7f07003e;
+        public static final int title_dialog_favourite=0x7f07003c;
+        public static final int title_dialog_favourite_delete=0x7f07003d;
+        public static final int title_dialog_view=0x7f07003b;
         /**  弹出框中的文字 
          */
-        public static final int title_dialog_viewPdf=0x7f070037;
-        public static final int title_pdfdialog_cancel=0x7f07003d;
-        public static final int title_pdfdialog_view=0x7f07003c;
-        public static final int version=0x7f070040;
+        public static final int title_dialog_viewPdf=0x7f07003a;
+        public static final int title_pdfdialog_cancel=0x7f070040;
+        public static final int title_pdfdialog_view=0x7f07003f;
+        public static final int version=0x7f070043;
     }
     public static final class style {
         /** 

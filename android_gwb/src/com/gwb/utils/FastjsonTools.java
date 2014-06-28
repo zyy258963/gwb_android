@@ -88,7 +88,20 @@ public class FastjsonTools {
 		}
 		return header;
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public static String getContentMsg(String jsonStr) {
+		try {
+			Object object = getMap(jsonStr).get("content");
+			if (object != null && !"".equals(object)) {
+				return ((Map<String, String>)object).get("msg");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
 	@SuppressLint("NewApi")
 	public static <T> T getContentPojo(String jsonString, Class<T> cls) {
 		T t = null;
@@ -152,4 +165,6 @@ public class FastjsonTools {
 		String str1 = "{\"content\":[{\"bookDesc\":\"\",\"bookId\":37,\"bookName\":\"住宅设计规范GB50096-2011\",\"bookUrl\":\"18-18/2014-05-11-06-25-07.pdf\",\"categoryId\":18,\"categoryName\":\"标准规范汇编\",\"chapterNum\":1,\"classId\":18,\"className\":\"其它综合\"},{\"bookDesc\":\"\",\"bookId\":26,\"bookName\":\"建筑结构荷载规范GB50009-2012\",\"bookUrl\":\"18-19/2014-05-10-12-03-41.pdf\",\"categoryId\":18,\"categoryName\":\"标准规范汇编\",\"chapterNum\":1,\"classId\":19,\"className\":\"结构\"},{\"bookDesc\":\"\",\"bookId\":27,\"bookName\":\"建筑结构荷载规范(条文说明)GB50009-2012\",\"bookUrl\":\"18-19/2014-05-10-12-05-01.pdf\",\"categoryId\":18,\"categoryName\":\"标准规范汇编\",\"chapterNum\":1,\"classId\":19,\"className\":\"结构\"},{\"bookDesc\":\"\",\"bookId\":34,\"bookName\":\"砌体结构设计规范GB50003-2011\",\"bookUrl\":\"18-19/2014-05-10-08-01-30.pdf\",\"categoryId\":18,\"categoryName\":\"标准规范汇编\",\"chapterNum\":1,\"classId\":19,\"className\":\"结构\"},{\"bookDesc\":\"\",\"bookId\":24,\"bookName\":\"建筑设计防火规范-GB50016-2006\",\"bookUrl\":\"18-20/2014-05-10-06-17-08.pdf\",\"categoryId\":18,\"categoryName\":\"标准规范汇编\",\"chapterNum\":1,\"classId\":20,\"className\":\"防火\"},{\"bookDesc\":\"\",\"bookId\":25,\"bookName\":\"建筑设计防火规范(条文说明)-GB50016-2006\",\"bookUrl\":\"18-20/2014-05-10-06-20-07.pdf\",\"categoryId\":18,\"categoryName\":\"标准规范汇编\",\"chapterNum\":1,\"classId\":20,\"className\":\"防火\"},{\"bookDesc\":\"\",\"bookId\":28,\"bookName\":\"构筑物抗震设计规范GB50191-2012\",\"bookUrl\":\"18-22/2014-05-10-02-44-20.pdf\",\"categoryId\":18,\"categoryName\":\"标准规范汇编\",\"chapterNum\":1,\"classId\":22,\"className\":\"抗震\"},{\"bookDesc\":\"\",\"bookId\":29,\"bookName\":\"构筑物抗震设计规范(条文说明)GB50191-2012\",\"bookUrl\":\"18-22/2014-05-10-02-48-13.pdf\",\"categoryId\":18,\"categoryName\":\"标准规范汇编\",\"chapterNum\":1,\"classId\":22,\"className\":\"抗震\"},{\"bookDesc\":\"\",\"bookId\":30,\"bookName\":\"节能建筑评价标准GB T50668-2011\",\"bookUrl\":\"18-24/2014-05-10-03-23-59.pdf\",\"categoryId\":18,\"categoryName\":\"标准规范汇编\",\"chapterNum\":1,\"classId\":24,\"className\":\"节能\"},{\"bookDesc\":\"\",\"bookId\":35,\"bookName\":\"地铁设计规范GB50157-2003\",\"bookUrl\":\"18-25/2014-05-10-08-58-48.pdf\",\"categoryId\":18,\"categoryName\":\"标准规范汇编\",\"chapterNum\":1,\"classId\":25,\"className\":\"轨道交通\"},{\"bookDesc\":\"\",\"bookId\":36,\"bookName\":\"地铁设计规范(条文说明)GB50157-2003\",\"bookUrl\":\"18-25/2014-05-10-09-00-33.pdf\",\"categoryId\":18,\"categoryName\":\"标准规范汇编\",\"chapterNum\":1,\"classId\":25,\"className\":\"轨道交通\"},{\"bookDesc\":\"\",\"bookId\":31,\"bookName\":\"民用建筑供暖通风与空气调节设计规范GB50736-2012\",\"bookUrl\":\"18-29/2014-05-10-04-12-01.pdf\",\"categoryId\":18,\"categoryName\":\"标准规范汇编\",\"chapterNum\":1,\"classId\":29,\"className\":\"暖通\"},{\"bookDesc\":\"\",\"bookId\":32,\"bookName\":\"民用建筑供暖通风与空气调节设计规范(条文说明)GB50736-2012\",\"bookUrl\":\"18-29/2014-05-10-04-14-49.pdf\",\"categoryId\":18,\"categoryName\":\"标准规范汇编\",\"chapterNum\":1,\"classId\":29,\"className\":\"暖通\"}],\"header\":{\"code\":\"1\",\"msg\":\"SUCCESS\"}}";
 		FastjsonTools.getContentListPojos(str1, Books.class);
 	}
+
+	
 }
