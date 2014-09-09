@@ -209,12 +209,13 @@ public class MenuActivity extends BaseActivity {
 								+ ConstantParams.CURRENT_MACADDRESS + "&"
 								+ ConstantParams.FIELD_USER_ID + "="
 								+ ConstantParams.CURRENT_USER_ID, "utf-8");
+				cateList = FastjsonTools.getContentListPojos(jsonString,
+						BookCategory.class);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			cateList = FastjsonTools.getContentListPojos(jsonString,
-					BookCategory.class);
+			
 
 			return true;
 		}

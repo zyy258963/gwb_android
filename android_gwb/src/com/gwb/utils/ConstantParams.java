@@ -15,10 +15,16 @@ public class ConstantParams {
 
 	// 20. 193.34.134 10 .0.2.2 20 .193.34.133 117. 79.84.185
 
-	public static final String URL_BATH = "http://192.168.1.7:8080/GwbProject";
-	public static final String URL_BATH_SLASH = "http://192.168.1.7:8080/GwbProject/";
+	public static final String URL_BATH = "http://weebo.com.cn/GwbProject";
+	public static final String URL_BATH_SLASH = "http://weebo.com.cn/GwbProject/";
 
-	public static final String URL_LOGIN = "http://192.168.1.7:8080/GwbProject/AndroidLoginAction";
+	public static final String URL_LOGIN = "http://weebo.com.cn/GwbProject/AndroidLoginAction";
+	public static final String URL_DOWNLOAD = "http://weebo.com.cn/GwbProject/update/MainActivity.apk";
+	
+	public static final String URL_UPDATE_SERVER = "http://weebo.com.cn/gwb/update/";
+	public static final String URL_UPDATE_APKNAME = "MainActivity.apk";
+	public static final String URL_UPDATE_VERJSON = "ver.json";
+	public static final String URL_UPDATE_SAVENAME = "MainActivity.apk";
 
 	public static int CURRENT_CATEGORY_ID = 0;
 	public static int CURRENT_CLASS_ID = 0;
@@ -35,24 +41,25 @@ public class ConstantParams {
 
 	
 	public static final String SHARED_PREFERENCE_NAME = "config";
-	// 获得所有的行业的列表
+	// ��峰�����������琛�涓�������琛�
 
-	public static final String URL_GET_CATEGORYS = "http://192.168.1.7:8080/GwbProject/AndroidAction?type=listCategory";
-	public static final String URL_GET_CLASS = "http://192.168.1.7:8080/GwbProject/AndroidAction?type=listClass";
-	public static final String URL_GET_BOOKS = "http://192.168.1.7:8080/GwbProject/AndroidAction?type=listBook";
-	public static final String URL_SEARCH_BOOKS = "http://192.168.1.7:8080/GwbProject/AndroidAction?type=searchBook";
-	public static final String URL_LIST_FAVOURITE_BOOKS = "http://192.168.1.7:8080/GwbProject/AndroidAction?type=listFavourite";
-	public static final String URL_ADD_FAVOURITE_BOOKS = "http://192.168.1.7:8080/GwbProject/AndroidAction?type=addFavourite";
-	public static final String URL_DELETE_FAVOURITE_BOOKS = "http://192.168.1.7:8080/GwbProject/AndroidAction?type=deleteFavourite";
+	public static final String URL_GET_CATEGORYS = "http://weebo.com.cn/GwbProject/AndroidAction?type=listCategory";
+	public static final String URL_GET_CLASS = "http://weebo.com.cn/GwbProject/AndroidAction?type=listClass";
+	public static final String URL_GET_BOOKS = "http://weebo.com.cn/GwbProject/AndroidAction?type=listBook";
+	public static final String URL_SEARCH_BOOKS = "http://weebo.com.cn/GwbProject/AndroidAction?type=searchBook";
+	public static final String URL_LIST_FAVOURITE_BOOKS = "http://weebo.com.cn/GwbProject/AndroidAction?type=listFavourite";
+	public static final String URL_ADD_FAVOURITE_BOOKS = "http://weebo.com.cn/GwbProject/AndroidAction?type=addFavourite";
+	public static final String URL_DELETE_FAVOURITE_BOOKS = "http://weebo.com.cn/GwbProject/AndroidAction?type=deleteFavourite";
+	public static final String URL_LOG_OPEN_DOC = "http://weebo.com.cn/GwbProject/AndroidAction?type=log";
 	public static final String URL_PDF_DOWN = "";
 
 	// public static String URL_DOWN_PDF_BASE=
-	// "http://192.168.1.7:8080/FileUpload/upload/books/18-16/2014-05-04-09-30-37.pdf";
+	// "http://weebo.com.cn/FileUpload/upload/books/18-16/2014-05-04-09-30-37.pdf";
 	// public static String URL_DOWN_PDF_BASE=
-	// "http://192.168.1.7:8080/FileUpload/upload/";
-	public static final String URL_DOWN_PDF_BASE = "http://192.168.1.7:8080/FileUpload/upload/books/";
+	// "http://weebo.com.cn/FileUpload/upload/";
+	public static final String URL_DOWN_PDF_BASE = "http://weebo.com.cn/FileUpload/upload/books/";
 
-	// 临时文件的存放位置
+	// 涓存�舵��浠剁��瀛���句��缃�
 	public static final String FILE_STORE_PATH = Environment
 			.getExternalStorageDirectory().getAbsolutePath() + "/.gwb/books";
 	public static final String TEMP_FILE_PATH = Environment
@@ -60,7 +67,7 @@ public class ConstantParams {
 	public static File TEMP_FILE = new File(TEMP_FILE_PATH);
 
 	// public static String URL_TEMP_PDF=
-	// "http://192.168.1.7:8080/GwbProject/upload/android1.pdf";
+	// "http://weebo.com.cn/GwbProject/upload/android1.pdf";
 
 	public static String FIELD_CHAPTER_LIST = "currentChapterList";
 	public static List<BookChapter> CURRENT_CHAPTER_LIST = new ArrayList<BookChapter>();
@@ -89,5 +96,12 @@ public class ConstantParams {
 
 	public static String FIELD_CATEGORY_LIST = "categoryList";
 	public static String FIELD_FAVOURITE_BOOK_SET = "favouriteset";
+	
+	public static int NUM_BOOK_SAVE_MAX = 1;
 
+	public static String PACKAGE_NAME = "com.artifex.mupdfdemo";
+	public static boolean HAS_CHECK_UPDATE = false;
+	
+	public static int MAX_STORE_BOOK = 1;
+	
 }

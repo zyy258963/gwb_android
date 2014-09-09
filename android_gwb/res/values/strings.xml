@@ -39,7 +39,7 @@
     <string name="common_return">返回</string>
     <string name="common_mainPage">首页</string>
     <string name="common_adDesc">这是最新消息展示</string>
-    <string name="common_search_noresult">您需要的文件尚未出版或未纳入公文包数据库，请电客服：XXXXXX联系或给XXXX@XXX留言，谢谢</string>
+    <string name="common_search_noresult">您需要的文件尚未出版或未纳入公文包数据库，我们会尽快为您录入!\n请电客服：XXXXXX联系或给XXXX@XXX留言，谢谢</string>
     <string name="common_book_noresult">还未添加文件</string>
     <string name="common_chapter_noresult">还未添加章节</string>
     <string name="common_major_noresult">还未添加分类</string>

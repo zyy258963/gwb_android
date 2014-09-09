@@ -3,15 +3,20 @@ package com.gwb.activity;
 
 import com.artifex.mupdfdemo.MuPDFActivity;
 import com.artifex.mupdfdemo.R;
+import com.gwb.activity.pojo.Books;
 import com.gwb.utils.ApplicationManager;
 import com.gwb.utils.ConstantParams;
 import com.gwb.utils.DensityUtil;
+import com.gwb.utils.FastjsonTools;
+import com.gwb.utils.HttpHelper;
 import com.umeng.analytics.MobclickAgent;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -187,4 +192,25 @@ public class BaseActivity extends FragmentActivity {
 		intent.setData(uri);
 		startActivity(intent);
 	}
+	
+	@SuppressLint("NewApi") 
+	private class logAsyn extends AsyncTask<Void, Void, Void>{
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			String jsonString = null;
+			String url = ConstantParams.URL_LOG_OPEN_DOC + "&"
+					+ConstantParams.FIELD_KEYWORDS +"="
+					+ConstantParams.CURRENT_BOOK_NAME;
+			
+			try {
+				jsonString = HttpHelper.sendGetMessage(url, "utf-8");
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			return null;
+		}
+		
+	}
+	
 }

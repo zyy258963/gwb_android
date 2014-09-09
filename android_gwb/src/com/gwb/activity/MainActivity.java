@@ -1,34 +1,48 @@
 package com.gwb.activity;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import com.artifex.mupdfdemo.R;
 import com.umeng.analytics.MobclickAgent;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
-import android.widget.ImageView;
 
 public class MainActivity extends BaseActivity {
 
 	private ConnectivityManager connManager = null;
+	// private UpdateManager updateManager = null;
+
+	public ProgressDialog pBar;
+	private Handler handler = new Handler();
+
+	private int newVerCode = 0;
+	private String newVerName = "";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		final View view = View.inflate(this, R.layout.activity_main, null);
 		setContentView(view);
+		
 		// 获得手机联网信息，是3g还是wifi
 		connManager = (ConnectivityManager) this
 				.getSystemService(this.CONNECTIVITY_SERVICE);
@@ -97,11 +111,12 @@ public class MainActivity extends BaseActivity {
 
 			@Override
 			public void onAnimationStart(final Animation animation) {
-				//检查本地是否存有sharedpreference 的数据，如果有
+				// 检查本地是否存有sharedpreference 的数据，如果有
 			}
 		});
 
 	}
+
 	/**
 	 * 跳转到主角面的方法
 	 */
@@ -162,5 +177,4 @@ public class MainActivity extends BaseActivity {
 		}
 		return null;
 	}
-
 }

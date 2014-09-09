@@ -1,8 +1,10 @@
 package com.gwb.utils;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -17,6 +19,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import android.util.Log;
@@ -157,6 +161,34 @@ public class HttpHelper {
 		return "";
 	}
 
+	/**
+	* 获取网址内容
+	* @param url
+	* @return
+	* @throws Exception
+	*/
+	public static String getContent(String path) throws Exception{
+		String json = "";
+		try {
+            URL url = new URL(path);
+            HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
+            httpConnection.setDoInput(true);
+            httpConnection.setDoOutput(true);
+            httpConnection.setRequestMethod("GET");
+            httpConnection.connect();
+            InputStreamReader reader = new InputStreamReader(httpConnection.getInputStream());
+            BufferedReader bReader = new BufferedReader(reader);
+            json = bReader.readLine();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return "";
+        } 
+		return json;
+		
+	} 
+	
+	
 	public static void main(String[] args) {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("clientType", "android");

@@ -470,7 +470,7 @@ public class MuPDFActivity extends Activity {
 			public void onClick(View v) {
 
 				AlertDialog.Builder builder = new Builder(MuPDFActivity.this)
-						.setMessage("为了节省您的手机空间，‘我的常用文档’内只能存放三篇文档，请慎重选择!")
+						.setMessage("为了节省您的手机空间，‘我的常用文档’内只能存放"+ConstantParams.MAX_STORE_BOOK+"篇文档，请慎重选择!")
 						.setPositiveButton("继续", new OnClickListener() {
 
 							@Override
@@ -510,9 +510,9 @@ public class MuPDFActivity extends Activity {
 												"您已经收藏改文檔，不能重复收藏！",
 												Toast.LENGTH_LONG).show();
 									} else {
-										if (set.size() >= 3) {
+										if (set.size() >= ConstantParams.MAX_STORE_BOOK) {
 											Toast.makeText(MuPDFActivity.this,
-													"您已经收藏3篇文档，不能继续收藏！",
+													"您已经收藏"+ConstantParams.MAX_STORE_BOOK+"篇文档，不能继续收藏！",
 													Toast.LENGTH_LONG).show();
 										} else {
 											set.add(ConstantParams.CURRENT_BOOK_ID
