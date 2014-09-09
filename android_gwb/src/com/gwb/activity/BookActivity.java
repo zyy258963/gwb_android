@@ -202,6 +202,7 @@ public class BookActivity extends BaseActivity {
 						+ ConstantParams.CURRENT_MACADDRESS + "&"
 						+ ConstantParams.FIELD_CLASS_ID + "="
 						+ ConstantParams.CURRENT_CLASS_ID;
+				
 				try {
 					jsonString = HttpHelper.sendGetMessage(url, "utf-8");
 					Log.i("BookActivty", jsonString);

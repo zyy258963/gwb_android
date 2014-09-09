@@ -1,6 +1,8 @@
 package com.gwb.activity;
 
 
+import java.net.URLEncoder;
+
 import com.artifex.mupdfdemo.MuPDFActivity;
 import com.artifex.mupdfdemo.R;
 import com.gwb.activity.pojo.Books;
@@ -190,6 +192,9 @@ public class BaseActivity extends FragmentActivity {
 		Intent intent = new Intent(this, MuPDFActivity.class);
 		intent.setAction(Intent.ACTION_VIEW);
 		intent.setData(uri);
+		
+		new logAsyn().execute();
+		
 		startActivity(intent);
 	}
 	
@@ -199,11 +204,16 @@ public class BaseActivity extends FragmentActivity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			String jsonString = null;
-			String url = ConstantParams.URL_LOG_OPEN_DOC + "&"
-					+ConstantParams.FIELD_KEYWORDS +"="
-					+ConstantParams.CURRENT_BOOK_NAME;
-			
 			try {
+			String url = ConstantParams.URL_LOG_OPEN_DOC + "&"
+					+ ConstantParams.FIELD_TELEPHONE + "="
+					+ ConstantParams.CURRENT_TELEPHONE + "&"
+					+ ConstantParams.FIELD_MAC_ADDRESS + "="
+					+ ConstantParams.CURRENT_MACADDRESS + "&"
+					+ ConstantParams.FIELD_KEYWORDS +"="
+					+ URLEncoder.encode(
+					URLEncoder.encode(ConstantParams.CURRENT_BOOK_NAME, "UTF-8"), "UTF-8");
+			
 				jsonString = HttpHelper.sendGetMessage(url, "utf-8");
 			} catch (Exception e) {
 				// TODO: handle exception
